@@ -340,11 +340,32 @@ struct ConfigurationView: View {
             }
 
             ForEach(Array(manager.meeting.participants.enumerated()), id: \.element.id) { index, participant in
-                HStack(spacing: 8) {
-                    // Drag handle
-                    Image(systemName: "line.3.horizontal")
-                        .foregroundStyle(.secondary)
-                        .font(.caption)
+                HStack(spacing: 6) {
+                    // Move up/down
+                    VStack(spacing: 0) {
+                        Button {
+                            guard index > 0 else { return }
+                            manager.meeting.participants.swapAt(index, index - 1)
+                        } label: {
+                            Image(systemName: "chevron.up")
+                                .font(.system(size: 8, weight: .bold))
+                                .foregroundStyle(index > 0 ? .secondary : .quaternary)
+                        }
+                        .buttonStyle(.plain)
+                        .disabled(index == 0)
+
+                        Button {
+                            guard index < manager.meeting.participants.count - 1 else { return }
+                            manager.meeting.participants.swapAt(index, index + 1)
+                        } label: {
+                            Image(systemName: "chevron.down")
+                                .font(.system(size: 8, weight: .bold))
+                                .foregroundStyle(index < manager.meeting.participants.count - 1 ? .secondary : .quaternary)
+                        }
+                        .buttonStyle(.plain)
+                        .disabled(index >= manager.meeting.participants.count - 1)
+                    }
+                    .frame(width: 16)
 
                     // Present toggle
                     Button {
@@ -388,24 +409,6 @@ struct ConfigurationView: View {
                 .padding(.vertical, 4)
                 .padding(.horizontal, 8)
                 .background(.quaternary, in: RoundedRectangle(cornerRadius: 6))
-                .draggable(participant) {
-                    Text(participant.name.isEmpty ? "Participant \(index + 1)" : participant.name)
-                        .padding(8)
-                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
-                }
-                .dropDestination(for: Participant.self) { items, _ in
-                    guard let dragged = items.first,
-                          let fromIndex = manager.meeting.participants.firstIndex(where: { $0.id == dragged.id }) else {
-                        return false
-                    }
-                    if fromIndex != index {
-                        manager.meeting.participants.move(
-                            fromOffsets: IndexSet(integer: fromIndex),
-                            toOffset: index > fromIndex ? index + 1 : index
-                        )
-                    }
-                    return true
-                }
             }
 
             HStack {

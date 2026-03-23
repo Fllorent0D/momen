@@ -22,20 +22,5 @@
     <string>$(MACOSX_DEPLOYMENT_TARGET)</string>
     <key>LSUIElement</key>
     <true/>
-    <key>UTExportedTypeDeclarations</key>
-    <array>
-        <dict>
-            <key>UTTypeConformsTo</key>
-            <array>
-                <string>public.data</string>
-            </array>
-            <key>UTTypeDescription</key>
-            <string>Standup Timer Participant</string>
-            <key>UTTypeIdentifier</key>
-            <string>be.floca.standup-timer.participant</string>
-            <key>UTTypeTagSpecification</key>
-            <dict/>
-        </dict>
-    </array>
 </dict>
 </plist>
