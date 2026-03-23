@@ -53,6 +53,11 @@ final class StatsStore {
         load()
     }
 
+    func clearAll() {
+        records.removeAll()
+        save()
+    }
+
     func addRecord(_ record: MeetingRecord) {
         records.append(record)
         if records.count > 500 {

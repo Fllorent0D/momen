@@ -69,7 +69,11 @@ final class Meeting {
 
     // MARK: - Persistence
 
-    init() { load() }
+    init() {
+        isBatching = true
+        load()
+        isBatching = false
+    }
 
     private func load() {
         let d = UserDefaults.standard

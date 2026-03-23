@@ -5,6 +5,7 @@ struct StatsView: View {
     @Environment(MeetingManager.self) private var manager
 
     @State private var selectedTab = 0
+    @State private var showResetConfirm = false
 
     private var store: StatsStore { manager.statsStore }
 
@@ -34,9 +35,27 @@ struct StatsView: View {
                 default: EmptyView()
                 }
 
-                // Export
+                // Export + Reset
                 HStack {
+                    Button(role: .destructive) {
+                        showResetConfirm = true
+                    } label: {
+                        Label("Réinitialiser", systemImage: "trash")
+                            .font(.caption)
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(.red)
+                    .alert("Réinitialiser les statistiques ?", isPresented: $showResetConfirm) {
+                        Button("Annuler", role: .cancel) {}
+                        Button("Réinitialiser", role: .destructive) {
+                            manager.statsStore.clearAll()
+                        }
+                    } message: {
+                        Text("Toutes les données seront supprimées. Cette action est irréversible.")
+                    }
+
                     Spacer()
+
                     Button {
                         manager.saveCSVToFile()
                     } label: {
