@@ -1,0 +1,31 @@
+name: StandupTimer
+options:
+  bundleIdPrefix: be.floca
+  deploymentTarget:
+    macOS: "26.0"
+  createIntermediateGroups: true
+  defaultConfig: Release
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "26.0"
+
+targets:
+  StandupTimer:
+    type: application
+    platform: macOS
+    sources:
+      - StandupTimer
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: be.floca.standup-timer
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: 1
+        INFOPLIST_FILE: StandupTimer/Info.plist
+        GENERATE_INFOPLIST_FILE: false
+        PRODUCT_NAME: Standup Timer
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Manual
+        SWIFT_STRICT_CONCURRENCY: complete
