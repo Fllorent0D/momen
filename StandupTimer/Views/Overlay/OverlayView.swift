@@ -77,21 +77,25 @@ struct OverlayView: View {
 
             VStack(spacing: 0) {
                 ZStack {
-                    Color.clear
-                        .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 16))
+                    // Frosted white background — dark text stays readable
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(.ultraThickMaterial)
 
+                    // Color fill
                     HStack(spacing: 0) {
                         fillColor.frame(width: barWidth)
                         Color.clear
                     }
                     .clipShape(RoundedRectangle(cornerRadius: 16))
 
+                    // White text on the filled part
                     contentRow(textColor: .white, subtitleColor: .white.opacity(0.75))
                         .mask {
                             HStack(spacing: 0) { Color.white.frame(width: barWidth); Color.clear }
                         }
 
-                    contentRow(textColor: .primary, subtitleColor: .secondary)
+                    // Dark text on the frosted part
+                    contentRow(textColor: Color(.labelColor), subtitleColor: Color(.secondaryLabelColor))
                         .mask {
                             HStack(spacing: 0) { Color.clear.frame(width: barWidth); Color.white }
                         }
@@ -146,17 +150,12 @@ struct OverlayView: View {
 
             VStack(alignment: .leading, spacing: 1) {
                 if let participant = manager.currentParticipant {
-                    Group {
-                        if manager.meeting.speakerTransition {
-                            Text(participant.name).id(participant.id).transition(.push(from: .bottom))
-                        } else {
-                            Text(participant.name)
-                        }
-                    }
-                    .font(.system(size: 24, weight: .bold))
-                    .foregroundStyle(textColor)
-                    .lineLimit(1)
-                    .animation(.easeInOut(duration: 0.3), value: manager.currentSpeakerIndex)
+                    Text(participant.name)
+                        .font(.system(size: 24, weight: .bold))
+                        .foregroundStyle(textColor)
+                        .lineLimit(1)
+                        .contentTransition(.numericText())
+                        .animation(.snappy(duration: 0.3), value: participant.name)
                 }
                 if let nextName = nextSpeakerName {
                     Text("Suivant : \(nextName)")
@@ -211,14 +210,14 @@ struct OverlayView: View {
             ZStack {
                 HStack(spacing: 12) {
                     Image(systemName: "checkmark.circle.fill").font(.system(size: 28)).foregroundStyle(theme.inTimeColor)
-                    Text("Réunion terminée").font(.system(size: 22, weight: .bold)).foregroundStyle(.primary)
+                    Text("Réunion terminée").font(.system(size: 22, weight: .bold)).foregroundStyle(Color(.labelColor))
                     Spacer()
                     Text(TimeFormatter.format(manager.totalElapsed))
-                        .font(.system(size: 20, weight: .medium, design: .monospaced)).foregroundStyle(.secondary)
+                        .font(.system(size: 20, weight: .medium, design: .monospaced)).foregroundStyle(Color(.secondaryLabelColor))
 
                     Button { manager.copySummaryToClipboard() } label: {
                         Image(systemName: "doc.on.doc").font(.system(size: 14))
-                            .foregroundStyle(.primary)
+                            .foregroundStyle(Color(.labelColor))
                             .padding(8)
                             .background(.quaternary, in: Circle())
                     }
@@ -226,7 +225,7 @@ struct OverlayView: View {
                     .help("Copier le résumé")
                 }
                 .padding(.horizontal, 20).padding(.vertical, 14)
-                .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 16))
+                .background(.ultraThickMaterial, in: RoundedRectangle(cornerRadius: 16))
 
                 if manager.meeting.confetti {
                     ConfettiView().allowsHitTesting(false)
