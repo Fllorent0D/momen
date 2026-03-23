@@ -3,135 +3,164 @@ import SwiftUI
 struct OverlayView: View {
     @Environment(MeetingManager.self) private var manager
 
-    private var tintColor: Color {
-        manager.isOvertime ? .red : .green
+    private var fillColor: Color {
+        manager.isOvertime ? Color(red: 0.9, green: 0.15, blue: 0.15) : Color(red: 0.1, green: 0.85, blue: 0.3)
     }
 
     var body: some View {
-        VStack(spacing: 0) {
+        Group {
             if manager.isActive || manager.timerState == .finished {
-                mainContent
-                OverlayTimerBar(progress: manager.progress, isOvertime: manager.isOvertime)
-                    .padding(.horizontal, 24)
-                    .padding(.bottom, 12)
+                if manager.timerState == .finished {
+                    finishedContent
+                } else {
+                    timerContent
+                }
             }
         }
         .frame(width: 750)
-        .glassEffect(
-            .regular.tint(tintColor),
-            in: RoundedRectangle(cornerRadius: 20)
-        )
-        .padding(12)
         .animation(.easeInOut(duration: 0.5), value: manager.isOvertime)
     }
 
-    @ViewBuilder
-    private var mainContent: some View {
-        if manager.timerState == .finished {
-            finishedContent
-        } else {
-            timerContent
-        }
-    }
+    // MARK: - Timer Content
 
     private var timerContent: some View {
+        let fillFraction = manager.isOvertime ? 1.0 : (1.0 - manager.progress)
+
+        return GeometryReader { geo in
+            let barWidth = geo.size.width * fillFraction
+
+            ZStack {
+                // Glass background
+                Color.clear
+                    .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 16))
+
+                // Bright fill with sharp edge
+                HStack(spacing: 0) {
+                    fillColor
+                        .frame(width: barWidth)
+                    Color.clear
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .animation(.linear(duration: 0.1), value: manager.progress)
+
+                // White text on the filled part
+                contentRow(textColor: .white, subtitleColor: .white.opacity(0.75))
+                    .mask {
+                        HStack(spacing: 0) {
+                            Color.white
+                                .frame(width: barWidth)
+                            Color.clear
+                        }
+                        .animation(.linear(duration: 0.1), value: manager.progress)
+                    }
+
+                // Dark text on the glass part
+                contentRow(textColor: .primary, subtitleColor: .secondary)
+                    .mask {
+                        HStack(spacing: 0) {
+                            Color.clear
+                                .frame(width: barWidth)
+                            Color.white
+                        }
+                        .animation(.linear(duration: 0.1), value: manager.progress)
+                    }
+            }
+        }
+        .frame(height: 64)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+
+    // MARK: - Content Row
+
+    private func contentRow(textColor: Color, subtitleColor: Color) -> some View {
         HStack(spacing: 16) {
-            // Previous button
+            // Previous
             Button {
                 manager.previousSpeaker()
             } label: {
                 Image(systemName: "chevron.left")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundStyle(manager.currentSpeakerIndex > 0 ? .primary : .tertiary)
-                    .frame(width: 32, height: 32)
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundStyle(manager.currentSpeakerIndex > 0 ? .white : .white.opacity(0.3))
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(Color.black.opacity(manager.currentSpeakerIndex > 0 ? 0.5 : 0.15), in: Capsule())
             }
             .buttonStyle(.plain)
             .disabled(manager.currentSpeakerIndex == 0)
-            .help("Précédent")
 
-            // Speaker initial
-            if let participant = manager.currentParticipant {
-                let initial = String(participant.name.prefix(1)).uppercased()
-                Text(initial)
-                    .font(.system(size: 28, weight: .bold))
-                    .foregroundStyle(.primary)
-                    .frame(width: 52, height: 52)
-                    .glassEffect(.regular.tint(tintColor), in: Circle())
-            }
-
-            // Speaker info
-            VStack(alignment: .leading, spacing: 4) {
+            // Speaker name
+            VStack(alignment: .leading, spacing: 1) {
                 if let participant = manager.currentParticipant {
                     Text(participant.name)
-                        .font(.system(size: 22, weight: .semibold))
-                        .foregroundStyle(.primary)
+                        .font(.system(size: 24, weight: .bold))
+                        .foregroundStyle(textColor)
+                        .lineLimit(1)
                 }
                 Text("Intervenant \(manager.currentSpeakerIndex + 1) sur \(manager.totalParticipants)")
-                    .font(.system(size: 14))
-                    .foregroundStyle(.secondary)
+                    .font(.system(size: 11))
+                    .foregroundStyle(subtitleColor)
             }
 
             Spacer()
 
-            // Total elapsed
-            VStack(spacing: 2) {
+            // Total
+            VStack(spacing: 1) {
                 Text("Total")
-                    .font(.system(size: 10))
-                    .foregroundStyle(.tertiary)
+                    .font(.system(size: 9))
+                    .foregroundStyle(subtitleColor)
                 Text(TimeFormatter.format(manager.totalElapsed))
-                    .font(.system(size: 14, weight: .medium, design: .monospaced))
-                    .foregroundStyle(.secondary)
+                    .font(.system(size: 12, weight: .medium, design: .monospaced))
+                    .foregroundStyle(subtitleColor)
             }
 
-            // Timer display
-            TimeDisplay(
-                time: manager.remainingTime,
-                isOvertime: manager.isOvertime,
-                overtimeElapsed: manager.elapsedOvertime
-            )
+            // Countdown
+            Text(manager.isOvertime
+                 ? TimeFormatter.formatOvertime(manager.elapsedOvertime)
+                 : TimeFormatter.format(manager.remainingTime))
+                .font(.system(size: 32, weight: .bold, design: .monospaced))
+                .foregroundStyle(textColor)
 
-            // Pause button
+            // Pause
             Button {
                 manager.togglePause()
             } label: {
                 Image(systemName: manager.isPaused ? "play.fill" : "pause.fill")
-                    .font(.system(size: 24))
-                    .foregroundStyle(.primary)
-                    .frame(width: 44, height: 44)
+                    .font(.system(size: 22))
+                    .foregroundStyle(textColor)
+                    .frame(width: 40, height: 40)
             }
             .buttonStyle(.plain)
-            .help(manager.isPaused ? "Reprendre (P)" : "Pause (P)")
 
-            // Next button
+            // Next
             Button {
                 manager.nextSpeaker()
             } label: {
-                HStack(spacing: 6) {
+                HStack(spacing: 5) {
                     Text("Suivant")
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(.system(size: 16, weight: .semibold))
                     Image(systemName: "chevron.right")
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(.system(size: 12, weight: .bold))
                 }
-                .foregroundStyle(.primary)
-                .padding(.horizontal, 18)
-                .padding(.vertical, 10)
-                .glassEffect(.regular, in: Capsule())
+                .foregroundStyle(textColor)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(textColor.opacity(0.15), in: Capsule())
             }
             .buttonStyle(.plain)
-            .help("Suivant (N)")
         }
-        .padding(.horizontal, 24)
-        .padding(.vertical, 16)
+        .padding(.horizontal, 20)
     }
+
+    // MARK: - Finished
 
     private var finishedContent: some View {
         HStack(spacing: 12) {
             Image(systemName: "checkmark.circle.fill")
                 .font(.system(size: 28))
-                .foregroundStyle(.primary)
+                .foregroundStyle(.green)
 
             Text("Réunion terminée")
-                .font(.system(size: 22, weight: .semibold))
+                .font(.system(size: 22, weight: .bold))
                 .foregroundStyle(.primary)
 
             Spacer()
@@ -140,7 +169,8 @@ struct OverlayView: View {
                 .font(.system(size: 20, weight: .medium, design: .monospaced))
                 .foregroundStyle(.secondary)
         }
-        .padding(.horizontal, 24)
-        .padding(.vertical, 16)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 14)
+        .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 16))
     }
 }

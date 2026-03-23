@@ -8,11 +8,11 @@ struct TimeDisplay: View {
     var body: some View {
         if isOvertime {
             Text(TimeFormatter.formatOvertime(overtimeElapsed))
-                .font(.system(size: 32, weight: .bold, design: .monospaced))
-                .foregroundStyle(.primary)
+                .font(.system(size: 38, weight: .bold, design: .monospaced))
+                .foregroundStyle(.red)
         } else {
             Text(TimeFormatter.format(time))
-                .font(.system(size: 32, weight: .bold, design: .monospaced))
+                .font(.system(size: 38, weight: .bold, design: .monospaced))
                 .foregroundStyle(.primary)
         }
     }
