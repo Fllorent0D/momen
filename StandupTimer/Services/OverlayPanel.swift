@@ -6,8 +6,10 @@ final class OverlayPanel {
     private var ribbonPanels: [NSPanel] = []
     private var controlPanels: [NSPanel] = []
 
-    func show(ribbonContent: some View, controlContent: some View) {
+    func show(ribbonContent: some View, controlContent: some View, showRibbon: Bool = true) {
         close()
+
+        guard showRibbon else { return showControlOnly(controlContent: controlContent) }
 
         for screen in NSScreen.screens {
             // --- Ribbon: full-screen, click-through border ---
@@ -33,9 +35,9 @@ final class OverlayPanel {
             let size = controlHost.fittingSize
             control.setContentSize(size)
 
-            let screenRect = screen.frame
-            let x = screenRect.midX - (size.width / 2)
-            let y = screenRect.maxY - size.height - 24
+            let visible = screen.visibleFrame
+            let x = visible.midX - (size.width / 2)
+            let y = visible.maxY - size.height - 8
             control.setFrameOrigin(NSPoint(x: x, y: y))
 
             control.orderFrontRegardless()
@@ -51,10 +53,40 @@ final class OverlayPanel {
     }
 
     var isVisible: Bool {
-        !ribbonPanels.isEmpty
+        !ribbonPanels.isEmpty || !controlPanels.isEmpty
     }
 
     // MARK: - Private
+
+    private func showControlOnly(controlContent: some View) {
+        let screen = activeScreen()
+
+        let control = makePanel()
+        control.ignoresMouseEvents = false
+        control.level = .screenSaver + 1
+        control.isMovableByWindowBackground = true
+
+        let controlHost = NSHostingView(rootView: controlContent)
+        control.contentView = controlHost
+
+        let size = controlHost.fittingSize
+        control.setContentSize(size)
+
+        let visible = screen.visibleFrame
+        let x = visible.midX - (size.width / 2)
+        let y = visible.maxY - size.height - 8
+        control.setFrameOrigin(NSPoint(x: x, y: y))
+
+        control.orderFrontRegardless()
+        controlPanels.append(control)
+    }
+
+    private func activeScreen() -> NSScreen {
+        let mouseLocation = NSEvent.mouseLocation
+        return NSScreen.screens.first { $0.frame.contains(mouseLocation) }
+            ?? NSScreen.main
+            ?? NSScreen.screens.first!
+    }
 
     private func makePanel() -> NSPanel {
         let panel = NSPanel(

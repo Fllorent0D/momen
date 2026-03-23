@@ -104,6 +104,78 @@ struct ConfigurationView: View {
                 }
 
                 Toggle("Ordre aléatoire", isOn: $manager.meeting.randomizeOrder)
+                Toggle("Démarrage auto", isOn: $manager.meeting.autoPlay)
+                Toggle("Countdown 3-2-1", isOn: $manager.meeting.countdownEnabled)
+                Toggle("Ruban écran", isOn: $manager.meeting.ribbonEnabled)
+                Toggle("Sons", isOn: $manager.meeting.soundEnabled)
+
+                // Color theme
+                HStack {
+                    Text("Thème")
+                    Spacer()
+                    Picker("", selection: $manager.meeting.colorTheme) {
+                        ForEach(ColorTheme.allCases) { t in
+                            HStack(spacing: 4) {
+                                Circle().fill(t.inTimeColor).frame(width: 8, height: 8)
+                                Circle().fill(t.overtimeColor).frame(width: 8, height: 8)
+                                Text(t.rawValue)
+                            }.tag(t)
+                        }
+                    }
+                    .frame(width: 180)
+                }
+            }
+
+            // Visual effects
+            DisclosureGroup {
+                Toggle("Transition speaker", isOn: $manager.meeting.speakerTransition)
+                Toggle("Indicateurs speaker", isOn: $manager.meeting.speakerDots)
+                Toggle("Halo ruban", isOn: $manager.meeting.ribbonGlow)
+                Toggle("Épaisseur ruban", isOn: $manager.meeting.ribbonThicken)
+                Toggle("Confettis fin", isOn: $manager.meeting.confetti)
+                Toggle("Tremblement overtime", isOn: $manager.meeting.overtimeShake)
+            } label: {
+                Text("Effets visuels")
+                    .font(.subheadline.bold())
+                    .foregroundStyle(.secondary)
+            }
+
+            // System
+            DisclosureGroup {
+                Toggle("Lancer au démarrage", isOn: $manager.meeting.launchAtLogin)
+                    .onChange(of: manager.meeting.launchAtLogin) { _, _ in
+                        manager.updateLaunchAtLogin()
+                    }
+
+                Toggle("Rappel quotidien", isOn: $manager.meeting.reminderEnabled)
+                    .onChange(of: manager.meeting.reminderEnabled) { _, _ in
+                        manager.setupReminder()
+                    }
+
+                if manager.meeting.reminderEnabled {
+                    HStack {
+                        Text("Heure")
+                        Spacer()
+                        Picker("", selection: $manager.meeting.reminderHour) {
+                            ForEach(6..<20, id: \.self) { h in
+                                Text("\(h)h").tag(h)
+                            }
+                        }
+                        .frame(width: 70)
+                        Picker("", selection: $manager.meeting.reminderMinute) {
+                            ForEach([0, 15, 30, 45], id: \.self) { m in
+                                Text(String(format: "%02d", m)).tag(m)
+                            }
+                        }
+                        .frame(width: 60)
+                    }
+                    .onChange(of: manager.meeting.reminderHour) { _, _ in manager.setupReminder() }
+                    .onChange(of: manager.meeting.reminderMinute) { _, _ in manager.setupReminder() }
+                }
+            } label: {
+                Text("Système")
+                    .font(.subheadline.bold())
+                    .foregroundStyle(.secondary)
             }
 
             Divider()
@@ -417,75 +489,8 @@ struct ConfigurationView: View {
     // MARK: - Stats View
 
     private var statsView: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Statistiques")
-                .font(.subheadline.bold())
-                .foregroundStyle(.secondary)
-
-            if manager.statsStore.records.isEmpty {
-                Text("Aucune donnée pour le moment.")
-                    .font(.caption)
-                    .foregroundStyle(.tertiary)
-            } else {
-                // Summary
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("\(manager.statsStore.records.count)")
-                            .font(.title2.bold())
-                        Text("réunions")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                    Spacer()
-                    VStack(alignment: .trailing) {
-                        let avgDuration = manager.statsStore.records.map(\.totalDuration).reduce(0, +)
-                            / Double(manager.statsStore.records.count)
-                        Text(TimeFormatter.format(avgDuration))
-                            .font(.title2.bold().monospaced())
-                        Text("durée moyenne")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-
-                Divider()
-
-                // Per-person stats
-                Text("Par participant")
-                    .font(.caption.bold())
-                    .foregroundStyle(.secondary)
-
-                ScrollView {
-                    VStack(spacing: 6) {
-                        ForEach(manager.statsStore.allParticipantNames, id: \.self) { name in
-                            HStack {
-                                Text(name)
-                                    .font(.subheadline)
-                                Spacer()
-
-                                if let avg = manager.statsStore.averageTime(for: name) {
-                                    Text(TimeFormatter.format(avg))
-                                        .font(.system(.caption, design: .monospaced))
-                                        .foregroundStyle(.secondary)
-                                }
-
-                                if let rate = manager.statsStore.overtimeRate(for: name) {
-                                    let pct = Int(rate * 100)
-                                    Text("\(pct)%")
-                                        .font(.caption)
-                                        .foregroundStyle(rate > 0.5 ? .red : rate > 0.2 ? .orange : .green)
-                                        .frame(width: 35, alignment: .trailing)
-                                }
-                            }
-                            .padding(.vertical, 4)
-                            .padding(.horizontal, 8)
-                            .background(.quaternary, in: RoundedRectangle(cornerRadius: 6))
-                        }
-                    }
-                }
-                .frame(maxHeight: 200)
-            }
-        }
+        StatsView()
+            .environment(manager)
     }
 
     // MARK: - Helpers

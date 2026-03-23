@@ -7,20 +7,56 @@ struct MeetingPreset: Identifiable, Codable, Hashable {
     var participants: [Participant]
     var overtimeMode: OvertimeMode
     var randomizeOrder: Bool
+    var ribbonEnabled: Bool
+    var autoPlay: Bool
+    var speakerTransition: Bool
+    var speakerDots: Bool
+    var ribbonGlow: Bool
+    var ribbonThicken: Bool
+    var confetti: Bool
+    var overtimeShake: Bool
+    var soundEnabled: Bool
+    var countdownEnabled: Bool
+    var colorTheme: ColorTheme
 
-    init(
-        name: String,
-        totalDuration: TimeInterval = 900,
-        participants: [Participant] = [],
-        overtimeMode: OvertimeMode = .optional,
-        randomizeOrder: Bool = false
-    ) {
+    init(from meeting: Meeting, name: String) {
         self.id = UUID()
         self.name = name
-        self.totalDuration = totalDuration
-        self.participants = participants
-        self.overtimeMode = overtimeMode
-        self.randomizeOrder = randomizeOrder
+        self.totalDuration = meeting.totalDuration
+        self.participants = meeting.participants
+        self.overtimeMode = meeting.overtimeMode
+        self.randomizeOrder = meeting.randomizeOrder
+        self.ribbonEnabled = meeting.ribbonEnabled
+        self.autoPlay = meeting.autoPlay
+        self.speakerTransition = meeting.speakerTransition
+        self.speakerDots = meeting.speakerDots
+        self.ribbonGlow = meeting.ribbonGlow
+        self.ribbonThicken = meeting.ribbonThicken
+        self.confetti = meeting.confetti
+        self.overtimeShake = meeting.overtimeShake
+        self.soundEnabled = meeting.soundEnabled
+        self.countdownEnabled = meeting.countdownEnabled
+        self.colorTheme = meeting.colorTheme
+    }
+
+    func apply(to meeting: Meeting) {
+        meeting.batchUpdate { m in
+            m.totalDuration = totalDuration
+            m.participants = participants
+            m.overtimeMode = overtimeMode
+            m.randomizeOrder = randomizeOrder
+            m.ribbonEnabled = ribbonEnabled
+            m.autoPlay = autoPlay
+            m.speakerTransition = speakerTransition
+            m.speakerDots = speakerDots
+            m.ribbonGlow = ribbonGlow
+            m.ribbonThicken = ribbonThicken
+            m.confetti = confetti
+            m.overtimeShake = overtimeShake
+            m.soundEnabled = soundEnabled
+            m.countdownEnabled = countdownEnabled
+            m.colorTheme = colorTheme
+        }
     }
 }
 
@@ -32,9 +68,7 @@ final class PresetStore {
     private static let key = "meeting.presets"
     private static let selectedKey = "meeting.selectedPresetId"
 
-    init() {
-        load()
-    }
+    init() { load() }
 
     var selectedPreset: MeetingPreset? {
         guard let id = selectedPresetId else { return presets.first }
@@ -42,13 +76,7 @@ final class PresetStore {
     }
 
     func savePreset(from meeting: Meeting, name: String) {
-        let preset = MeetingPreset(
-            name: name,
-            totalDuration: meeting.totalDuration,
-            participants: meeting.participants,
-            overtimeMode: meeting.overtimeMode,
-            randomizeOrder: meeting.randomizeOrder
-        )
+        let preset = MeetingPreset(from: meeting, name: name)
         presets.append(preset)
         selectedPresetId = preset.id
         save()
@@ -56,28 +84,21 @@ final class PresetStore {
 
     func updatePreset(_ id: UUID, from meeting: Meeting) {
         guard let index = presets.firstIndex(where: { $0.id == id }) else { return }
-        presets[index].totalDuration = meeting.totalDuration
-        presets[index].participants = meeting.participants
-        presets[index].overtimeMode = meeting.overtimeMode
-        presets[index].randomizeOrder = meeting.randomizeOrder
+        let name = presets[index].name
+        presets[index] = MeetingPreset(from: meeting, name: name)
         save()
     }
 
     func deletePreset(_ id: UUID) {
         presets.removeAll { $0.id == id }
-        if selectedPresetId == id {
-            selectedPresetId = presets.first?.id
-        }
+        if selectedPresetId == id { selectedPresetId = presets.first?.id }
         save()
     }
 
     func selectPreset(_ id: UUID, into meeting: Meeting) {
         guard let preset = presets.first(where: { $0.id == id }) else { return }
         selectedPresetId = id
-        meeting.totalDuration = preset.totalDuration
-        meeting.participants = preset.participants
-        meeting.overtimeMode = preset.overtimeMode
-        meeting.randomizeOrder = preset.randomizeOrder
+        preset.apply(to: meeting)
         save()
     }
 
