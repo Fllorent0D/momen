@@ -19,6 +19,12 @@ struct OverlayView: View {
     @State private var overtimeFill: Double = 0
     @State private var shakeOffset: CGFloat = 0
 
+    private var nextSpeakerName: String? {
+        let next = manager.currentSpeakerIndex + 1
+        guard next < manager.activeParticipants.count else { return nil }
+        return manager.activeParticipants[next].name
+    }
+
     private var fillFraction: Double {
         if manager.isOvertime { return overtimeFill }
         return 1.0 - manager.progress
@@ -133,6 +139,11 @@ struct OverlayView: View {
             .buttonStyle(.plain)
             .disabled(manager.currentSpeakerIndex == 0)
 
+            // Avatar
+            if let participant = manager.currentParticipant {
+                AvatarView(participant: participant, size: 40, backgroundColor: textColor.opacity(0.2))
+            }
+
             VStack(alignment: .leading, spacing: 1) {
                 if let participant = manager.currentParticipant {
                     Group {
@@ -147,8 +158,13 @@ struct OverlayView: View {
                     .lineLimit(1)
                     .animation(.easeInOut(duration: 0.3), value: manager.currentSpeakerIndex)
                 }
-                Text("Intervenant \(manager.currentSpeakerIndex + 1) sur \(manager.totalParticipants)")
-                    .font(.system(size: 11)).foregroundStyle(subtitleColor)
+                if let nextName = nextSpeakerName {
+                    Text("Suivant : \(nextName)")
+                        .font(.system(size: 11)).foregroundStyle(subtitleColor)
+                } else {
+                    Text("Dernier intervenant")
+                        .font(.system(size: 11)).foregroundStyle(subtitleColor)
+                }
             }
 
             Spacer()

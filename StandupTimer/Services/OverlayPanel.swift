@@ -59,26 +59,26 @@ final class OverlayPanel {
     // MARK: - Private
 
     private func showControlOnly(controlContent: some View) {
-        let screen = activeScreen()
+        for screen in NSScreen.screens {
+            let control = makePanel()
+            control.ignoresMouseEvents = false
+            control.level = .screenSaver + 1
+            control.isMovableByWindowBackground = true
 
-        let control = makePanel()
-        control.ignoresMouseEvents = false
-        control.level = .screenSaver + 1
-        control.isMovableByWindowBackground = true
+            let controlHost = NSHostingView(rootView: controlContent)
+            control.contentView = controlHost
 
-        let controlHost = NSHostingView(rootView: controlContent)
-        control.contentView = controlHost
+            let size = controlHost.fittingSize
+            control.setContentSize(size)
 
-        let size = controlHost.fittingSize
-        control.setContentSize(size)
+            let visible = screen.visibleFrame
+            let x = visible.midX - (size.width / 2)
+            let y = visible.maxY - size.height - 8
+            control.setFrameOrigin(NSPoint(x: x, y: y))
 
-        let visible = screen.visibleFrame
-        let x = visible.midX - (size.width / 2)
-        let y = visible.maxY - size.height - 8
-        control.setFrameOrigin(NSPoint(x: x, y: y))
-
-        control.orderFrontRegardless()
-        controlPanels.append(control)
+            control.orderFrontRegardless()
+            controlPanels.append(control)
+        }
     }
 
     private func activeScreen() -> NSScreen {

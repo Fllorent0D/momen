@@ -65,8 +65,14 @@ final class PresetStore {
     var presets: [MeetingPreset] = []
     var selectedPresetId: UUID?
 
-    private static let key = "meeting.presets"
     private static let selectedKey = "meeting.selectedPresetId"
+
+    private static var fileURL: URL {
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        let dir = appSupport.appendingPathComponent("StandupTimer", isDirectory: true)
+        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        return dir.appendingPathComponent("presets.json")
+    }
 
     init() { load() }
 
@@ -103,21 +109,27 @@ final class PresetStore {
     }
 
     private func load() {
-        let defaults = UserDefaults.standard
-        if let data = defaults.data(forKey: Self.key),
-           let saved = try? JSONDecoder().decode([MeetingPreset].self, from: data) {
+        let url = Self.fileURL
+        if FileManager.default.fileExists(atPath: url.path) {
+            if let data = try? Data(contentsOf: url),
+               let saved = try? JSONDecoder().decode([MeetingPreset].self, from: data) {
+                presets = saved
+            }
+        } else if let data = UserDefaults.standard.data(forKey: "meeting.presets"),
+                  let saved = try? JSONDecoder().decode([MeetingPreset].self, from: data) {
             presets = saved
+            save()
+            UserDefaults.standard.removeObject(forKey: "meeting.presets")
         }
-        if let idString = defaults.string(forKey: Self.selectedKey) {
+        if let idString = UserDefaults.standard.string(forKey: Self.selectedKey) {
             selectedPresetId = UUID(uuidString: idString)
         }
     }
 
     private func save() {
-        let defaults = UserDefaults.standard
         if let data = try? JSONEncoder().encode(presets) {
-            defaults.set(data, forKey: Self.key)
+            try? data.write(to: Self.fileURL, options: .atomic)
         }
-        defaults.set(selectedPresetId?.uuidString, forKey: Self.selectedKey)
+        UserDefaults.standard.set(selectedPresetId?.uuidString, forKey: Self.selectedKey)
     }
 }

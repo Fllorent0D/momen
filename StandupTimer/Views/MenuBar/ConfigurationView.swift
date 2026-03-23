@@ -377,9 +377,8 @@ struct ConfigurationView: View {
                     .buttonStyle(.plain)
                     .help(participant.isPresent ? "Marquer absent" : "Marquer présent")
 
-                    Text("\(index + 1).")
-                        .foregroundStyle(.secondary)
-                        .frame(width: 20, alignment: .trailing)
+                    // Avatar
+                    AvatarPickerButton(participant: $manager.meeting.participants[index])
 
                     TextField("Nom", text: $manager.meeting.participants[index].name)
                         .textFieldStyle(.plain)

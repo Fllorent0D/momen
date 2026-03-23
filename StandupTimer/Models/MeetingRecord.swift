@@ -42,7 +42,12 @@ struct MeetingRecord: Codable, Identifiable {
 final class StatsStore {
     var records: [MeetingRecord] = []
 
-    private static let key = "meeting.records"
+    private static var fileURL: URL {
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        let dir = appSupport.appendingPathComponent("StandupTimer", isDirectory: true)
+        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        return dir.appendingPathComponent("stats.json")
+    }
 
     init() {
         load()
@@ -50,21 +55,18 @@ final class StatsStore {
 
     func addRecord(_ record: MeetingRecord) {
         records.append(record)
-        // Keep last 100 meetings
-        if records.count > 100 {
-            records = Array(records.suffix(100))
+        if records.count > 500 {
+            records = Array(records.suffix(500))
         }
         save()
     }
 
-    /// Average time per person across all meetings
     func averageTime(for name: String) -> TimeInterval? {
         let entries = records.flatMap { $0.speakers }.filter { $0.participantName == name }
         guard !entries.isEmpty else { return nil }
         return entries.map(\.actualTime).reduce(0, +) / Double(entries.count)
     }
 
-    /// How often this person goes overtime (0.0–1.0)
     func overtimeRate(for name: String) -> Double? {
         let entries = records.flatMap { $0.speakers }.filter { $0.participantName == name }
         guard !entries.isEmpty else { return nil }
@@ -72,21 +74,30 @@ final class StatsStore {
         return Double(overtimeCount) / Double(entries.count)
     }
 
-    /// All unique participant names
     var allParticipantNames: [String] {
         Array(Set(records.flatMap { $0.speakers.map(\.participantName) })).sorted()
     }
 
     private func load() {
-        if let data = UserDefaults.standard.data(forKey: Self.key),
-           let saved = try? JSONDecoder().decode([MeetingRecord].self, from: data) {
+        // Migrate from UserDefaults if file doesn't exist yet
+        let url = Self.fileURL
+        if FileManager.default.fileExists(atPath: url.path) {
+            if let data = try? Data(contentsOf: url),
+               let saved = try? JSONDecoder().decode([MeetingRecord].self, from: data) {
+                records = saved
+            }
+        } else if let data = UserDefaults.standard.data(forKey: "meeting.records"),
+                  let saved = try? JSONDecoder().decode([MeetingRecord].self, from: data) {
+            // One-time migration from UserDefaults
             records = saved
+            save()
+            UserDefaults.standard.removeObject(forKey: "meeting.records")
         }
     }
 
     private func save() {
         if let data = try? JSONEncoder().encode(records) {
-            UserDefaults.standard.set(data, forKey: Self.key)
+            try? data.write(to: Self.fileURL, options: .atomic)
         }
     }
 }
