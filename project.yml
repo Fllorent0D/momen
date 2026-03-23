@@ -3,13 +3,13 @@ options:
   bundleIdPrefix: be.floca
   deploymentTarget:
     macOS: "26.0"
+    iOS: "18.0"
   createIntermediateGroups: true
   defaultConfig: Release
 
 settings:
   base:
     SWIFT_VERSION: "6.0"
-    MACOSX_DEPLOYMENT_TARGET: "26.0"
 
 targets:
   StandupTimer:
@@ -22,6 +22,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: be.floca.standup-timer
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: 1
+        MACOSX_DEPLOYMENT_TARGET: "26.0"
         INFOPLIST_FILE: StandupTimer/Info.plist
         GENERATE_INFOPLIST_FILE: false
         PRODUCT_NAME: Standup Timer
@@ -29,3 +30,22 @@ targets:
         CODE_SIGN_IDENTITY: "-"
         CODE_SIGN_STYLE: Manual
         SWIFT_STRICT_CONCURRENCY: complete
+
+  StandupTimerRemote:
+    type: application
+    platform: iOS
+    sources:
+      - StandupTimerRemote
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: be.floca.standup-timer-remote
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: 1
+        IPHONEOS_DEPLOYMENT_TARGET: "18.0"
+        PRODUCT_NAME: Standup Remote
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        INFOPLIST_FILE: StandupTimerRemote/Info.plist
+        GENERATE_INFOPLIST_FILE: false
+        SWIFT_STRICT_CONCURRENCY: complete
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: 65RSHA2YFU

@@ -32,6 +32,7 @@ final class MeetingManager {
     private var hasPlayedWarning = false
     private let keyboardManager = KeyboardShortcutManager()
     private let overlayPanel = OverlayPanel()
+    let peerService = HostPeerService()
     private var meetingStartDate: Date?
 
     init() {
@@ -39,6 +40,16 @@ final class MeetingManager {
         keyboardManager.onNext = { [weak self] in self?.nextSpeaker() }
         keyboardManager.onPause = { [weak self] in self?.togglePause() }
         keyboardManager.onCancel = { [weak self] in self?.cancel() }
+        peerService.onCommandReceived = { [weak self] cmd in
+            switch cmd {
+            case .start: self?.startMeeting()
+            case .next: self?.nextSpeaker()
+            case .previous: self?.previousSpeaker()
+            case .pause: self?.togglePause()
+            case .cancel: self?.cancel()
+            }
+        }
+        peerService.start()
         setupReminder()
     }
 
@@ -368,6 +379,8 @@ final class MeetingManager {
             totalElapsed = Date().timeIntervalSince(start)
         }
 
+        broadcastStatus()
+
         guard case .running(let idx) = timerState else {
             if case .overtime = timerState, let otStart = overtimeStartDate {
                 elapsedOvertime = Date().timeIntervalSince(otStart)
@@ -402,5 +415,36 @@ final class MeetingManager {
               let participant = currentParticipant else { return }
         let elapsed = Date().timeIntervalSince(start)
         speakerTimes.append((name: participant.name, time: elapsed))
+    }
+
+    // MARK: - Remote
+
+    func broadcastStatus() {
+        let stateStr: String
+        switch timerState {
+        case .idle: stateStr = "idle"
+        case .running: stateStr = isCountingDown ? "countdown" : "running"
+        case .paused: stateStr = isCountingDown ? "countdown" : "paused"
+        case .overtime: stateStr = "overtime"
+        case .finished: stateStr = "finished"
+        }
+
+        let nextIdx = currentSpeakerIndex + 1
+        let nextName = nextIdx < activeParticipants.count ? activeParticipants[nextIdx].name : nil
+
+        let status = TimerStatus(
+            state: stateStr,
+            speakerName: currentParticipant?.name ?? "",
+            nextSpeakerName: nextName,
+            speakerIndex: currentSpeakerIndex,
+            totalSpeakers: totalParticipants,
+            remainingTime: remainingTime,
+            elapsedOvertime: elapsedOvertime,
+            totalElapsed: totalElapsed,
+            progress: progress,
+            isOvertime: isOvertime,
+            countdownValue: countdownValue
+        )
+        peerService.sendStatus(status)
     }
 }
