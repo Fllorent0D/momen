@@ -26,13 +26,16 @@ def regen_project
   Dir.chdir("..") { sh("xcodegen", "generate") }
 end
 
-# Prochain build number = dernier TestFlight + 1 (partagé Mac/iOS car même bundle id).
-def next_build_number(api_key)
+# Prochain build number = dernier TestFlight + 1. Mac/iOS partagent APP_ID (même
+# bundle id) ; tvOS a son propre record, d'où le paramètre `app_id`.
+def next_build_number(api_key, app_id = APP_ID)
   last = latest_testflight_build_number(
-    api_key: api_key, app_identifier: APP_ID, initial_build_number: 0
+    api_key: api_key, app_identifier: app_id, initial_build_number: 0
   )
   last.to_i + 1
 end
+
+TVOS_APP_ID = "be.floca.standup-timer.tvos"
 
 # --- iOS ---------------------------------------------------------------------
 
@@ -120,6 +123,37 @@ platform :mac do
       platform: "osx",
       submit_for_review: false,
       force: true,
+    )
+  end
+end
+
+# --- tvOS ---------------------------------------------------------------------
+# Record App Store Connect distinct (bundle id `.tvos`, pas d'achat universel).
+
+platform :tv do
+  desc "Build tvOS App Store (.ipa)"
+  lane :build do
+    regen_project
+    key = asc_api_key
+    build_app(
+      project: PROJECT,
+      scheme: "StandupTimer-tvOS",
+      export_method: "app-store",
+      destination: "generic/platform=tvOS",
+      output_directory: "build/tvos",
+      output_name: "Momen-tvOS",
+      xcargs: "CURRENT_PROJECT_VERSION=#{next_build_number(key, TVOS_APP_ID)} -allowProvisioningUpdates",
+    )
+  end
+
+  desc "Build + upload TestFlight tvOS"
+  lane :beta do
+    build
+    upload_to_testflight(
+      api_key: asc_api_key,
+      app_identifier: TVOS_APP_ID,
+      ipa: "build/tvos/Momen-tvOS.ipa",
+      skip_waiting_for_build_processing: true,
     )
   end
 end

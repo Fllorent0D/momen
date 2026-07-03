@@ -423,12 +423,16 @@ public struct PulseSlider: View {
             }
             .frame(height: thumb)
             .contentShape(Rectangle())
+            // DragGesture n'existe pas sur tvOS (pilotage par focus/Siri Remote) ;
+            // le slider tactile n'y est pas utilisé (scaffold « écran salle »).
+            #if !os(tvOS)
             .gesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { gesture in
                         update(toX: gesture.location.x, width: width)
                     }
             )
+            #endif
         }
         .frame(height: thumb)
     }

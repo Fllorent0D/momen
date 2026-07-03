@@ -361,6 +361,11 @@ public final class MeetingManager {
     // MARK: - Daily Reminder
 
     public func setupReminder() {
+        // tvOS n'a pas de notifications utilisateur programmables (title/body/sound
+        // indisponibles) → le rappel quotidien n'existe pas sur l'écran salle.
+        #if os(tvOS)
+        return
+        #else
         let center = UNUserNotificationCenter.current()
         let reminderHour = meeting.reminderHour
         let reminderMinute = meeting.reminderMinute
@@ -387,6 +392,7 @@ public final class MeetingManager {
             let request = UNNotificationRequest(identifier: "standup-reminder", content: content, trigger: trigger)
             try? await center.add(request)
         }
+        #endif
     }
 
     // MARK: - Timer
