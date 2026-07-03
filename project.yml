@@ -2,50 +2,272 @@ name: StandupTimer
 options:
   bundleIdPrefix: be.floca
   deploymentTarget:
-    macOS: "26.0"
-    iOS: "18.0"
+    macOS: "14.0"
+    iOS: "17.0"
+    watchOS: "10.0"
+    tvOS: "17.0"
   createIntermediateGroups: true
   defaultConfig: Release
+  # Localisation (issue #10). The app's base/development language is French: the
+  # SwiftUI string literals in the sources are French, so `fr` is the source
+  # language of every String Catalog. `en` is the second, translated language.
+  developmentLanguage: fr
+  knownRegions: [Base, fr, en]
 
 settings:
   base:
     SWIFT_VERSION: "6.0"
+    # Emit localized strings during compilation (issue #10) so the String
+    # Catalogs can be (re)populated by Xcode from the source literals.
+    SWIFT_EMIT_LOC_STRINGS: "YES"
+
+# Monétisation RevenueCat (décision D10). Linké par StandupKit (`ProAccessManager`)
+# et par les deux apps (appel `configureRevenueCat()` au lancement). RevenueCat
+# supporte macOS/iOS/watchOS/tvOS.
+packages:
+  RevenueCat:
+    url: https://github.com/RevenueCat/purchases-ios
+    from: "5.14.0"
 
 targets:
+  # Shared core (issue #5). Multi-platform (#11): xcodegen generates a per-platform
+  # variant of this framework and resolves each app's `dependencies: - target:
+  # StandupKit` to the matching one. StandupKit is AppKit-/UIKit-free, so the same
+  # sources compile for both. Deployment targets come from the per-platform map.
+  StandupKit:
+    type: framework
+    supportedDestinations: [macOS, iOS, watchOS, tvOS]
+    deploymentTarget:
+      macOS: "14.0"
+      iOS: "17.0"
+      watchOS: "10.0"
+      tvOS: "17.0"
+    dependencies:
+      - package: RevenueCat
+    sources:
+      - StandupKit
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: be.floca.StandupKit
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: 1
+        GENERATE_INFOPLIST_FILE: true
+        PRODUCT_NAME: StandupKit
+        # Signé automatiquement : embarqué dans les apps, il doit porter la même
+        # identité que l'app à l'archivage App Store (l'ad-hoc « - » est refusé).
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: SGT72A7T6A
+        SWIFT_VERSION: "6.0"
+        SWIFT_STRICT_CONCURRENCY: complete
+
   StandupTimer:
     type: application
     platform: macOS
+    dependencies:
+      - target: StandupKit
+      - package: RevenueCat
     sources:
-      - StandupTimer
+      # Recursive pickup of the app sources, minus the font bundle: the fonts are
+      # added below as a *folder reference* so the `Fonts/` directory is preserved
+      # inside Contents/Resources (required by ATSApplicationFontsPath = "Fonts").
+      - path: StandupTimer
+        excludes:
+          - "Resources/Fonts/**"
+      # Pulse fonts (issue #45): Space Grotesk + JetBrains Mono, both SIL OFL.
+      # `type: folder` copies the directory verbatim into Resources/Fonts so the
+      # Info.plist ATSApplicationFontsPath registration resolves on macOS.
+      - path: StandupTimer/Resources/Fonts
+        type: folder
+        buildPhase: resources
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: be.floca.standup-timer
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: 1
-        MACOSX_DEPLOYMENT_TARGET: "26.0"
+        MACOSX_DEPLOYMENT_TARGET: "14.0"
         INFOPLIST_FILE: StandupTimer/Info.plist
         GENERATE_INFOPLIST_FILE: false
-        PRODUCT_NAME: Standup Timer
+        PRODUCT_NAME: Momen
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
-        CODE_SIGN_IDENTITY: "-"
-        CODE_SIGN_STYLE: Manual
+        # Mac App Store (#24) : App Sandbox obligatoire + signature App Store
+        # automatique. Le sandbox interdit l'Accessibility API → les raccourcis
+        # clavier sont désormais locaux (app au premier plan), cf.
+        # KeyboardShortcutManager.
+        CODE_SIGN_ENTITLEMENTS: StandupTimer/StandupTimer.entitlements
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: SGT72A7T6A
         SWIFT_STRICT_CONCURRENCY: complete
 
-  StandupTimerRemote:
+  # iOS app (issue #11). Same bundle id as the macOS app for a universal purchase.
+  # Minimal SwiftUI entry that consumes the iOS variant of StandupKit; the real
+  # iOS service impls (#12) and screens (#13/#15/#16) come later. Signing is off
+  # so a simulator build needs no team or provisioning profile.
+  StandupTimer-iOS:
     type: application
     platform: iOS
+    deploymentTarget: "17.0"
+    dependencies:
+      - target: StandupKit
+      - package: RevenueCat
+      # Live Activity (#52): embed the widget extension so its Live Activity is
+      # registered with the system when the app installs.
+      - target: StandupWidgets
+        embed: true
     sources:
-      - StandupTimerRemote
+      - path: StandupTimer-iOS
+      # Live Activity (#52): the ActivityKit attributes type is compiled into BOTH
+      # the app and the widget extension (same source folder listed in both
+      # targets) so `StandupActivityAttributes` is identical across the boundary.
+      - path: StandupShared
+      # Pulse fonts (issue #45): reuse the macOS target's font files so the iOS
+      # build does not duplicate them. Copied as a folder reference into
+      # Resources/Fonts so the Info.plist UIAppFonts "Fonts/…" paths resolve.
+      - path: StandupTimer/Resources/Fonts
+        type: folder
+        buildPhase: resources
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: be.floca.standup-timer-remote
+        PRODUCT_BUNDLE_IDENTIFIER: be.floca.standup-timer
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: 1
-        IPHONEOS_DEPLOYMENT_TARGET: "18.0"
-        PRODUCT_NAME: Standup Remote
-        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
-        INFOPLIST_FILE: StandupTimerRemote/Info.plist
+        INFOPLIST_FILE: StandupTimer-iOS/Info.plist
         GENERATE_INFOPLIST_FILE: false
-        SWIFT_STRICT_CONCURRENCY: complete
+        PRODUCT_NAME: Momen
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        TARGETED_DEVICE_FAMILY: "1,2"
         CODE_SIGN_STYLE: Automatic
-        DEVELOPMENT_TEAM: 65RSHA2YFU
+        DEVELOPMENT_TEAM: SGT72A7T6A
+        SWIFT_STRICT_CONCURRENCY: complete
+
+  # Widget extension (issue #52): the Live Activity / Dynamic Island UI for the
+  # iOS app. A WidgetKit app-extension that links StandupKit (to reuse SignalRing
+  # + Pulse tokens) and shares the StandupActivityAttributes source with the app.
+  # Signing is off so a simulator build needs no team or provisioning profile,
+  # matching the iOS app target.
+  StandupWidgets:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "17.0"
+    dependencies:
+      - target: StandupKit
+    sources:
+      - path: StandupWidgets
+      # Same shared attributes source the app compiles — see the iOS app target.
+      - path: StandupShared
+      # Pulse fonts (issue #45): the Live Activity renders the mono chrono, so the
+      # extension registers the same font files (copied into its Resources).
+      - path: StandupTimer/Resources/Fonts
+        type: folder
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: be.floca.standup-timer.widgets
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: 1
+        INFOPLIST_FILE: StandupWidgets/Info.plist
+        GENERATE_INFOPLIST_FILE: false
+        PRODUCT_NAME: StandupWidgets
+        SKIP_INSTALL: "YES"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: SGT72A7T6A
+        SWIFT_STRICT_CONCURRENCY: complete
+
+  # watchOS app (scaffold). Same bundle id family as the macOS/iOS apps for the
+  # universal purchase. Independent watch app (runs without an iPhone companion)
+  # consuming the watchOS variant of StandupKit; the platform stubs satisfy the
+  # core's injected services and a smoke-test view proves the wiring. The real
+  # compact-timer UI (ring + Digital Crown + complications) comes later.
+  StandupTimer-watchOS:
+    type: application
+    platform: watchOS
+    deploymentTarget: "10.0"
+    dependencies:
+      - target: StandupKit
+    sources:
+      - path: StandupTimer-watchOS
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: be.floca.standup-timer.watchkitapp
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: 1
+        INFOPLIST_FILE: StandupTimer-watchOS/Info.plist
+        GENERATE_INFOPLIST_FILE: false
+        PRODUCT_NAME: Momen
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        TARGETED_DEVICE_FAMILY: "4"
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: SGT72A7T6A
+        SWIFT_STRICT_CONCURRENCY: complete
+
+  # tvOS app (scaffold). Same bundle id family for the universal purchase. The
+  # Apple TV is the "room display" companion: the big screen on the wall during a
+  # standup. Consumes the tvOS variant of StandupKit; the platform stubs satisfy
+  # the core's injected services and a smoke-test view proves the wiring. The real
+  # big-screen UI (room display + Siri Remote focus controls) comes later.
+  StandupTimer-tvOS:
+    type: application
+    platform: tvOS
+    deploymentTarget: "17.0"
+    dependencies:
+      - target: StandupKit
+    sources:
+      - path: StandupTimer-tvOS
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: be.floca.standup-timer.tvos
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: 1
+        INFOPLIST_FILE: StandupTimer-tvOS/Info.plist
+        GENERATE_INFOPLIST_FILE: false
+        PRODUCT_NAME: Momen
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        TARGETED_DEVICE_FAMILY: "3"
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: SGT72A7T6A
+        SWIFT_STRICT_CONCURRENCY: complete
+
+# Explicit schemes so each app is buildable by scheme name (the build/CI workflow
+# uses `-scheme StandupTimer` / `-scheme StandupTimer-iOS`). Defining this block
+# disables XcodeGen's autogeneration, so every wanted scheme is listed here. The
+# widget extension (StandupWidgets) has no standalone scheme — it builds + embeds
+# via the iOS app.
+schemes:
+  StandupKit:
+    build:
+      targets:
+        StandupKit: all
+  StandupTimer:
+    build:
+      targets:
+        StandupTimer: all
+    run:
+      config: Debug
+    archive:
+      config: Release
+  StandupTimer-iOS:
+    build:
+      targets:
+        StandupTimer-iOS: all
+    run:
+      config: Debug
+    archive:
+      config: Release
+  StandupTimer-watchOS:
+    build:
+      targets:
+        StandupTimer-watchOS: all
+    run:
+      config: Debug
+    archive:
+      config: Release
+  StandupTimer-tvOS:
+    build:
+      targets:
+        StandupTimer-tvOS: all
+    run:
+      config: Debug
+    archive:
+      config: Release

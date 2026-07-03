@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Standup Timer | Le standup qui finit à l'heure</title>
+    <meta
+      name="description"
+      content="Standup Timer transforme vos daily meetings en rituels nets et visuels. App macOS menu-bar + app iOS autonome, le Signal (anneau + bandeau), timing par intervenant, stats, badges d'équipe et Pro."
+    />
+    <meta
+      name="theme-color"
+      content="#09111f"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="ambient ambient-one"></div>
+      <div class="ambient ambient-two"></div>
+      <div class="ambient ambient-grid"></div>
+
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="Standup Timer">
+          <span class="brand-mark">S</span>
+          <span class="brand-copy">
+            <strong>Standup Timer</strong>
+            <span>macOS + iOS</span>
+          </span>
+        </a>
+
+        <nav class="site-nav">
+          <a href="#features">Produit</a>
+          <a href="#proof">Pourquoi</a>
+          <a href="#pricing">Tarifs</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+
+        <a class="button button-secondary desktop-only" href="#pricing">Voir l'offre</a>
+      </header>
+
+      <main id="top">
+        <section class="hero reveal">
+          <div class="hero-copy">
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              Le timer de standup pensé pour les équipes qui vont vite
+            </div>
+
+            <h1>
+              Faites des standups
+              <span>ultra nets, ultra visibles, ultra modernes.</span>
+            </h1>
+
+            <p class="hero-text">
+              Standup Timer cadence chaque intervention et affiche le Signal — un
+              anneau qui passe du vert au rouge et un bandeau qui se vide. Sur Mac en
+              visio, sur iPhone et iPad posés sur la table en présentiel : le même
+              rituel, propre, rythmé et impossible à laisser dériver.
+            </p>
+
+            <!-- TODO @launch: remplacer href="#" par les vraies URLs App Store (Mac App Store + App Store iOS) -->
+            <div class="hero-actions">
+              <a class="button button-primary" href="#" data-appstore="mac">Mac App Store — bientôt</a>
+              <a class="button button-secondary" href="#" data-appstore="ios">App Store iOS — bientôt</a>
+            </div>
+
+            <div class="hero-meta">
+              <div class="meta-chip">
+                <span>Free</span>
+                Jusqu'à 4 participants
+              </div>
+              <div class="meta-chip">
+                <span>Pro</span>
+                Achat unique, Mac + iOS
+              </div>
+              <div class="meta-chip">
+                <span>iOS</span>
+                App autonome iPhone & iPad
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual" id="demo">
+            <div class="hero-orb"></div>
+
+            <article class="mockup-card desktop-app">
+              <div class="window-topbar">
+                <span></span><span></span><span></span>
+              </div>
+
+              <div class="mockup-layout">
+                <aside class="mockup-sidebar">
+                  <div class="sidebar-block">
+                    <p class="mini-label">Preset actif</p>
+                    <strong>Daily Product</strong>
+                    <span>15 min • 6 participants</span>
+                  </div>
+
+                  <div class="sidebar-block">
+                    <p class="mini-label">Participants</p>
+                    <ul class="participant-list">
+                      <li><span class="avatar">AL</span> Alice</li>
+                      <li><span class="avatar">BO</span> Boris</li>
+                      <li><span class="avatar">CH</span> Chloé</li>
+                      <li><span class="avatar">DA</span> David</li>
+                    </ul>
+                  </div>
+
+                  <div class="sidebar-block">
+                    <p class="mini-label">Résumé</p>
+                    <div class="summary-stack">
+                      <div>
+                        <strong>2:30</strong>
+                        <span>par personne</span>
+                      </div>
+                      <div>
+                        <strong>02</strong>
+                        <span>hors temps</span>
+                      </div>
+                    </div>
+                  </div>
+                </aside>
+
+                <div class="mockup-main">
+                  <div class="metric-row">
+                    <div class="metric-card">
+                      <span>Meeting</span>
+                      <strong>15:00</strong>
+                    </div>
+                    <div class="metric-card">
+                      <span>Présents</span>
+                      <strong>6</strong>
+                    </div>
+                    <div class="metric-card">
+                      <span>Plan</span>
+                      <strong>Pro</strong>
+                    </div>
+                  </div>
+
+                  <div class="overlay-preview">
+                    <div class="overlay-fill"></div>
+                    <div class="overlay-content">
+                      <div class="speaker-meta">
+                        <div class="speaker-avatar">CH</div>
+                        <div>
+                          <strong>Chloé</strong>
+                          <span>Suivant : David</span>
+                        </div>
+                      </div>
+                      <div class="overlay-time">
+                        <small>Total 08:42</small>
+                        <strong>01:17</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="chart-panel">
+                    <div class="chart-header">
+                      <div>
+                        <p class="mini-label">Stats</p>
+                        <strong>Tendance des dépassements</strong>
+                      </div>
+                      <span class="badge success">Export CSV</span>
+                    </div>
+                    <div class="bars">
+                      <span style="--h: 28%"></span>
+                      <span style="--h: 44%"></span>
+                      <span style="--h: 35%"></span>
+                      <span style="--h: 63%"></span>
+                      <span style="--h: 48%"></span>
+                      <span style="--h: 76%"></span>
+                      <span style="--h: 52%"></span>
+                      <span style="--h: 88%"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="mockup-card phone-app">
+              <div class="phone-notch"></div>
+              <p class="mini-label">Standup Timer · iOS</p>
+              <strong class="phone-speaker">Chloé</strong>
+              <div class="phone-timer">01:17</div>
+              <div class="phone-progress">
+                <span></span>
+              </div>
+              <div class="phone-actions">
+                <button type="button">◀</button>
+                <button type="button" class="primary">❚❚</button>
+                <button type="button">▶</button>
+              </div>
+              <button type="button" class="phone-secondary">Reporter à la fin</button>
+            </article>
+
+            <article class="floating-note note-top">
+              <span class="badge">Le Signal</span>
+              L'anneau vire du vert au rouge : tout le monde lit le temps d'un coup d'œil.
+            </article>
+
+            <article class="floating-note note-bottom">
+              <span class="badge accent">App iOS autonome</span>
+              Posez l'iPhone ou l'iPad sur la table : chrono et anneau lisibles pour le standup en présentiel.
+            </article>
+          </div>
+        </section>
+
+        <section class="value-strip reveal" id="proof">
+          <article>
+            <strong>30 sec</strong>
+            <span>pour préparer un standup réutilisable</span>
+          </article>
+          <article>
+            <strong>1 overlay</strong>
+            <span>clair, visuel et lisible pendant la réunion</span>
+          </article>
+          <article>
+            <strong>0 friction</strong>
+            <span>pour relancer, passer au suivant ou finir proprement</span>
+          </article>
+        </section>
+
+        <section class="section reveal" id="features">
+          <div class="section-heading">
+            <span class="section-kicker">Produit</span>
+            <h2>Une landing page qui vend le vrai produit, pas une promesse floue.</h2>
+            <p>
+              Tout ce qui est mis en avant ici correspond à ce que les apps font
+              déjà&nbsp;: app Mac menu-bar et app iOS autonome, le Signal, timing par
+              intervenant, presets, stats, badges d'équipe et mode Pro.
+            </p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-card feature-large">
+              <span class="card-index">01</span>
+              <h3>Le Signal, en visio ou en présentiel</h3>
+              <p>
+                Le temps restant, l'intervenant en cours, le suivant et la progression
+                restent lisibles : un anneau conique vert→rouge et un bandeau qui se
+                vide. En overlay sur Mac pour Zoom, Meet ou Teams, en plein écran sur
+                l'app iOS posée sur la table.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <span class="card-index">02</span>
+              <h3>App iOS autonome</h3>
+              <p>
+                L'iPhone et l'iPad font tourner le standup tout seuls, sans le Mac.
+                Pensée pour le présentiel : le téléphone sur la table, gros chrono
+                lisible et passage au suivant d'un geste.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <span class="card-index">03</span>
+              <h3>Presets réutilisables</h3>
+              <p>
+                Préparez une configuration une fois, gardez-la et relancez vos rituels
+                d'équipe en un clic.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <span class="card-index">04</span>
+              <h3>Statistiques &amp; badges d'équipe</h3>
+              <p>
+                Historique, tendances, temps par intervenant et export CSV. Des badges
+                d'équipe positifs (« Réunion éclair », « Semaine parfaite »…) pour
+                valoriser le rituel, jamais pointer du doigt.
+              </p>
+            </article>
+
+            <article class="feature-card feature-accent">
+              <span class="card-index">05</span>
+              <h3>Personnalisation Pro</h3>
+              <p>
+                Accents de couleur par intervenant, options d'overlay, confettis de fin
+                et réglages avancés pour des standups qui ont du style.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section showcase reveal">
+          <div class="section-heading narrow">
+            <span class="section-kicker">Flow</span>
+            <h2>Le produit suit exactement le rythme d'un vrai daily.</h2>
+          </div>
+
+          <div class="timeline-grid">
+            <article class="timeline-step">
+              <span>1</span>
+              <h3>Configurez</h3>
+              <p>Choisissez la durée globale, préparez les participants, chargez un preset.</p>
+            </article>
+            <article class="timeline-step">
+              <span>2</span>
+              <h3>Lancez</h3>
+              <p>Le countdown démarre, puis l'overlay prend le relais avec une lecture instantanée.</p>
+            </article>
+            <article class="timeline-step">
+              <span>3</span>
+              <h3>Pilotez</h3>
+              <p>Sur Mac ou sur l'app iOS, passez au suivant et gardez le tempo sans casser la conversation.</p>
+            </article>
+            <article class="timeline-step">
+              <span>4</span>
+              <h3>Apprenez</h3>
+              <p>Relisez l'historique, repérez les dérives et améliorez vos standups séance après séance.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section pricing-section reveal" id="pricing">
+          <div class="section-heading">
+            <span class="section-kicker">Tarifs</span>
+            <h2>Une offre simple&nbsp;: gratuit pour démarrer, Pro pour installer le rituel.</h2>
+          </div>
+
+          <div class="pricing-grid">
+            <article class="price-card">
+              <div class="price-head">
+                <span class="badge">Free</span>
+                <h3>Pour tester le flow</h3>
+              </div>
+              <div class="price-line">
+                <strong>0€</strong>
+                <span>pour toujours</span>
+              </div>
+              <ul class="price-list">
+                <li>Jusqu'à 4 participants</li>
+                <li>Le Signal et timing par intervenant</li>
+                <li>Presets et configuration de base</li>
+                <li>Apps macOS et iOS, persistance locale</li>
+              </ul>
+              <!-- TODO @launch: remplacer href="#" par les vraies URLs App Store -->
+              <a class="button button-secondary" href="#" data-appstore="ios">App Store — bientôt</a>
+            </article>
+
+            <article class="price-card price-card-featured">
+              <div class="price-head">
+                <span class="badge accent">Pro</span>
+                <h3>Pour les équipes qui veulent cadrer le standup</h3>
+              </div>
+              <div class="price-line">
+                <strong>9,99€</strong>
+                <span>achat unique — un achat débloque Mac + iOS</span>
+              </div>
+              <ul class="price-list">
+                <li>Participants illimités</li>
+                <li>Stats avancées, historique et export CSV</li>
+                <li>Personnalisation et badges d'équipe</li>
+                <li>Sync iCloud entre vos appareils Mac &amp; iOS</li>
+              </ul>
+              <!-- TODO @launch: remplacer href="#" par les vraies URLs App Store -->
+              <a class="button button-primary" href="#" data-appstore="ios">App Store — bientôt</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="section faq-section reveal" id="faq">
+          <div class="section-heading narrow">
+            <span class="section-kicker">FAQ</span>
+            <h2>Les questions qui bloquent avant publication sont déjà traitées.</h2>
+          </div>
+
+          <div class="faq-grid">
+            <article class="faq-card">
+              <h3>Sur quelle plateforme tourne l'app&nbsp;?</h3>
+              <p>Deux apps : une app menu-bar sur macOS et une app iOS autonome (iPhone &amp; iPad). L'app iOS fonctionne seule, sans le Mac — idéale pour le standup en présentiel.</p>
+            </article>
+            <article class="faq-card">
+              <h3>Faut-il acheter Pro deux fois&nbsp;?</h3>
+              <p>Non. Le Pro est un achat unique universel : un seul achat débloque Mac et iOS, suivi par votre Apple ID.</p>
+            </article>
+            <article class="faq-card">
+              <h3>Comment se passe la synchro entre appareils&nbsp;?</h3>
+              <p>La sync iCloud de vos presets et réglages entre Mac et iOS est une fonctionnalité Pro. En Free, tout reste en local sur l'appareil.</p>
+            </article>
+            <article class="faq-card">
+              <h3>Une question avant d'acheter&nbsp;?</h3>
+              <p>Écrivez à <a href="mailto:florent@floca.be">florent@floca.be</a> pour le support et toute question produit.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="closing-cta reveal">
+          <div>
+            <span class="section-kicker">Ready</span>
+            <h2>Transformez le standup en signal de maîtrise, pas en bruit récurrent.</h2>
+            <p>
+              Une équipe qui maîtrise son daily donne immédiatement une impression de
+              clarté, de vitesse et de sérieux. Standup Timer matérialise exactement ça.
+            </p>
+          </div>
+
+          <!-- TODO @launch: remplacer href="#" par les vraies URLs App Store (Mac App Store + App Store iOS) -->
+          <div class="closing-actions">
+            <a class="button button-primary" href="#" data-appstore="mac">Mac App Store — bientôt</a>
+            <a class="button button-secondary" href="#" data-appstore="ios">App Store iOS — bientôt</a>
+            <a class="button button-ghost" href="#top">Revenir en haut</a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <nav class="footer-nav">
+          <a href="./privacy.html">Confidentialité</a>
+          <a href="./support.html">Support</a>
+          <a href="mailto:florent@floca.be">Contact</a>
+        </nav>
+        <p>© 2026 Florent Cardoen — Standup Timer</p>
+      </footer>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

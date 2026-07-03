@@ -1,0 +1,13 @@
+# Métadonnées App Store (fastlane deliver / upload_to_app_store).
+# Les textes vivent dans fastlane/metadata/<locale>/*.txt (générés depuis docs/).
+# Les captures dans fastlane/screenshots/<locale>/ (produites par snapshot).
+
+app_identifier "be.floca.standup-timer"
+
+# Ne pas écraser la note de version / prix par erreur.
+submit_for_review false
+automatic_release false
+
+# Respecte les guidelines avant envoi.
+run_precheck_before_submit true
+precheck_include_in_app_purchases true

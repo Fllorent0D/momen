@@ -1,0 +1,12 @@
+# Achat universel → même bundle id pour Mac + iOS, un seul record App Store Connect.
+app_identifier "be.floca.standup-timer"
+
+# Apple ID du compte développeur. Renseigne FASTLANE_USER dans .env (non commité)
+# ou via App Store Connect API key (recommandé, cf. Fastfile `api_key`).
+apple_id ENV["FASTLANE_APPLE_ID"]
+
+# Developer Portal Team ID.
+team_id "SGT72A7T6A"
+
+# App Store Connect Team ID (souvent identique ; laisse vide si un seul team).
+itc_team_id ENV["FASTLANE_ITC_TEAM_ID"]

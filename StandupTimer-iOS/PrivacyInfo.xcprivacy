@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!--
+      Privacy manifest — iOS app (StandupTimer-iOS), mirrors the macOS manifest.
+      Reflects the app's REAL behavior (issue #27):
+        - No tracking, no analytics/ads SDK, no data sent to the developer.
+          Meeting settings / stats / badges are stored locally (UserDefaults +
+          on-disk JSON in the app container) and never leave the device.
+        - Local-network usage was removed (issue #1); the GIF-search SDK was
+          removed (issue #2) — neither is declared here.
+        - Only required-reason API declared: UserDefaults (CA92.1), used for
+          settings/stats/Pro-state persistence. No File-timestamp, disk-space,
+          system-boot-time or active-keyboard APIs are used by the app code, so
+          none are declared (do not over-declare).
+        - ProAccessManager uses StoreKit (Apple's own purchase API) — Apple's
+          purchase flow needs no extra app-manifest entry.
+
+      FUTURE NOTE: when RevenueCat ships, the RevenueCat SDK bundles its OWN
+      PrivacyInfo.xcprivacy inside the package, so its required-reason APIs and
+      collected purchase data are declared there, not here. When iCloud sync
+      ships, the synced data lives in the user's own iCloud account (not sent to
+      the developer), so it is not "data collection" in the manifest sense.
+      Revisit this file when either feature is wired into a shipping build.
+    -->
+    <key>NSPrivacyTracking</key>
+    <false/>
+    <key>NSPrivacyTrackingDomains</key>
+    <array/>
+    <key>NSPrivacyCollectedDataTypes</key>
+    <array/>
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>CA92.1</string>
+            </array>
+        </dict>
+    </array>
+</dict>
+</plist>

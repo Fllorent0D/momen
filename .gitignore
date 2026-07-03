@@ -26,3 +26,12 @@ Package.resolved
 ## Various
 *.moved-aside
 *.xcuserstate
+
+## fastlane
+fastlane/.env
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/test_output/
+fastlane/screenshots/
+*.p8
+*.mobileprovision

@@ -1,10 +1,8 @@
 import AppKit
+import StandupKit
 
-final class SoundManager: Sendable {
-    static let shared = SoundManager()
-
-    private init() {}
-
+/// macOS implementation of `SoundPlaying`, backed by system `NSSound`s.
+final class MacSoundPlayer: SoundPlaying, Sendable {
     func playTransition() {
         NSSound(named: "Tink")?.play()
     }

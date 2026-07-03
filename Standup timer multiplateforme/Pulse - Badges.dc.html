@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#0a0b0d}
+  ::selection{background:#00e08a;color:#04130c}
+  @keyframes mdGlow{0%,100%{opacity:.4}50%{opacity:.9}}
+  @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  @keyframes mdIn{0%{transform:scale(0) rotate(-28deg);opacity:0}6%{transform:scale(1.22) rotate(7deg);opacity:1}9%{transform:scale(.93) rotate(-3deg)}12%{transform:scale(1.05) rotate(1deg)}15%,100%{transform:scale(1) rotate(0);opacity:1}}
+  @keyframes mdBurst{to{transform:rotate(360deg)}}
+  @keyframes mdConf{0%{transform:translateY(-20px) rotate(0);opacity:0}3%{opacity:1}40%{transform:translateY(440px) rotate(560deg);opacity:0}100%{transform:translateY(440px) rotate(560deg);opacity:0}}
+  @keyframes mdTitle{0%,8%{opacity:0;transform:translateY(16px)}18%{opacity:1;transform:translateY(0)}100%{opacity:1;transform:translateY(0)}}
+  @keyframes mdFlash{0%{transform:translate(-50%,-50%) scale(.2);opacity:0}3%{opacity:.95}11%{opacity:0}100%{transform:translate(-50%,-50%) scale(2.6);opacity:0}}
+  @keyframes mdWave{0%{transform:translate(-50%,-50%) scale(.25);opacity:0}3%{opacity:.7}13%{transform:translate(-50%,-50%) scale(2.3);opacity:0}100%{transform:translate(-50%,-50%) scale(2.3);opacity:0}}
+  @keyframes mdRaysIn{0%{transform:translate(-50%,-50%) scale(.5);opacity:0}10%{transform:translate(-50%,-50%) scale(1);opacity:.85}24%{opacity:0}100%{transform:translate(-50%,-50%) scale(1.1);opacity:0}}
+  @keyframes mdShine{0%{transform:translate(-180%,0) rotate(18deg);opacity:0}8%{opacity:.85}13%{transform:translate(230%,0) rotate(18deg);opacity:0}100%{transform:translate(230%,0) rotate(18deg);opacity:0}}
+  @keyframes mdTwinkle{0%,100%{transform:scale(0);opacity:0}50%{transform:scale(1);opacity:1}}
+  @keyframes mdPop{0%{transform:translate(0,0) scale(.2);opacity:0}3%{opacity:1}18%{transform:translate(var(--tx),var(--ty)) scale(.4);opacity:0}100%{transform:translate(var(--tx),var(--ty)) scale(.4);opacity:0}}
+</style>
+</helmet>
+<div style="background:#0a0b0d;font-family:'Space Grotesk',system-ui,sans-serif;color:#f4f6f5;overflow:hidden">
+
+  <!-- ░░ TOP BAR ░░ -->
+  <div style="position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:rgba(10,11,13,0.72);border-bottom:1px solid #ffffff0d">
+    <div style="max-width:1200px;margin:0 auto;padding:16px 40px;display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="width:26px;height:26px;border-radius:7px;background:conic-gradient(from -90deg,#00e08a,#7fe01f 62%,#1b1f24 62%);display:grid;place-items:center"><span style="width:9px;height:9px;border-radius:50%;background:#0a0b0d"></span></span>
+        <span style="font-weight:700;font-size:16px;letter-spacing:-0.3px">Pulse</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5f6b66;letter-spacing:1px">BADGES&nbsp;·&nbsp;ARTWORKS</span>
+      </div>
+      <div style="display:flex;gap:7px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;color:#8b938f">
+        <span style="border:1px solid #cd7f4444;color:#e0a877;border-radius:999px;padding:5px 11px">BRONZE</span>
+        <span style="border:1px solid #cdd6dd33;color:#cdd6dd;border-radius:999px;padding:5px 11px">ARGENT</span>
+        <span style="border:1px solid #f0c24b44;color:#f0c24b;border-radius:999px;padding:5px 11px">OR</span>
+        <span style="border:1px solid #b07cff44;color:#b07cff;border-radius:999px;padding:5px 11px">DIAMANT</span>
+        <span style="border:1px solid #36c2ff44;color:#36c2ff;border-radius:999px;padding:5px 11px">SECRET</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ COVER ░░ -->
+  <div style="max-width:1200px;margin:0 auto;padding:88px 40px 70px">
+    <div style="display:grid;grid-template-columns:1.15fr 0.85fr;gap:48px;align-items:center">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:3px;color:#00e08a;margin-bottom:22px">STANDUP&nbsp;TIMER&nbsp;·&nbsp;GAMIFICATION</div>
+        <h1 style="margin:0;font-size:112px;line-height:0.86;font-weight:700;letter-spacing:-5px">Badges</h1>
+        <p style="margin:28px 0 0;font-size:19px;line-height:1.6;color:#aab2ae;max-width:460px">Vingt-trois médaillons d'équipe, <strong style="color:#f4f6f5;font-weight:600">collectifs et positifs</strong>. Des faciles pour accrocher dès le 1ᵉʳ standup, des légendaires qui récompensent la régularité. Un seul matériau&nbsp;: <strong style="color:#f4f6f5;font-weight:600">l'anneau métallique encode la rareté</strong>.</p>
+        <div style="display:flex;gap:10px;margin-top:32px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:#9aa19d">
+          <span style="border:1px solid #ffffff18;border-radius:999px;padding:8px 14px">23&nbsp;MÉDAILLONS</span>
+          <span style="border:1px solid #ffffff18;border-radius:999px;padding:8px 14px">5&nbsp;PALIERS</span>
+          <span style="border:1px solid #ffffff18;border-radius:999px;padding:8px 14px">GLYPHES&nbsp;GÉOMÉTRIQUES</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:22px">
+        <div style="animation:floatY 5s ease-in-out infinite">
+          <dc-import name="Medallion" tier="diamond" glyph="trophy" state="unlocked" size="240" halo="{{ true }}" shimmer="{{ true }}" hint-size="240px,240px"></dc-import>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:10px">
+          <span style="font-family:'JetBrains Mono',monospace;font-weight:800;font-size:40px;letter-spacing:-2px;color:#f4f6f5">12</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:20px;color:#5f6b66">/ 23</span>
+          <span style="font-size:14px;color:#8b938f;margin-left:4px">débloqués</span>
+        </div>
+        <div style="width:240px;height:8px;border-radius:999px;background:#1a1d22;overflow:hidden"><div style="width:52%;height:100%;border-radius:999px;background:linear-gradient(90deg,#00e08a,#7fe01f)"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ 09 · SYSTÈME ░░ -->
+  <div style="border-top:1px solid #ffffff0d;background:#0c0d10">
+  <div style="max-width:1200px;margin:0 auto;padding:80px 40px" data-screen-label="Système">
+    <div style="display:flex;align-items:baseline;gap:18px;margin-bottom:14px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#00e08a">09</span>
+      <h2 style="margin:0;font-size:38px;font-weight:700;letter-spacing:-1.2px">Le médaillon</h2>
+    </div>
+    <p style="margin:0 0 44px;font-size:18px;line-height:1.6;color:#aab2ae;max-width:640px">Un seul composant — <strong style="color:#f4f6f5;font-weight:600">AchievementMedallion(badge:size:)</strong> — décliné en 23. Même anatomie partout&nbsp;: dans la grille comme au reveal. Le palier ne change que le métal.</p>
+
+    <div style="display:flex;gap:52px;align-items:center;flex-wrap:wrap;margin-bottom:50px">
+      <div style="animation:floatY 6s ease-in-out infinite">
+        <dc-import name="Medallion" tier="gold" glyph="trophy" state="unlocked" size="220" halo="{{ true }}" shimmer="{{ true }}" hint-size="220px,220px"></dc-import>
+      </div>
+      <div style="flex:1;min-width:320px;max-width:480px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:#6c756f;margin-bottom:18px">ANATOMIE</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;gap:14px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#00e08a;width:78px;flex-shrink:0">ANNEAU</span><span style="font-size:14px;color:#aab2ae;line-height:1.5">Métal travaillé via dégradé conique — bandes claires/sombres = reflet brossé. La couleur encode la rareté.</span></div>
+          <div style="display:flex;gap:14px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#00e08a;width:78px;flex-shrink:0">DISQUE</span><span style="font-size:14px;color:#aab2ae;line-height:1.5">Nuit creusée (#0A0B0D), ombre interne&nbsp;: le glyphe paraît gravé dans la médaille.</span></div>
+          <div style="display:flex;gap:14px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#00e08a;width:78px;flex-shrink:0">GLYPHE</span><span style="font-size:14px;color:#aab2ae;line-height:1.5">Monochrome, 100% géométrique — composé de primitives (pas d'emoji). Teinté du métal du palier.</span></div>
+          <div style="display:flex;gap:14px"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#00e08a;width:78px;flex-shrink:0">HALO</span><span style="font-size:14px;color:#aab2ae;line-height:1.5">Éclat radial + shimmer rotatif au reveal seulement. Calme dans la grille.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:#6c756f;margin-bottom:16px">LES CINQ PALIERS</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px">
+      <sc-for list="{{ tierLegend }}" as="t" hint-placeholder-count="5">
+        <div style="background:#101216;border:1px solid #ffffff0d;border-radius:16px;padding:20px 16px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+          <dc-import name="Medallion" tier="{{ t.tier }}" glyph="{{ t.glyph }}" state="unlocked" size="76" hint-size="76px,76px"></dc-import>
+          <div>
+            <div style="font-weight:600;font-size:15px;color:{{ t.color }}">{{ t.name }}</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6c756f;margin-top:3px">{{ t.count }}</div>
+          </div>
+          <div style="font-size:12px;color:#8b938f;line-height:1.45">{{ t.idea }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </div>
+
+  <!-- ░░ 10 · CATALOGUE ░░ -->
+  <div style="border-top:1px solid #ffffff0d">
+  <div style="max-width:1200px;margin:0 auto;padding:80px 40px 30px" data-screen-label="Catalogue">
+    <div style="display:flex;align-items:baseline;gap:18px;margin-bottom:14px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#00e08a">10</span>
+      <h2 style="margin:0;font-size:38px;font-weight:700;letter-spacing:-1.2px">Catalogue</h2>
+    </div>
+    <p style="margin:0 0 50px;font-size:18px;line-height:1.6;color:#aab2ae;max-width:640px">Les 23 artworks, débloqués. Du plus rapide au plus dur. Chaque glyphe se calcule depuis l'historique des standups — aucune condition subjective.</p>
+
+    <sc-for list="{{ groups }}" as="g" hint-placeholder-count="5">
+      <div style="margin-bottom:46px">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid #ffffff0d">
+          <span style="width:12px;height:12px;border-radius:50%;background:{{ g.color }};box-shadow:0 0 12px {{ g.color }}88"></span>
+          <h3 style="margin:0;font-size:23px;font-weight:700;letter-spacing:-0.5px;color:{{ g.color }}">{{ g.name }}</h3>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#6c756f">{{ g.sub }}</span>
+          <span style="flex:1"></span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6c756f">{{ g.count }}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px">
+          <sc-for list="{{ g.items }}" as="b" hint-placeholder-count="5">
+            <div style="background:#101216;border:1px solid #ffffff0d;border-radius:18px;padding:24px 16px 20px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center">
+              <dc-import name="Medallion" tier="{{ b.tier }}" glyph="{{ b.glyph }}" state="unlocked" size="116" hint-size="116px,116px"></dc-import>
+              <div>
+                <div style="font-weight:600;font-size:15px;letter-spacing:-0.2px">{{ b.title }}</div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#7e8884;margin-top:6px;line-height:1.5">{{ b.cond }}</div>
+              </div>
+              <sc-if value="{{ b.secret }}" hint-placeholder-val="{{ false }}"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;color:#36c2ff;background:#0e2030;border:1px solid #36c2ff33;border-radius:999px;padding:4px 9px">SECRET · CACHÉ</span></sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+  </div>
+
+  <!-- ░░ 11 · ÉTATS ░░ -->
+  <div style="border-top:1px solid #ffffff0d;background:#0c0d10">
+  <div style="max-width:1200px;margin:0 auto;padding:80px 40px" data-screen-label="États">
+    <div style="display:flex;align-items:baseline;gap:18px;margin-bottom:14px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#00e08a">11</span>
+      <h2 style="margin:0;font-size:38px;font-weight:700;letter-spacing:-1.2px">Trois états</h2>
+    </div>
+    <p style="margin:0 0 44px;font-size:18px;line-height:1.6;color:#aab2ae;max-width:640px">Le même médaillon, selon l'avancement. <strong style="color:#f4f6f5;font-weight:600">Débloqué</strong> coloré + date, <strong style="color:#f4f6f5;font-weight:600">verrouillé</strong> grisé + progression, <strong style="color:#f4f6f5;font-weight:600">secret</strong> masqué jusqu'à la surprise.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
+      <div style="background:#101216;border:1px solid #00e08a26;border-radius:20px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;gap:18px">
+        <dc-import name="Medallion" tier="gold" glyph="bullseye" state="unlocked" size="150" shimmer="{{ true }}" hint-size="150px,150px"></dc-import>
+        <div style="text-align:center"><div style="font-weight:600;font-size:18px">Sans faute</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00e08a;margin-top:6px">DÉBLOQUÉ · 25 JUIN</div></div>
+        <div style="font-size:13px;color:#8b938f;text-align:center;line-height:1.5">Métal plein, glyphe gravé. Un shimmer parcourt l'anneau.</div>
+      </div>
+      <div style="background:#101216;border:1px solid #ffffff0d;border-radius:20px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;gap:18px">
+        <dc-import name="Medallion" tier="gold" glyph="bullseye" state="locked" progress="{{ 0.3 }}" size="150" hint-size="150px,150px"></dc-import>
+        <div style="text-align:center;width:100%"><div style="font-weight:600;font-size:18px;color:#8b938f">Verrouillé</div>
+          <div style="margin-top:10px;display:flex;align-items:center;gap:8px;justify-content:center"><div style="width:120px;height:7px;border-radius:999px;background:#1a1d22;overflow:hidden"><div style="width:30%;height:100%;background:#00e08a;border-radius:999px"></div></div><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00e08a">3 / 10</span></div>
+        </div>
+        <div style="font-size:13px;color:#8b938f;text-align:center;line-height:1.5">Graphite désaturé, glyphe en sourdine. L'arc vert trace la progression.</div>
+      </div>
+      <div style="background:#101216;border:1px solid #ffffff0d;border-radius:20px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;gap:18px">
+        <dc-import name="Medallion" tier="secret" glyph="hourglass" state="secret" size="150" hint-size="150px,150px"></dc-import>
+        <div style="text-align:center"><div style="font-weight:600;font-size:18px;color:#8b938f">??? </div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#36c2ff;margin-top:6px">SECRET · À DÉCOUVRIR</div></div>
+        <div style="font-size:13px;color:#8b938f;text-align:center;line-height:1.5">Anneau irisé éteint, point d'interrogation. Le nom reste caché.</div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- ░░ 12 · ÉCRAN STATS ░░ -->
+  <div style="border-top:1px solid #ffffff0d">
+  <div style="max-width:1200px;margin:0 auto;padding:80px 40px">
+    <div style="display:flex;align-items:baseline;gap:18px;margin-bottom:14px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#00e08a">12</span>
+      <h2 style="margin:0;font-size:38px;font-weight:700;letter-spacing:-1.2px">Écran Stats</h2>
+    </div>
+    <p style="margin:0 0 44px;font-size:18px;line-height:1.6;color:#aab2ae;max-width:640px">La section « Badges » en grille. Débloqués colorés, verrouillés grisés avec leur barre, secrets en «&nbsp;???&nbsp;». Compteur global en tête.</p>
+
+    <div style="display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap;justify-content:center">
+      <x-import component-from-global-scope="IOSDevice" from="./frames/ios-frame.jsx" dark="{{ true }}" width="352" height="762" hint-size="352px,762px">
+        <div data-screen-label="Stats — grille badges" style="height:762px;background:#0a0b0d;display:flex;flex-direction:column;padding:52px 18px 24px;color:#f4f6f5;font-family:'Space Grotesk',sans-serif">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+            <span style="font-size:26px;font-weight:700;letter-spacing:-0.8px">Badges</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#8b938f"><span style="color:#00e08a;font-weight:700">12</span> / 23</span>
+          </div>
+          <div style="height:7px;border-radius:999px;background:#1a1d22;overflow:hidden;margin:12px 0 18px"><div style="width:52%;height:100%;border-radius:999px;background:linear-gradient(90deg,#00e08a,#7fe01f)"></div></div>
+          <div style="flex:1;overflow:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:14px 8px;align-content:start">
+            <sc-for list="{{ statsGrid }}" as="s" hint-placeholder-count="23">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px">
+                <dc-import name="Medallion" tier="{{ s.tier }}" glyph="{{ s.glyph }}" state="{{ s.state }}" progress="{{ s.progress }}" size="84" hint-size="84px,84px"></dc-import>
+                <div style="text-align:center;min-height:30px">
+                  <div style="font-size:10.5px;font-weight:600;line-height:1.15;color:{{ s.titleColor }}">{{ s.title }}</div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;color:{{ s.metaColor }};margin-top:2px">{{ s.meta }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </x-import>
+
+      <div style="flex:1;min-width:280px;max-width:420px;display:flex;flex-direction:column;gap:11px">
+        <div style="background:#101216;border:1px solid #ffffff0d;border-radius:14px;padding:16px 18px"><div style="font-weight:600;font-size:14px;margin-bottom:4px">Grille 3 colonnes</div><div style="font-size:13px;color:#8b938f;line-height:1.5">Le médaillon porte tout&nbsp;: pas de carte, pas de bord. Titre + date sous chacun.</div></div>
+        <div style="background:#101216;border:1px solid #ffffff0d;border-radius:14px;padding:16px 18px"><div style="font-weight:600;font-size:14px;margin-bottom:4px">Verrouillés lisibles</div><div style="font-size:13px;color:#8b938f;line-height:1.5">On voit quel glyphe attend, en gris, avec l'arc + le compteur « X / N ».</div></div>
+        <div style="background:#101216;border:1px solid #ffffff0d;border-radius:14px;padding:16px 18px"><div style="font-weight:600;font-size:14px;margin-bottom:4px">Secrets intrigants</div><div style="font-size:13px;color:#8b938f;line-height:1.5">Les « ??? » donnent envie de revenir. Révélés, ils prennent leurs couleurs irisées.</div></div>
+        <div style="background:#0e1712;border:1px solid #00e08a26;border-radius:14px;padding:16px 18px"><div style="font-weight:600;font-size:14px;margin-bottom:4px;color:#00e08a">Tout calculé localement</div><div style="font-size:13px;color:#9aa19d;line-height:1.5">Depuis l'historique existant. Persisté avec la date — suit la synchro iCloud.</div></div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- ░░ 13 · REVEAL ░░ -->
+  <div style="border-top:1px solid #ffffff0d;background:#0c0d10">
+  <div style="max-width:1200px;margin:0 auto;padding:80px 40px">
+    <div style="display:flex;align-items:baseline;gap:18px;margin-bottom:14px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#00e08a">13</span>
+      <h2 style="margin:0;font-size:38px;font-weight:700;letter-spacing:-1.2px">Le reveal</h2>
+    </div>
+    <p style="margin:0 0 30px;font-size:18px;line-height:1.6;color:#aab2ae;max-width:660px">Le moment fun, façon Apple Watch. En fin de standup, par-dessus l'écran de fin&nbsp;: le médaillon entre en <strong style="color:#f4f6f5;font-weight:600">spring</strong>, halo + shimmer, <strong style="color:#f4f6f5;font-weight:600">confettis</strong> et son. iOS plein écran, macOS en panneau centré.</p>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:34px">
+      <span onClick="{{ replay }}" style="cursor:pointer;background:#00e08a;color:#04130c;font-weight:700;font-size:13px;border-radius:11px;padding:10px 18px;box-shadow:0 8px 20px -10px #00e08a">↻&nbsp;&nbsp;Rejouer l'animation</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5f6b66">se relance toute seule en boucle</span>
+    </div>
+
+    <div style="display:flex;gap:40px;align-items:center;flex-wrap:wrap;justify-content:center">
+      <div data-screen-label="Reveal — iOS plein écran" data-reveal onClick="{{ replay }}" style="position:relative;width:380px;height:760px;border-radius:54px;overflow:hidden;cursor:pointer;background:#050506;box-shadow:0 50px 90px -30px #000,0 0 0 1px #ffffff14,inset 0 0 0 7px #15171c;flex-shrink:0">
+        <div style="position:absolute;inset:0;background:radial-gradient(125% 75% at 50% 38%, #20153a 0%, #0a0b0d 60%)"></div>
+        <div style="position:absolute;top:15px;left:50%;transform:translateX(-50%);width:118px;height:33px;border-radius:20px;background:#000;z-index:40"></div>
+        <div style="position:absolute;top:20px;left:30px;right:30px;display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:#cfd3d0;z-index:35"><span>9:41</span><span style="letter-spacing:2px">▦&nbsp;􀙇</span></div>
+        <div style="position:absolute;top:46%;left:50%;width:640px;height:640px;transform:translate(-50%,-50%);background:repeating-conic-gradient(from 0deg, rgba(176,124,255,.16) 0 2.4deg, transparent 2.4deg 22deg);-webkit-mask:radial-gradient(closest-side,#000 0 30%,transparent 70%);mask:radial-gradient(closest-side,#000 0 30%,transparent 70%);animation:mdBurst 18s linear infinite;pointer-events:none"></div>
+        <div style="position:absolute;inset:0;pointer-events:none">
+            <div style="position:absolute;top:46%;left:50%;width:360px;height:360px;border-radius:50%;background:radial-gradient(closest-side,#ffffff,rgba(255,255,255,0) 68%);animation:mdFlash 6.5s ease-out infinite;pointer-events:none"></div>
+            <div style="position:absolute;top:46%;left:50%;width:540px;height:540px;background:repeating-conic-gradient(from 0deg, rgba(222,201,255,.55) 0 1.3deg, transparent 1.3deg 17deg);-webkit-mask:radial-gradient(closest-side,transparent 24%,#000 33%,transparent 62%);mask:radial-gradient(closest-side,transparent 24%,#000 33%,transparent 62%);animation:mdRaysIn 6.5s ease-out infinite;pointer-events:none"></div>
+            <div style="position:absolute;top:46%;left:50%;width:230px;height:230px;border-radius:50%;border:2px solid #c9a8ff;animation:mdWave 6.5s ease-out infinite;pointer-events:none"></div>
+            <div style="position:absolute;top:46%;left:50%;width:230px;height:230px;border-radius:50%;border:2px solid #36c2ff;animation:mdWave 6.5s ease-out .22s infinite;pointer-events:none"></div>
+            <sc-for list="{{ burst }}" as="p" hint-placeholder-count="0"><div style="{{ p.style }}"></div></sc-for>
+            <sc-for list="{{ confetti }}" as="c" hint-placeholder-count="0"><div style="{{ c.style }}"></div></sc-for>
+            <sc-for list="{{ sparkles }}" as="s" hint-placeholder-count="0"><div style="{{ s.style }}"></div></sc-for>
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 34px">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:4px;color:#cbb3ff;margin-bottom:30px;animation:mdTitle 6.5s ease-out infinite">BADGE DÉBLOQUÉ</div>
+              <div style="position:relative;animation:mdIn 6.5s cubic-bezier(.16,.7,.3,1.35) infinite">
+                <dc-import name="Medallion" tier="diamond" glyph="trophy" state="unlocked" size="216" halo="{{ true }}" shimmer="{{ true }}" hint-size="216px,216px"></dc-import>
+                <div style="position:absolute;inset:0;border-radius:50%;overflow:hidden;pointer-events:none"><div style="position:absolute;top:-50%;left:0;width:55%;height:200%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);animation:mdShine 6.5s ease-out infinite"></div></div>
+              </div>
+              <div style="text-align:center;animation:mdTitle 6.5s ease-out infinite">
+                <div style="font-size:33px;font-weight:700;letter-spacing:-0.8px;margin-top:34px">Centurion</div>
+                <div style="font-size:15px;color:#b9b0c8;margin-top:9px">Cent standups. Chapeau.</div>
+              </div>
+            </div>
+          </div>
+        <div style="position:absolute;bottom:30px;left:0;right:0;text-align:center;z-index:25"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:#6a6480">TOUCHER POUR REJOUER</span></div>
+        <div style="position:absolute;bottom:9px;left:50%;transform:translateX(-50%);width:128px;height:5px;border-radius:3px;background:#ffffffaa;z-index:25"></div>
+      </div>
+
+      <div style="flex:1;min-width:300px;max-width:430px;display:flex;flex-direction:column;gap:18px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:#6c756f">macOS · PANNEAU CENTRÉ</div>
+        <div data-reveal onClick="{{ replay }}" style="position:relative;cursor:pointer;border-radius:20px;overflow:hidden;border:1px solid #ffffff14;background:radial-gradient(120% 90% at 50% 0%, #1d1430 0%, #0c0e11 60%);padding:34px 28px;display:flex;flex-direction:column;align-items:center;box-shadow:0 30px 60px -24px #000">
+          <div style="position:absolute;top:34%;left:50%;width:340px;height:340px;transform:translate(-50%,-50%);background:repeating-conic-gradient(from 0deg, rgba(176,124,255,.14) 0deg 2.6deg, transparent 2.6deg 22deg);-webkit-mask:radial-gradient(closest-side, #000 0 36%, transparent 72%);mask:radial-gradient(closest-side, #000 0 36%, transparent 72%);animation:mdBurst 18s linear infinite;pointer-events:none"></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:#b07cff;margin-bottom:18px;position:relative">BADGE DÉBLOQUÉ</div>
+          <div style="position:relative;width:132px;height:132px">
+            <div style="position:absolute;top:50%;left:50%;width:250px;height:250px;border-radius:50%;background:radial-gradient(closest-side,#ffffff,rgba(255,255,255,0) 64%);animation:mdFlash 6.5s ease-out infinite;pointer-events:none"></div>
+            <div style="position:absolute;top:50%;left:50%;width:150px;height:150px;border-radius:50%;border:2px solid #c9a8ff;animation:mdWave 6.5s ease-out infinite;pointer-events:none"></div>
+            <div style="position:absolute;top:50%;left:50%;width:150px;height:150px;border-radius:50%;border:2px solid #36c2ff;animation:mdWave 6.5s ease-out .22s infinite;pointer-events:none"></div>
+            <div style="position:relative;animation:mdIn 6.5s cubic-bezier(.16,.7,.3,1.35) infinite"><dc-import name="Medallion" tier="diamond" glyph="trophy" state="unlocked" size="132" halo="{{ true }}" shimmer="{{ true }}" hint-size="132px,132px"></dc-import></div>
+          </div>
+          <div style="font-size:20px;font-weight:700;margin-top:20px;position:relative">Centurion</div>
+          <div style="font-size:13px;color:#aab2ae;margin-top:5px;position:relative">Cent standups. Chapeau.</div>
+          <div style="display:flex;gap:8px;margin-top:18px;position:relative">
+            <span style="background:#1a1d22;border:1px solid #ffffff12;color:#aab2ae;font-size:12px;font-weight:600;border-radius:9px;padding:8px 14px">Voir la fiche</span>
+            <span style="background:#00e08a;color:#04130c;font-size:12px;font-weight:700;border-radius:9px;padding:8px 14px">Continuer</span>
+          </div>
+        </div>
+        <p style="margin:0;font-size:13px;color:#8b938f;line-height:1.6">Plusieurs badges d'un coup&nbsp;? On les <strong style="color:#aab2ae;font-weight:600">enchaîne</strong>, un à un. Haptique sur iOS, son de déblocage partout.</p>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- ░░ 14 · FICHE BADGE ░░ -->
+  <div style="border-top:1px solid #ffffff0d">
+  <div style="max-width:1200px;margin:0 auto;padding:80px 40px 96px">
+    <div style="display:flex;align-items:baseline;gap:18px;margin-bottom:14px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#00e08a">14</span>
+      <h2 style="margin:0;font-size:38px;font-weight:700;letter-spacing:-1.2px">Fiche badge</h2>
+    </div>
+    <p style="margin:0 0 44px;font-size:18px;line-height:1.6;color:#aab2ae;max-width:640px">Au tap sur un médaillon&nbsp;: description, date de déblocage, partage. Sobre, centrée sur l'artwork.</p>
+
+    <div style="display:flex;gap:40px;align-items:center;flex-wrap:wrap;justify-content:center">
+      <div style="width:360px;background:linear-gradient(180deg,#121319,#0c0d10);border:1px solid #ffffff12;border-radius:26px;padding:38px 30px 28px;display:flex;flex-direction:column;align-items:center;box-shadow:0 40px 80px -30px #000">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:#b07cff;margin-bottom:22px">LÉGENDAIRE · DIAMANT</div>
+        <dc-import name="Medallion" tier="diamond" glyph="shield" state="unlocked" size="156" halo="{{ true }}" shimmer="{{ true }}" hint-size="156px,156px"></dc-import>
+        <div style="font-size:24px;font-weight:700;letter-spacing:-0.5px;margin-top:26px">Discipline de fer</div>
+        <div style="font-size:15px;color:#aab2ae;margin-top:7px;text-align:center;line-height:1.5">Trente jours de standup, sans en sauter un seul.</div>
+        <div style="width:100%;height:1px;background:#ffffff0d;margin:22px 0"></div>
+        <div style="display:flex;width:100%;justify-content:space-between;align-items:center">
+          <div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6c756f;letter-spacing:1px">DÉBLOQUÉ LE</div><div style="font-size:14px;font-weight:600;margin-top:3px">24 juin 2026</div></div>
+          <span style="display:flex;align-items:center;gap:8px;background:#1a1d22;border:1px solid #ffffff12;color:#f4f6f5;font-size:13px;font-weight:600;border-radius:12px;padding:10px 16px">⤴&nbsp;&nbsp;Partager</span>
+        </div>
+      </div>
+
+      <div style="flex:1;min-width:300px;max-width:430px;display:flex;flex-direction:column;gap:11px">
+        <div style="background:#101216;border:1px solid #ffffff0d;border-radius:14px;padding:16px 18px"><div style="font-weight:600;font-size:14px;margin-bottom:4px">L'artwork d'abord</div><div style="font-size:13px;color:#8b938f;line-height:1.5">Le médaillon en grand, halo doux. Tout le reste se range autour.</div></div>
+        <div style="background:#101216;border:1px solid #ffffff0d;border-radius:14px;padding:16px 18px"><div style="font-weight:600;font-size:14px;margin-bottom:4px">Une carte de partage</div><div style="font-size:13px;color:#8b938f;line-height:1.5">Exportable telle quelle — image carrée, fond nuit, prête pour Slack ou les réseaux.</div></div>
+        <div style="background:#101216;border:1px solid #ffffff0d;border-radius:14px;padding:16px 18px"><div style="font-weight:600;font-size:14px;margin-bottom:4px">Cohérent partout</div><div style="font-size:13px;color:#8b938f;line-height:1.5">Le même <strong style="color:#aab2ae">AchievementMedallion</strong> sert la grille, le reveal et cette fiche.</div></div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = {};
+    const pal = ['#00e08a','#36c2ff','#b07cff','#ff5b8a','#ffc53d','#7fe01f'];
+    const rnd = (a,b)=>a+Math.random()*(b-a);
+    this.confetti = Array.from({length:46}, ()=>{
+      const delay = rnd(0,0.7), sz = rnd(6,12), round = Math.random()<0.42;
+      const col = pal[(Math.random()*pal.length)|0];
+      return { style:{ position:'absolute', left:rnd(2,98)+'%', top:rnd(-30,-6)+'%',
+        width:sz+'px', height:(round?sz:sz*rnd(.5,.85))+'px',
+        borderRadius: round?'50%':'2px', background:col, boxShadow:`0 0 8px ${col}55`,
+        opacity:0, animation:`mdConf 6.5s linear ${delay.toFixed(2)}s infinite` } };
+    });
+    this.burst = Array.from({length:24}, ()=>{
+      const ang = Math.random()*Math.PI*2, dist = 70+Math.random()*185;
+      const tx = (Math.cos(ang)*dist).toFixed(1), ty = (Math.sin(ang)*dist).toFixed(1);
+      const sz = rnd(5,12), col = pal[(Math.random()*pal.length)|0];
+      const delay = rnd(0,0.12);
+      return { style:{ position:'absolute', top:'46%', left:'50%',
+        width:sz+'px', height:sz+'px', marginLeft:(-sz/2)+'px', marginTop:(-sz/2)+'px',
+        borderRadius: Math.random()<0.5?'50%':'2px', background:col, boxShadow:`0 0 10px ${col}`,
+        '--tx':tx+'px', '--ty':ty+'px', opacity:0,
+        animation:`mdPop 6.5s cubic-bezier(.15,.7,.3,1) ${delay.toFixed(2)}s infinite` } };
+    });
+    this.sparkles = Array.from({length:8}, ()=>{
+      const ang = Math.random()*Math.PI*2, dist = 78+Math.random()*125;
+      const x = (Math.cos(ang)*dist).toFixed(0), y = (Math.sin(ang)*dist*0.85).toFixed(0);
+      const sz = rnd(10,20), delay = rnd(0.5,1.9), dur = rnd(1.3,2.2);
+      return { style:{ position:'absolute', top:`calc(46% + ${y}px)`, left:`calc(50% + ${x}px)`,
+        width:sz+'px', height:sz+'px', marginLeft:(-sz/2)+'px', marginTop:(-sz/2)+'px',
+        background:'#fff', clipPath:'polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%)',
+        boxShadow:'0 0 8px #fff', opacity:0,
+        animation:`mdTwinkle ${dur.toFixed(2)}s ease-in-out ${delay.toFixed(2)}s infinite` } };
+    });
+  }
+  replay(){ document.querySelectorAll('[data-reveal]').forEach(el=>{ try{ el.getAnimations({subtree:true}).forEach(a=>{ a.currentTime=0; a.play(); }); }catch(e){} }); }
+
+  renderVals(){
+    const B = [
+      {glyph:'play',      tier:'bronze',  title:'Action !',        cond:'Terminer son 1ᵉʳ standup',           un:true,  date:'12 juin'},
+      {glyph:'check',     tier:'bronze',  title:'Pile à l’heure',  cond:'1 standup sans aucun dépassement',    un:true,  date:'12 juin'},
+      {glyph:'trio',      tier:'bronze',  title:'Au complet',      cond:'Tous les participants présents',      un:true,  date:'15 juin'},
+      {glyph:'bolt',      tier:'bronze',  title:'Vite fait',       cond:'Un standup bouclé en < 5 min',        un:true,  date:'18 juin'},
+      {glyph:'refresh',   tier:'bronze',  title:'On remet ça',     cond:'3 standups au total',                 un:true,  date:'14 juin'},
+      {glyph:'week',      tier:'silver',  title:'Semaine carrée',  cond:'5 standups dans la même semaine',     un:true,  date:'20 juin'},
+      {glyph:'flame',     tier:'silver',  title:'Petite série',    cond:'3 jours consécutifs',                 un:true,  date:'19 juin'},
+      {glyph:'sparkle',   tier:'silver',  title:'Net',             cond:'5 standups parfaits (cumulés)',       un:true,  date:'22 juin'},
+      {glyph:'table',     tier:'silver',  title:'Grande tablée',   cond:'Un standup avec 8+ participants',      un:false, cur:6, max:8},
+      {glyph:'sunrise',   tier:'silver',  title:'Lève-tôt',        cond:'Un standup terminé avant 9h',         un:false, cur:0, max:0},
+      {glyph:'pulse',     tier:'gold',    title:'Régulier',        cond:'25 standups au total',                un:true,  date:'24 juin'},
+      {glyph:'flame2',    tier:'gold',    title:'En feu',          cond:'10 jours consécutifs',                un:false, cur:4, max:10},
+      {glyph:'bullseye',  tier:'gold',    title:'Sans faute',      cond:'10 standups parfaits d’affilée',      un:false, cur:3, max:10},
+      {glyph:'metronome', tier:'gold',    title:'Métronome',       cond:'5 d’affilée sans dépassement',        un:true,  date:'25 juin'},
+      {glyph:'month',     tier:'gold',    title:'Mois assidu',     cond:'20 standups en un mois',              un:false, cur:12, max:20},
+      {glyph:'trophy',    tier:'diamond', title:'Centurion',       cond:'100 standups',                        un:false, cur:38, max:100},
+      {glyph:'clock',     tier:'diamond', title:'Horloge suisse',  cond:'1 mois entier sans dépassement',      un:false, cur:0, max:0},
+      {glyph:'shield',    tier:'diamond', title:'Discipline de fer',cond:'30 jours consécutifs',               un:false, cur:11, max:30},
+      {glyph:'gem',       tier:'diamond', title:'Perfection',      cond:'30 standups parfaits d’affilée',      un:false, cur:8, max:30},
+      {glyph:'star',      tier:'diamond', title:'Vétéran',         cond:'Actif depuis 1 an',                   un:false, cur:210, max:365},
+      {glyph:'burst',     tier:'secret',  title:'Vendredi tonique',cond:'10 standups un vendredi',             un:true,  date:'26 juin', secret:true},
+      {glyph:'moon',      tier:'secret',  title:'Couche-tard',     cond:'Un standup terminé après 18h',        un:true,  date:'17 juin', secret:true},
+      {glyph:'hourglass', tier:'secret',  title:'Marathonien',     cond:'Un standup > 30 min',                 un:false, hidden:true, secret:true},
+    ];
+
+    const groups = [
+      {tier:'bronze',  name:'Commun',     color:'#e0a877', sub:'rapides, pour accrocher', count:'5 badges', items:B.filter(b=>b.tier==='bronze')},
+      {tier:'silver',  name:'Peu commun', color:'#cdd6dd', sub:'la régularité s’installe', count:'5 badges', items:B.filter(b=>b.tier==='silver')},
+      {tier:'gold',    name:'Rare',       color:'#f0c24b', sub:'discipline confirmée',      count:'5 badges', items:B.filter(b=>b.tier==='gold')},
+      {tier:'diamond', name:'Légendaire', color:'#b07cff', sub:'exploits long terme',       count:'5 badges', items:B.filter(b=>b.tier==='diamond')},
+      {tier:'secret',  name:'Secret',     color:'#36c2ff', sub:'easter eggs, par surprise', count:'3 badges', items:B.filter(b=>b.tier==='secret')},
+    ];
+
+    const tierLegend = [
+      {tier:'bronze',  glyph:'play',     name:'Commun',     color:'#e0a877', count:'5 · BRONZE'},
+      {tier:'silver',  glyph:'sparkle',  name:'Peu commun', color:'#cdd6dd', count:'5 · ARGENT'},
+      {tier:'gold',    glyph:'bullseye', name:'Rare',       color:'#f0c24b', count:'5 · OR'},
+      {tier:'diamond', glyph:'gem',      name:'Légendaire', color:'#b07cff', count:'5 · DIAMANT'},
+      {tier:'secret',  glyph:'burst',    name:'Secret',     color:'#36c2ff', count:'3 · IRISÉ'},
+    ].map(t=>Object.assign(t,{ idea:{
+      'Commun':'Premiers pas, faciles.',
+      'Peu commun':'On y prend goût.',
+      'Rare':'Ça se mérite.',
+      'Légendaire':'Le haut du panier.',
+      'Secret':'Cachés jusqu’au déblocage.'}[t.name] }));
+
+    const statsGrid = B.map(b=>{
+      const state = b.un ? 'unlocked' : (b.hidden ? 'secret' : 'locked');
+      const progress = (b.max>0) ? (b.cur/b.max) : 0;
+      const meta = b.un ? b.date : (b.hidden ? '???' : (b.max>0 ? (b.cur+' / '+b.max) : 'verrouillé'));
+      return {
+        glyph:b.glyph, tier:b.tier, state, progress,
+        title: b.hidden ? '???' : b.title,
+        meta,
+        titleColor: b.un ? '#f4f6f5' : '#7e8884',
+        metaColor: b.un ? '#00e08a' : (b.hidden ? '#36c2ff' : '#7e8884'),
+      };
+    });
+
+    return {
+      groups, tierLegend, statsGrid,
+      confetti: this.confetti,
+      burst: this.burst,
+      sparkles: this.sparkles,
+      replay: ()=>this.replay(),
+    };
+  }
+}
+</script>
+</body>
+</html>

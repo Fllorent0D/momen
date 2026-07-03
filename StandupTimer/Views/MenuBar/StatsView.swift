@@ -1,8 +1,22 @@
 import SwiftUI
+import StandupKit
 import Charts
+
+/// The window chrome around ``StatsView``. The stats used to render inline in the
+/// menu-bar popover where the participants / history / awards tabs were unreadably
+/// cramped; hosting them in a real resizable window gives the content room.
+struct StatsWindowView: View {
+    var body: some View {
+        StatsView()
+            .padding(PulseSpacing.lg)
+            .frame(minWidth: 520, minHeight: 480, maxHeight: .infinity, alignment: .top)
+            .background(PulseColor.canvas)
+    }
+}
 
 struct StatsView: View {
     @Environment(MeetingManager.self) private var manager
+    @Environment(\.colorScheme) private var colorScheme
 
     @State private var selectedTab = 0
     @State private var showResetConfirm = false
@@ -10,7 +24,7 @@ struct StatsView: View {
     private var store: StatsStore { manager.statsStore }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: PulseSpacing.sm) {
             if store.records.isEmpty {
                 emptyState
             } else {
@@ -19,13 +33,12 @@ struct StatsView: View {
                 // Streak + MVP banner
                 gamificationBanner
 
-                Picker("", selection: $selectedTab) {
-                    Text("Participants").tag(0)
-                    Text("Historique").tag(1)
-                    Text("Tendances").tag(2)
-                    Text("Awards").tag(3)
-                }
-                .pickerStyle(.segmented)
+                PulseSegmentedControl(selection: $selectedTab, options: [
+                    (0, "Participants"),
+                    (1, "Historique"),
+                    (2, "Tendances"),
+                    (3, "Awards"),
+                ])
 
                 switch selectedTab {
                 case 0: participantsTab
@@ -36,34 +49,43 @@ struct StatsView: View {
                 }
 
                 // Export + Reset
-                HStack {
-                    Button(role: .destructive) {
-                        showResetConfirm = true
-                    } label: {
-                        Label("Réinitialiser", systemImage: "trash")
-                            .font(.caption)
-                    }
-                    .buttonStyle(.plain)
-                    .foregroundStyle(.red)
-                    .alert("Réinitialiser les statistiques ?", isPresented: $showResetConfirm) {
-                        Button("Annuler", role: .cancel) {}
-                        Button("Réinitialiser", role: .destructive) {
-                            manager.statsStore.clearAll()
+                if showResetConfirm {
+                    HStack {
+                        Text("Tout supprimer ?")
+                            .pulseText(.callout)
+                            .foregroundStyle(PulseColor.over)
+                        Spacer()
+                        Button("Annuler") {
+                            showResetConfirm = false
                         }
-                    } message: {
-                        Text("Toutes les données seront supprimées. Cette action est irréversible.")
-                    }
+                        .buttonStyle(.pulse(.secondary, accent: .inkMuted, size: .small))
 
-                    Spacer()
-
-                    Button {
-                        manager.saveCSVToFile()
-                    } label: {
-                        Label("Exporter CSV", systemImage: "square.and.arrow.up")
-                            .font(.caption)
+                        Button("Supprimer") {
+                            manager.statsStore.clearAll()
+                            showResetConfirm = false
+                        }
+                        .buttonStyle(.pulse(.destructive, size: .small))
                     }
-                    .buttonStyle(.plain)
-                    .foregroundStyle(.secondary)
+                    .padding(PulseSpacing.xs)
+                    .background(PulseColor.over.color(for: colorScheme).opacity(0.1), in: RoundedRectangle(cornerRadius: PulseRadius.control))
+                } else {
+                    HStack {
+                        Button {
+                            showResetConfirm = true
+                        } label: {
+                            Label("Réinitialiser", systemImage: "trash")
+                        }
+                        .buttonStyle(.pulse(.secondary, accent: .over, size: .small))
+
+                        Spacer()
+
+                        Button {
+                            manager.saveCSVToFile()
+                        } label: {
+                            Label("Exporter CSV", systemImage: "square.and.arrow.up")
+                        }
+                        .buttonStyle(.pulse(.secondary, accent: .inkMuted, size: .small))
+                    }
                 }
             }
         }
@@ -72,20 +94,20 @@ struct StatsView: View {
     // MARK: - Empty
 
     private var emptyState: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: PulseSpacing.xs) {
             Image(systemName: "chart.bar.doc.horizontal")
                 .font(.largeTitle)
-                .foregroundStyle(.tertiary)
+                .foregroundStyle(PulseColor.inkMuted)
             Text("Aucune donnée")
-                .font(.headline)
-                .foregroundStyle(.secondary)
+                .pulseText(.heading)
+                .foregroundStyle(PulseColor.ink)
             Text("Les statistiques apparaîtront après votre première réunion.")
-                .font(.caption)
-                .foregroundStyle(.tertiary)
+                .pulseText(.callout)
+                .foregroundStyle(PulseColor.inkMuted)
                 .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 20)
+        .padding(.vertical, PulseSpacing.lg)
     }
 
     // MARK: - Summary Cards
@@ -99,43 +121,42 @@ struct StatsView: View {
         let overtimeRate = allSpeakers.isEmpty ? 0 : Double(overtimeCount) / Double(allSpeakers.count)
         let totalTime = records.map(\.totalDuration).reduce(0, +)
 
-        return HStack(spacing: 12) {
+        return HStack(spacing: PulseSpacing.sm) {
             statCard(value: "\(totalMeetings)", label: "réunions", icon: "calendar")
             statCard(value: TimeFormatter.format(avgDuration), label: "moy./réunion", icon: "clock")
             statCard(value: "\(Int(overtimeRate * 100))%", label: "dépassements", icon: "exclamationmark.triangle",
-                     color: overtimeRate > 0.3 ? .red : overtimeRate > 0.1 ? .orange : .green)
+                     color: overtimeRate > 0.3 ? .over : overtimeRate > 0.1 ? .warn : .signal)
             statCard(value: formatTotalTime(totalTime), label: "temps total", icon: "hourglass")
         }
     }
 
-    private func statCard(value: String, label: String, icon: String, color: Color = .primary) -> some View {
-        VStack(spacing: 4) {
+    private func statCard(value: String, label: String, icon: String, color: PulseColor = .ink) -> some View {
+        VStack(spacing: PulseSpacing.xxs) {
             Image(systemName: icon)
                 .font(.caption)
                 .foregroundStyle(color)
             Text(value)
-                .font(.system(.subheadline, design: .monospaced, weight: .bold))
+                .pulseText(.mono)
                 .foregroundStyle(color)
             Text(label)
-                .font(.system(size: 9))
-                .foregroundStyle(.secondary)
+                .pulseText(.label)
+                .foregroundStyle(PulseColor.inkMuted)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 8)
-        .background(.quaternary, in: RoundedRectangle(cornerRadius: 8))
+        .pulseRow()
     }
 
     // MARK: - Participants Tab
 
     private var participantsTab: some View {
         ScrollView {
-            VStack(spacing: 8) {
+            VStack(spacing: PulseSpacing.xs) {
                 ForEach(rankedParticipants, id: \.name) { p in
                     participantRow(p)
                 }
             }
         }
-        .frame(maxHeight: 250)
+        .frame(maxHeight: .infinity)
     }
 
     private struct ParticipantStat {
@@ -159,30 +180,37 @@ struct StatsView: View {
     }
 
     private func participantRow(_ p: ParticipantStat) -> some View {
-        VStack(spacing: 6) {
+        VStack(spacing: PulseSpacing.xs) {
             HStack {
                 // Rank badge
                 let rank = (rankedParticipants.firstIndex(where: { $0.name == p.name }) ?? 0) + 1
                 Text("\(rank)")
                     .font(.caption2.bold())
-                    .foregroundStyle(.white)
+                    .foregroundStyle(PulseColor.canvas.color(for: colorScheme))
                     .frame(width: 20, height: 20)
-                    .background(rank <= 3 ? Color.orange : Color.gray, in: Circle())
+                    .background(rank <= 3 ? PulseColor.warn : PulseColor.inkMuted, in: Circle())
+
+                // Per-person identity accent (keyed by name — stats hold no UUID).
+                Circle()
+                    .fill(PulseAccent.color(forName: p.name))
+                    .frame(width: 8, height: 8)
 
                 Text(p.name)
-                    .font(.subheadline.weight(.medium))
+                    .pulseText(.callout)
+                    .foregroundStyle(PulseColor.ink)
 
                 Spacer()
 
                 Text("\(p.totalSessions)x")
-                    .font(.caption)
-                    .foregroundStyle(.tertiary)
+                    .pulseText(.label)
+                    .foregroundStyle(PulseColor.inkMuted)
 
                 Text(TimeFormatter.format(p.avgTime))
-                    .font(.system(.subheadline, design: .monospaced, weight: .semibold))
+                    .pulseText(.mono)
+                    .foregroundStyle(PulseColor.ink)
 
                 // Overtime badge
-                overtimeBadge(rate: p.overtimeRate)
+                PulseStatusPill("\(Int(p.overtimeRate * 100))%", tone: tone(for: p.overtimeRate), filled: true)
             }
 
             // Time bar
@@ -198,63 +226,53 @@ struct StatsView: View {
             }
             .frame(height: 6)
         }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 8)
-        .background(.quaternary, in: RoundedRectangle(cornerRadius: 8))
+        .pulseRow()
     }
 
-    private func overtimeBadge(rate: Double) -> some View {
-        let pct = Int(rate * 100)
-        return Text("\(pct)%")
-            .font(.caption2.bold())
-            .foregroundStyle(.white)
-            .padding(.horizontal, 6)
-            .padding(.vertical, 2)
-            .background(barColor(for: rate), in: Capsule())
+    private func barColor(for rate: Double) -> PulseColor {
+        rate > 0.5 ? .over : rate > 0.2 ? .warn : .signal
     }
 
-    private func barColor(for rate: Double) -> Color {
-        rate > 0.5 ? .red : rate > 0.2 ? .orange : .green
+    private func tone(for rate: Double) -> PulseTone {
+        rate > 0.5 ? .over : rate > 0.2 ? .warn : .signal
     }
 
     // MARK: - History Tab
 
     private var historyTab: some View {
         ScrollView {
-            VStack(spacing: 6) {
+            VStack(spacing: PulseSpacing.xs) {
                 ForEach(store.records.reversed()) { record in
                     meetingRow(record)
                 }
             }
         }
-        .frame(maxHeight: 250)
+        .frame(maxHeight: .infinity)
     }
 
     private func meetingRow(_ record: MeetingRecord) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: PulseSpacing.xxs) {
             HStack {
                 Text(record.date, style: .date)
-                    .font(.caption.weight(.medium))
+                    .pulseText(.callout)
+                    .foregroundStyle(PulseColor.ink)
                 Text(record.date, style: .time)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .pulseText(.label)
+                    .foregroundStyle(PulseColor.inkMuted)
 
                 if let preset = record.presetName {
-                    Text(preset)
-                        .font(.caption2)
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(.blue.opacity(0.15), in: Capsule())
+                    PulseStatusPill(preset, tone: .neutral)
                 }
 
                 Spacer()
 
                 Text(TimeFormatter.format(record.totalDuration))
-                    .font(.system(.caption, design: .monospaced, weight: .semibold))
+                    .pulseText(.mono)
+                    .foregroundStyle(PulseColor.ink)
             }
 
             // Speaker pills
-            HStack(spacing: 4) {
+            HStack(spacing: PulseSpacing.xxs) {
                 ForEach(record.speakers) { speaker in
                     HStack(spacing: 3) {
                         Text(String(speaker.participantName.prefix(8)))
@@ -262,36 +280,35 @@ struct StatsView: View {
                         Text(TimeFormatter.format(speaker.actualTime))
                             .font(.system(size: 9, design: .monospaced))
                     }
+                    .foregroundStyle((speaker.wasOvertime ? PulseColor.over : PulseColor.signal))
                     .padding(.horizontal, 5)
                     .padding(.vertical, 2)
                     .background(
-                        speaker.wasOvertime ? Color.red.opacity(0.15) : Color.green.opacity(0.15),
+                        (speaker.wasOvertime ? PulseColor.over : PulseColor.signal).color(for: colorScheme).opacity(0.15),
                         in: Capsule()
                     )
                 }
             }
         }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 8)
-        .background(.quaternary, in: RoundedRectangle(cornerRadius: 8))
+        .pulseRow()
     }
 
     // MARK: - Trends Tab
 
     private var trendsTab: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: PulseSpacing.sm) {
             if store.records.count >= 2 {
                 // Meeting duration trend
                 Text("Durée des réunions")
-                    .font(.caption.bold())
-                    .foregroundStyle(.secondary)
+                    .pulseText(.label)
+                    .foregroundStyle(PulseColor.inkMuted)
 
                 Chart(store.records.suffix(20)) { record in
                     BarMark(
                         x: .value("Date", record.date, unit: .day),
                         y: .value("Durée", record.totalDuration / 60)
                     )
-                    .foregroundStyle(.green.gradient)
+                    .foregroundStyle(PulseColor.signal.color(for: colorScheme).gradient)
                     .cornerRadius(3)
                 }
                 .chartYAxisLabel("minutes")
@@ -299,32 +316,32 @@ struct StatsView: View {
 
                 // Overtime trend
                 Text("Taux de dépassement")
-                    .font(.caption.bold())
-                    .foregroundStyle(.secondary)
+                    .pulseText(.label)
+                    .foregroundStyle(PulseColor.inkMuted)
 
                 Chart(overtimeTrendData.suffix(20)) { point in
                     LineMark(
                         x: .value("Date", point.date, unit: .day),
                         y: .value("Taux", point.rate * 100)
                     )
-                    .foregroundStyle(.orange)
+                    .foregroundStyle(PulseColor.warn)
                     .interpolationMethod(.catmullRom)
 
                     AreaMark(
                         x: .value("Date", point.date, unit: .day),
                         y: .value("Taux", point.rate * 100)
                     )
-                    .foregroundStyle(.orange.opacity(0.1))
+                    .foregroundStyle(PulseColor.warn.color(for: colorScheme).opacity(0.1))
                     .interpolationMethod(.catmullRom)
                 }
                 .chartYAxisLabel("%")
                 .frame(height: 120)
             } else {
                 Text("Il faut au moins 2 réunions pour voir les tendances.")
-                    .font(.caption)
-                    .foregroundStyle(.tertiary)
+                    .pulseText(.callout)
+                    .foregroundStyle(PulseColor.inkMuted)
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 20)
+                    .padding(.vertical, PulseSpacing.lg)
             }
         }
     }
@@ -347,67 +364,115 @@ struct StatsView: View {
 
     private var gamificationBanner: some View {
         let gam = manager.gamification
-        return HStack(spacing: 12) {
+        return HStack(spacing: PulseSpacing.sm) {
             // Streak
-            HStack(spacing: 4) {
+            HStack(spacing: PulseSpacing.xxs) {
                 Image(systemName: "flame.fill")
-                    .foregroundStyle(gam.currentStreak >= 3 ? .orange : .secondary)
+                    .foregroundStyle(gam.currentStreak >= 3 ? PulseColor.warn : PulseColor.inkMuted)
                 Text("\(gam.currentStreak)j")
-                    .font(.subheadline.bold())
+                    .pulseText(.mono)
+                    .foregroundStyle(PulseColor.ink)
             }
             .help("Streak : \(gam.currentStreak) jours consécutifs (record : \(gam.longestStreak))")
 
-            Divider().frame(height: 16)
+            Rectangle()
+                .fill(PulseColor.inkMuted.color(for: colorScheme).opacity(0.3))
+                .frame(width: 1, height: 16)
 
-            // MVP
-            if let mvp = gam.weeklyMVP {
-                HStack(spacing: 4) {
-                    Image(systemName: "crown.fill").foregroundStyle(.yellow)
-                    Text(mvp.name).font(.subheadline.bold())
-                    Text(TimeFormatter.format(mvp.avgTime))
-                        .font(.system(.caption, design: .monospaced))
-                        .foregroundStyle(.secondary)
-                }
-                .help("MVP de la semaine — le plus rapide")
+            // Badges unlocked
+            HStack(spacing: PulseSpacing.xxs) {
+                Image(systemName: "rosette").foregroundStyle(PulseColor.warn)
+                Text("\(manager.badgeStore.unlockedCount)/\(manager.badgeStore.totalCount)")
+                    .pulseText(.mono)
+                    .foregroundStyle(PulseColor.ink)
             }
+            .help("Badges débloqués")
 
             Spacer()
         }
-        .padding(.horizontal, 10).padding(.vertical, 6)
-        .background(.quaternary, in: RoundedRectangle(cornerRadius: 8))
+        .pulseRow()
     }
 
-    // MARK: - Awards Tab
+    // MARK: - Badges Tab
 
+    /// The full badge collection (issue #43): every catalogue badge as an
+    /// `AchievementMedallion` in a tiered grid — unlocked in full colour with its
+    /// unlock date, locked non-secrets desaturated with "X/N" progress, locked
+    /// secrets reduced to "???". A counter header shows global completion.
     private var awardsTab: some View {
-        ScrollView {
-            VStack(spacing: 8) {
-                let awards = manager.gamification.awards
-                if awards.isEmpty {
-                    Text("Pas encore de trophées. Continuez les standups !")
-                        .font(.caption).foregroundStyle(.tertiary)
-                        .padding(.vertical, 20)
-                } else {
-                    ForEach(awards) { award in
-                        HStack(spacing: 10) {
-                            Image(systemName: award.icon)
-                                .font(.title3)
-                                .foregroundStyle(.yellow)
-                                .frame(width: 30)
+        let badgeStore = manager.badgeStore
+        // One stats snapshot feeds every progress caption.
+        let stats = BadgeStats(records: store.records)
+        return ScrollView {
+            VStack(alignment: .leading, spacing: PulseSpacing.sm) {
+                // Global completion counter.
+                HStack(spacing: PulseSpacing.xxs) {
+                    Image(systemName: "rosette")
+                        .foregroundStyle(PulseColor.warn)
+                    Text("\(badgeStore.unlockedCount) / \(badgeStore.totalCount) badges")
+                        .pulseText(.mono)
+                        .foregroundStyle(PulseColor.ink)
+                    Spacer()
+                }
+                .pulseRow()
 
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(award.title).font(.subheadline.bold())
-                                Text(award.description).font(.caption).foregroundStyle(.secondary)
-                            }
-                            Spacer()
-                        }
-                        .padding(.horizontal, 10).padding(.vertical, 8)
-                        .background(.quaternary, in: RoundedRectangle(cornerRadius: 8))
+                LazyVGrid(
+                    columns: [GridItem(.adaptive(minimum: 76), spacing: PulseSpacing.sm)],
+                    spacing: PulseSpacing.md
+                ) {
+                    ForEach(orderedBadges) { badge in
+                        badgeCell(badge, store: badgeStore, stats: stats)
                     }
                 }
             }
         }
-        .frame(maxHeight: 250)
+        .frame(maxHeight: .infinity)
+    }
+
+    /// Catalogue ordered common → legendary with secrets last (stable within tier).
+    private var orderedBadges: [Badge] {
+        BadgeCatalog.all.enumerated()
+            .sorted {
+                $0.element.tier.order != $1.element.tier.order
+                    ? $0.element.tier.order < $1.element.tier.order
+                    : $0.offset < $1.offset
+            }
+            .map(\.element)
+    }
+
+    private func badgeCell(_ badge: Badge, store badgeStore: BadgeStore, stats: BadgeStats) -> some View {
+        let unlocked = badgeStore.isUnlocked(badge.id)
+        return VStack(spacing: PulseSpacing.xxs) {
+            AchievementMedallion(badge: badge, unlocked: unlocked, size: 64, progress: badge.progress(stats))
+
+            if unlocked {
+                Text(badge.title)
+                    .pulseText(.callout)
+                    .foregroundStyle(PulseColor.ink)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                if let date = badgeStore.unlockDate(badge.id) {
+                    Text(date, style: .date)
+                        .pulseText(.label)
+                        .foregroundStyle(PulseColor.inkMuted)
+                }
+            } else if badge.isSecret {
+                Text("???")
+                    .pulseText(.callout)
+                    .foregroundStyle(PulseColor.inkMuted)
+            } else {
+                Text(badge.title)
+                    .pulseText(.callout)
+                    .foregroundStyle(PulseColor.inkMuted)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                Text("\(min(badge.currentValue(stats), badge.target))/\(badge.target)")
+                    .pulseText(.label)
+                    .foregroundStyle(PulseColor.inkMuted)
+            }
+        }
+        .multilineTextAlignment(.center)
+        .frame(maxWidth: .infinity)
     }
 
     // MARK: - Helpers

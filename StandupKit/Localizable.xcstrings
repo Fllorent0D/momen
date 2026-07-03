@@ -1,0 +1,1202 @@
+{
+  "sourceLanguage" : "fr",
+  "strings" : {
+    "2 jours d'affilée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 days in a row"
+          }
+        }
+      }
+    },
+    "3 standups au compteur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 standups done"
+          }
+        }
+      }
+    },
+    "5 jours consécutifs" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5 consecutive days"
+          }
+        }
+      }
+    },
+    "5 standups parfaits d'affilée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5 perfect standups in a row"
+          }
+        }
+      }
+    },
+    "5 standups sans dépassement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5 standups with no overtime"
+          }
+        }
+      }
+    },
+    "10 h de temps de parole cumulé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10 h of cumulative speaking time"
+          }
+        }
+      }
+    },
+    "10 intervenants différents" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10 different speakers"
+          }
+        }
+      }
+    },
+    "10 jours consécutifs" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10 consecutive days"
+          }
+        }
+      }
+    },
+    "10 standups au compteur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10 standups done"
+          }
+        }
+      }
+    },
+    "15 standups parfaits d'affilée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "15 perfect standups in a row"
+          }
+        }
+      }
+    },
+    "20 standups sans dépassement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "20 standups with no overtime"
+          }
+        }
+      }
+    },
+    "30 jours consécutifs" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 consecutive days"
+          }
+        }
+      }
+    },
+    "50 standups au compteur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50 standups done"
+          }
+        }
+      }
+    },
+    "50 standups sans dépassement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50 standups with no overtime"
+          }
+        }
+      }
+    },
+    "100 standups au compteur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "100 standups done"
+          }
+        }
+      }
+    },
+    "Accedez a l'historique complet, aux tendances et a l'export CSV." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Access full history, trends, and CSV export."
+          }
+        }
+      }
+    },
+    "Badge débloqué !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Badge unlocked!"
+          }
+        }
+      }
+    },
+    "Badge secret verrouillé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secret badge locked"
+          }
+        }
+      }
+    },
+    "Bas centre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bottom center"
+          }
+        }
+      }
+    },
+    "Bas droite" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bottom right"
+          }
+        }
+      }
+    },
+    "Bas gauche" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bottom left"
+          }
+        }
+      }
+    },
+    "Brasseur d'équipe" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Team mixer"
+          }
+        }
+      }
+    },
+    "C'est l'heure du standup !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It's standup time!"
+          }
+        }
+      }
+    },
+    "Ce qui se mesure s'améliore. — Peter Drucker" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What gets measured gets improved. — Peter Drucker"
+          }
+        }
+      }
+    },
+    "Chaque minute compte — utilisez-les avec intention." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every minute counts — use them with intention."
+          }
+        }
+      }
+    },
+    "Commencez là où vous êtes. Utilisez ce que vous avez. Faites ce que vous pouvez. — Arthur Ashe" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start where you are. Use what you have. Do what you can. — Arthur Ashe"
+          }
+        }
+      }
+    },
+    "Commun" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Common"
+          }
+        }
+      }
+    },
+    "Concentrez-vous sur l'essentiel et éliminez le superflu." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Focus on the essential and eliminate the superfluous."
+          }
+        }
+      }
+    },
+    "Couche-tard" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Night owl"
+          }
+        }
+      }
+    },
+    "débloqué" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "unlocked"
+          }
+        }
+      }
+    },
+    "Debloquer Pro definitivement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock Pro permanently"
+          }
+        }
+      }
+    },
+    "Debloquer Pro definitivement - %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock Pro permanently - %@"
+          }
+        }
+      }
+    },
+    "Debloquez les participants illimites, la personnalisation complete et les statistiques avancees." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock unlimited participants, full customization, and advanced statistics."
+          }
+        }
+      }
+    },
+    "Debloquez les themes, la position de l'overlay et les effets visuels." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock themes, overlay position, and visual effects."
+          }
+        }
+      }
+    },
+    "Durée totale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total duration"
+          }
+        }
+      }
+    },
+    "En équipe" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As a team"
+          }
+        }
+      }
+    },
+    "En rythme" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In rhythm"
+          }
+        }
+      }
+    },
+    "Ensemble, nous sommes plus forts que la somme de nos parties." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Together, we are stronger than the sum of our parts."
+          }
+        }
+      }
+    },
+    "Fait est mieux que parfait." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done is better than perfect."
+          }
+        }
+      }
+    },
+    "Grande tablée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Big table"
+          }
+        }
+      }
+    },
+    "Guerrier du week-end" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekend warrior"
+          }
+        }
+      }
+    },
+    "Habitué" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regular"
+          }
+        }
+      }
+    },
+    "Haut centre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Top center"
+          }
+        }
+      }
+    },
+    "Haut droite" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Top right"
+          }
+        }
+      }
+    },
+    "Haut gauche" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Top left"
+          }
+        }
+      }
+    },
+    "Horloger suisse" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swiss watchmaker"
+          }
+        }
+      }
+    },
+    "Il n'y a pas de vent favorable pour celui qui ne sait pas où il va. — Sénèque" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is no favorable wind for the sailor who does not know where to go. — Seneca"
+          }
+        }
+      }
+    },
+    "Impossible de charger l'achat integre pour le moment." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to load the in-app purchase right now."
+          }
+        }
+      }
+    },
+    "Increvable" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unstoppable"
+          }
+        }
+      }
+    },
+    "Investi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invested"
+          }
+        }
+      }
+    },
+    "Jamais" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Never"
+          }
+        }
+      }
+    },
+    "L'achat est en attente de confirmation." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The purchase is awaiting confirmation."
+          }
+        }
+      }
+    },
+    "L'excellence n'est pas un acte, c'est une habitude. — Aristote" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Excellence is not an act but a habit. — Aristotle"
+          }
+        }
+      }
+    },
+    "L'union fait la force." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unity is strength."
+          }
+        }
+      }
+    },
+    "La brièveté est l'âme de l'esprit. — Shakespeare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brevity is the soul of wit. — Shakespeare"
+          }
+        }
+      }
+    },
+    "La clé du succès : savoir prioriser." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The key to success: knowing how to prioritize."
+          }
+        }
+      }
+    },
+    "La communication est la clé de toute collaboration réussie." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Communication is the key to any successful collaboration."
+          }
+        }
+      }
+    },
+    "La créativité, c'est l'intelligence qui s'amuse. — Einstein" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Creativity is intelligence having fun. — Einstein"
+          }
+        }
+      }
+    },
+    "La discipline est le pont entre les objectifs et leur réalisation. — Jim Rohn" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discipline is the bridge between goals and accomplishment. — Jim Rohn"
+          }
+        }
+      }
+    },
+    "La meilleure façon de prédire l'avenir, c'est de le créer. — Peter Drucker" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The best way to predict the future is to create it. — Peter Drucker"
+          }
+        }
+      }
+    },
+    "La personnalisation est reservee a Pro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Customization is reserved for Pro"
+          }
+        }
+      }
+    },
+    "La productivité, ce n'est pas faire plus, c'est faire mieux." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Productivity isn't doing more, it's doing better."
+          }
+        }
+      }
+    },
+    "La simplicité est la sophistication suprême. — Léonard de Vinci" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simplicity is the ultimate sophistication. — Leonardo da Vinci"
+          }
+        }
+      }
+    },
+    "La transaction n'a pas pu etre verifiee." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The transaction could not be verified."
+          }
+        }
+      }
+    },
+    "La version gratuite couvre jusqu'a 4 participants. Pro debloque les equipes completes." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The free version covers up to 4 participants. Pro unlocks full teams."
+          }
+        }
+      }
+    },
+    "Le progrès, pas la perfection." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Progress, not perfection."
+          }
+        }
+      }
+    },
+    "Le resultat de l'achat est inconnu." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The purchase result is unknown."
+          }
+        }
+      }
+    },
+    "Le secret du changement : concentrer son énergie pour créer du nouveau." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The secret of change: focus your energy on creating the new."
+          }
+        }
+      }
+    },
+    "Le succès est la somme de petits efforts répétés jour après jour. — Robert Collier" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Success is the sum of small efforts repeated day after day. — Robert Collier"
+          }
+        }
+      }
+    },
+    "Le talent gagne des matchs, mais le travail d'équipe gagne des championnats. — Jordan" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Talent wins games, but teamwork wins championships. — Jordan"
+          }
+        }
+      }
+    },
+    "Le temps est la ressource la plus précieuse — investissez-le judicieusement." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time is the most precious resource — invest it wisely."
+          }
+        }
+      }
+    },
+    "Légendaire" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Legendary"
+          }
+        }
+      }
+    },
+    "Légende du standup" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standup legend"
+          }
+        }
+      }
+    },
+    "Les meilleures réunions sont celles qui finissent à l'heure." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The best meetings are the ones that end on time."
+          }
+        }
+      }
+    },
+    "Les statistiques sont reservees a Pro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistics are reserved for Pro"
+          }
+        }
+      }
+    },
+    "Lève-tôt" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Early bird"
+          }
+        }
+      }
+    },
+    "Maître du temps" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time master"
+          }
+        }
+      }
+    },
+    "Marathonien" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marathoner"
+          }
+        }
+      }
+    },
+    "Mise en route" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Getting started"
+          }
+        }
+      }
+    },
+    "Moins de réunions, plus d'actions." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fewer meetings, more action."
+          }
+        }
+      }
+    },
+    "Ne remettez jamais à demain ce que vous pouvez faire aujourd'hui. — Benjamin Franklin" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Never put off until tomorrow what you can do today. — Benjamin Franklin"
+          }
+        }
+      }
+    },
+    "Neutre" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neutral"
+          }
+        }
+      }
+    },
+    "Optionnel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Optional"
+          }
+        }
+      }
+    },
+    "Par intervenant" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per speaker"
+          }
+        }
+      }
+    },
+    "Passez a Pro pour les equipes de 5+" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upgrade to Pro for teams of 5+"
+          }
+        }
+      }
+    },
+    "Passez a Momen Pro" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upgrade to Momen Pro"
+          }
+        }
+      }
+    },
+    "Perfection absolue" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Absolute perfection"
+          }
+        }
+      }
+    },
+    "Peu commun" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uncommon"
+          }
+        }
+      }
+    },
+    "Pile à l'heure" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Right on time"
+          }
+        }
+      }
+    },
+    "Pilier" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pillar"
+          }
+        }
+      }
+    },
+    "Premier pas" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First step"
+          }
+        }
+      }
+    },
+    "Primaire" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Primary"
+          }
+        }
+      }
+    },
+    "Rangée" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Row"
+          }
+        }
+      }
+    },
+    "Rare" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rare"
+          }
+        }
+      }
+    },
+    "Régularité" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consistency"
+          }
+        }
+      }
+    },
+    "Réunion éclair" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lightning meeting"
+          }
+        }
+      }
+    },
+    "Sans accroc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without a hitch"
+          }
+        }
+      }
+    },
+    "Secondaire" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secondary"
+          }
+        }
+      }
+    },
+    "Secret" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secret"
+          }
+        }
+      }
+    },
+    "Semaine pleine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full week"
+          }
+        }
+      }
+    },
+    "Seul on va plus vite, ensemble on va plus loin." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alone we go faster, together we go further."
+          }
+        }
+      }
+    },
+    "Seuls ceux qui prennent le risque d'échouer spectaculairement réussiront brillamment. — JFK" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only those who dare to fail greatly can ever achieve greatly. — JFK"
+          }
+        }
+      }
+    },
+    "Sons" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sounds"
+          }
+        }
+      }
+    },
+    "Suppr." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "Ton tout premier standup" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your very first standup"
+          }
+        }
+      }
+    },
+    "Touchez pour continuer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap to continue"
+          }
+        }
+      }
+    },
+    "Touchez pour le suivant" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap for the next one"
+          }
+        }
+      }
+    },
+    "Toujours" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Always"
+          }
+        }
+      }
+    },
+    "Un bon standup, c'est 15 minutes qui en sauvent 8 heures." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A good standup is 15 minutes that save 8 hours."
+          }
+        }
+      }
+    },
+    "Un objectif sans plan n'est qu'un souhait. — Antoine de Saint-Exupéry" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A goal without a plan is just a wish. — Antoine de Saint-Exupéry"
+          }
+        }
+      }
+    },
+    "Un petit pas chaque jour mène à de grands résultats." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A small step each day leads to big results."
+          }
+        }
+      }
+    },
+    "Un standup à 3 ou plus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A standup with 3 or more"
+          }
+        }
+      }
+    },
+    "Un standup à 6 ou plus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A standup with 6 or more"
+          }
+        }
+      }
+    },
+    "Un standup à 20 h ou plus tard" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A standup at 8 p.m. or later"
+          }
+        }
+      }
+    },
+    "Un standup avant 7 h" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A standup before 7 a.m."
+          }
+        }
+      }
+    },
+    "Un standup bouclé en moins de 3 min" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A standup wrapped in under 3 min"
+          }
+        }
+      }
+    },
+    "Un standup le week-end" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A standup on the weekend"
+          }
+        }
+      }
+    },
+    "Un standup sans dépassement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A standup with no overtime"
+          }
+        }
+      }
+    },
+    "verrouillé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "locked"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

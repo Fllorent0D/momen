@@ -1,0 +1,217 @@
+<!doctype html>
+<!--
+  PAGE DE SUPPORT — Standup Timer
+  Page requise pour la soumission App Store (« Support URL »).
+  IMPORTANT : avant soumission App Store, cette page doit être déployée à une
+  URL publique réelle et stable (ex. https://standuptimer.<domaine>/support.html)
+  et renseignée dans App Store Connect comme Support URL.
+-->
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Support | Standup Timer</title>
+    <meta
+      name="description"
+      content="Support de Standup Timer : comment obtenir de l'aide, FAQ sur le timing des standups, le Pro, la restauration d'achat, la synchro iCloud et l'emplacement de vos données."
+    />
+    <meta name="theme-color" content="#09111f" />
+    <meta name="robots" content="index,follow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      .legal {
+        width: min(calc(100% - 32px), 820px);
+        margin: 0 auto;
+        padding: 48px 0 64px;
+      }
+      .legal h1 {
+        font-family: "Sora", sans-serif;
+        font-size: clamp(2rem, 5vw, 3rem);
+        line-height: 1.05;
+        margin: 0 0 12px;
+      }
+      .legal .lead {
+        line-height: 1.75;
+        opacity: 0.92;
+        margin: 0 0 8px;
+        max-width: 60ch;
+      }
+      .legal a {
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .support-contact {
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 18px;
+        padding: 24px 26px;
+        margin: 28px 0 8px;
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .support-contact strong {
+        font-family: "Sora", sans-serif;
+        font-size: 1.15rem;
+      }
+      .legal-back {
+        display: inline-flex;
+        gap: 8px;
+        margin-bottom: 28px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="ambient ambient-one"></div>
+      <div class="ambient ambient-two"></div>
+      <div class="ambient ambient-grid"></div>
+
+      <header class="site-header">
+        <a class="brand" href="./index.html" aria-label="Standup Timer">
+          <span class="brand-mark">S</span>
+          <span class="brand-copy">
+            <strong>Standup Timer</strong>
+            <span>macOS + iOS</span>
+          </span>
+        </a>
+
+        <nav class="site-nav">
+          <a href="./index.html">Produit</a>
+          <a href="./support.html" aria-current="page">Support</a>
+          <a href="./privacy.html">Confidentialité</a>
+        </nav>
+
+        <a class="button button-secondary desktop-only" href="mailto:florent@floca.be">Écrire au support</a>
+      </header>
+
+      <main>
+        <article class="legal">
+          <a class="button button-ghost legal-back" href="./index.html">← Retour à l'accueil</a>
+
+          <h1>Support</h1>
+          <p class="lead">
+            Une question, un bug, une idée&nbsp;? On répond. Standup Timer est
+            développé par un indépendant&nbsp;: votre message arrive directement
+            à la bonne personne.
+          </p>
+
+          <div class="support-contact">
+            <p class="mini-label">Nous contacter</p>
+            <strong><a href="mailto:florent@floca.be">florent@floca.be</a></strong>
+            <p class="lead" style="margin-top: 10px;">
+              Pour accélérer le traitement, précisez si possible&nbsp;: la
+              plateforme (macOS ou iOS), la version de l'app, et une description
+              de ce que vous attendiez vs. ce qui s'est passé.
+            </p>
+          </div>
+        </article>
+
+        <section class="section faq-section reveal" id="faq">
+          <div class="section-heading narrow">
+            <span class="section-kicker">FAQ</span>
+            <h2>Les réponses aux questions les plus fréquentes.</h2>
+          </div>
+
+          <div class="faq-grid">
+            <article class="faq-card">
+              <h3>Comment fonctionne le timing du standup&nbsp;?</h3>
+              <p>
+                Vous définissez une durée globale et la liste des intervenants.
+                Au lancement, l'app décompte le temps et affiche le Signal —
+                l'anneau passe du vert au rouge et le bandeau se vide. Vous
+                passez d'un intervenant au suivant d'un geste&nbsp;; le temps de
+                chacun est mesuré et conservé pour les statistiques.
+              </p>
+            </article>
+
+            <article class="faq-card">
+              <h3>Sur quelles plateformes&nbsp;?</h3>
+              <p>
+                Deux apps&nbsp;: une app menu-bar sur macOS (idéale en visio
+                Zoom / Meet / Teams) et une app iOS autonome pour iPhone et iPad,
+                qui fonctionne seule, sans le Mac — parfaite posée sur la table
+                en présentiel.
+              </p>
+            </article>
+
+            <article class="faq-card">
+              <h3>Que débloque la version Pro&nbsp;?</h3>
+              <p>
+                Le Pro est un <strong>achat unique</strong> qui débloque les
+                participants illimités, les statistiques avancées et l'export
+                CSV, la personnalisation et les badges, ainsi que la synchro
+                iCloud. Un seul achat débloque Mac et iOS, suivi par votre
+                identifiant Apple.
+              </p>
+            </article>
+
+            <article class="faq-card">
+              <h3>Comment restaurer mon achat&nbsp;?</h3>
+              <p>
+                Sur un nouvel appareil ou après réinstallation, ouvrez l'écran
+                Pro de l'app et touchez <strong>« Restaurer les achats »</strong>.
+                Assurez-vous d'être connecté avec l'identifiant Apple ayant servi
+                à l'achat. La restauration est gratuite et instantanée.
+              </p>
+            </article>
+
+            <article class="faq-card">
+              <h3>Comment marche la synchro iCloud&nbsp;?</h3>
+              <p>
+                La synchronisation iCloud de vos presets et statistiques entre
+                Mac et iOS est une fonctionnalité Pro optionnelle. Elle utilise
+                <strong>votre propre compte iCloud</strong>&nbsp;: activez iCloud
+                pour Standup Timer dans les réglages de l'appareil. En Free, ou
+                si vous ne l'activez pas, tout reste en local.
+              </p>
+            </article>
+
+            <article class="faq-card">
+              <h3>Où sont stockées mes données&nbsp;?</h3>
+              <p>
+                Tout est <strong>local sur votre appareil</strong> (réglages,
+                stats par intervenant, badges). Aucune donnée personnelle n'est
+                collectée, aucun compte requis. Pour tout supprimer&nbsp;:
+                réinitialisez les stats dans l'app ou désinstallez-la. Voir la
+                <a href="./privacy.html">politique de confidentialité</a>.
+              </p>
+            </article>
+
+            <article class="faq-card">
+              <h3>J'ai trouvé un bug ou j'ai une suggestion.</h3>
+              <p>
+                Excellent — écrivez à
+                <a href="mailto:florent@floca.be">florent@floca.be</a>. Les
+                retours utilisateurs orientent directement la feuille de route.
+              </p>
+            </article>
+
+            <article class="faq-card">
+              <h3>Confidentialité et RGPD&nbsp;?</h3>
+              <p>
+                Standup Timer ne collecte aucune donnée personnelle et n'utilise
+                ni tracking ni analytics. Détails dans la
+                <a href="./privacy.html">politique de confidentialité</a>.
+              </p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer" style="width: min(calc(100% - 32px), 1240px); margin: 0 auto; padding: 32px 0 48px; opacity: 0.7; font-size: 0.9rem; display: flex; gap: 18px; flex-wrap: wrap; justify-content: space-between;">
+        <span>© 2026 Standup Timer — Florent Cardoen</span>
+        <span>
+          <a href="./index.html" style="color: inherit;">Accueil</a> ·
+          <a href="./support.html" style="color: inherit;">Support</a> ·
+          <a href="./privacy.html" style="color: inherit;">Confidentialité</a>
+        </span>
+      </footer>
+    </div>
+  </body>
+</html>

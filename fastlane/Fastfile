@@ -1,0 +1,128 @@
+# Fastfile — Momen (Standup Timer) · Mac + iOS
+# Achat universel : même bundle id, un seul record App Store Connect.
+#
+# Auth : App Store Connect API key (recommandé). Renseigne dans .env (non commité) :
+#   ASC_KEY_ID, ASC_ISSUER_ID, ASC_KEY_PATH (chemin du .p8)
+# Puis : bundle exec fastlane ios beta   /   fastlane mac release   etc.
+
+opt_out_usage
+default_platform(:ios)
+
+APP_ID   = "be.floca.standup-timer"
+PROJECT  = "StandupTimer.xcodeproj"
+
+# --- Helpers -----------------------------------------------------------------
+
+def asc_api_key
+  app_store_connect_api_key(
+    key_id:       ENV.fetch("ASC_KEY_ID"),
+    issuer_id:    ENV.fetch("ASC_ISSUER_ID"),
+    key_filepath: ENV.fetch("ASC_KEY_PATH", "fastlane/AuthKey.p8"),
+  )
+end
+
+# Régénère le .xcodeproj depuis project.yml (il est gitignored).
+def regen_project
+  Dir.chdir("..") { sh("xcodegen", "generate") }
+end
+
+# Prochain build number = dernier TestFlight + 1 (partagé Mac/iOS car même bundle id).
+def next_build_number(api_key)
+  last = latest_testflight_build_number(
+    api_key: api_key, app_identifier: APP_ID, initial_build_number: 0
+  )
+  last.to_i + 1
+end
+
+# --- iOS ---------------------------------------------------------------------
+
+platform :ios do
+  desc "Build iOS App Store (.ipa)"
+  lane :build do
+    regen_project
+    key = asc_api_key
+    build_app(
+      project: PROJECT,
+      scheme: "StandupTimer-iOS",
+      export_method: "app-store",
+      output_directory: "build/ios",
+      output_name: "Momen-iOS.ipa",
+      xcargs: "CURRENT_PROJECT_VERSION=#{next_build_number(key)} -allowProvisioningUpdates",
+    )
+  end
+
+  desc "Build + upload TestFlight iOS"
+  lane :beta do
+    build
+    upload_to_testflight(
+      api_key: asc_api_key,
+      app_identifier: APP_ID,
+      ipa: "build/ios/Momen-iOS.ipa",
+      skip_waiting_for_build_processing: true,
+    )
+  end
+
+  desc "Captures d'écran iOS (iPhone + iPad)"
+  lane :screenshots do
+    capture_screenshots(scheme: "StandupTimer-iOS")
+  end
+
+  desc "Build + envoi App Store iOS (métadonnées + binaire, sans soumission auto)"
+  lane :release do
+    build
+    upload_to_app_store(
+      api_key: asc_api_key,
+      app_identifier: APP_ID,
+      ipa: "build/ios/Momen-iOS.ipa",
+      submit_for_review: false,
+      precheck_include_in_app_purchases: true,
+      force: true, # ne pas ouvrir le récap HTML
+    )
+  end
+end
+
+# --- macOS -------------------------------------------------------------------
+
+platform :mac do
+  desc "Build Mac App Store (.pkg)"
+  lane :build do
+    regen_project
+    key = asc_api_key
+    build_mac_app(
+      project: PROJECT,
+      scheme: "StandupTimer",
+      export_method: "app-store",
+      output_directory: "build/mac",
+      output_name: "Momen-Mac.pkg",
+      xcargs: "CURRENT_PROJECT_VERSION=#{next_build_number(key)} -allowProvisioningUpdates",
+    )
+  end
+
+  desc "Build + upload TestFlight Mac"
+  lane :beta do
+    build
+    upload_to_testflight(
+      api_key: asc_api_key,
+      app_identifier: APP_ID,
+      pkg: "build/mac/Momen-Mac.pkg",
+      skip_waiting_for_build_processing: true,
+    )
+  end
+
+  desc "Build + envoi App Store Mac (sans soumission auto)"
+  lane :release do
+    build
+    upload_to_app_store(
+      api_key: asc_api_key,
+      app_identifier: APP_ID,
+      pkg: "build/mac/Momen-Mac.pkg",
+      platform: "osx",
+      submit_for_review: false,
+      force: true,
+    )
+  end
+end
+
+# Mac + iOS ensemble : lancer les deux plateformes en séquence, p.ex.
+#   bundle exec fastlane ios beta && bundle exec fastlane mac beta
+#   bundle exec fastlane ios release && bundle exec fastlane mac release

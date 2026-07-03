@@ -1,16 +1,36 @@
 import SwiftUI
+import StandupKit
+#if canImport(AppKit)
 import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
+
+/// Bridges raw image `Data` to a SwiftUI `Image` on the current platform.
+private func imageFromData(_ data: Data) -> Image? {
+    #if canImport(AppKit)
+    guard let nsImage = NSImage(data: data) else { return nil }
+    return Image(nsImage: nsImage)
+    #elseif canImport(UIKit)
+    guard let uiImage = UIImage(data: data) else { return nil }
+    return Image(uiImage: uiImage)
+    #else
+    return nil
+    #endif
+}
 
 struct AvatarView: View {
     let participant: Participant
     let size: CGFloat
-    var backgroundColor: Color = .gray.opacity(0.3)
+    /// Optional override for the disc tint. When `nil`, the participant's stable
+    /// per-person identity accent (``PulseAccent``) is used.
+    var backgroundColor: Color? = nil
 
     var body: some View {
         Group {
             if let data = participant.avatarData,
-               let nsImage = NSImage(data: data) {
-                Image(nsImage: nsImage)
+               let image = imageFromData(data) {
+                image
                     .resizable()
                     .scaledToFill()
             } else {
@@ -20,12 +40,13 @@ struct AvatarView: View {
             }
         }
         .frame(width: size, height: size)
-        .background(backgroundColor, in: Circle())
+        .background(backgroundColor ?? PulseAccent.color(for: participant.id), in: Circle())
         .clipShape(Circle())
     }
 }
 
-/// Button to pick a photo for a participant
+#if canImport(AppKit)
+/// Button to pick a photo for a participant (macOS file picker)
 struct AvatarPickerButton: View {
     @Binding var participant: Participant
 
@@ -36,8 +57,13 @@ struct AvatarPickerButton: View {
             if participant.avatarData != nil {
                 AvatarView(participant: participant, size: 24)
             } else {
-                Image(systemName: "person.circle")
-                    .foregroundStyle(.secondary)
+                // Initials on the participant's stable identity accent — same tint
+                // they carry everywhere else (queue, overlay, stats).
+                Text(participant.initials.isEmpty ? "?" : participant.initials)
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundStyle(.white)
+                    .frame(width: 24, height: 24)
+                    .background(PulseAccent.color(for: participant.id), in: Circle())
             }
         }
         .buttonStyle(.plain)
@@ -70,3 +96,4 @@ struct AvatarPickerButton: View {
         return newImage
     }
 }
+#endif

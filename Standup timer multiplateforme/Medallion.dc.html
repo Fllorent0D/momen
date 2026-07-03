@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  @keyframes pmGlow{0%,100%{opacity:.4}50%{opacity:1}}
+  @keyframes pmSweep{to{transform:rotate(360deg)}}
+</style>
+</helmet>
+<div style="{{ wrapStyle }}">
+  <div style="{{ stageStyle }}">
+    <sc-if value="{{ showHalo }}" hint-placeholder-val="{{ false }}"><div style="{{ haloStyle }}"></div></sc-if>
+    <div style="{{ ringStyle }}"></div>
+    <div style="{{ rimStyle }}"></div>
+    <div style="{{ innerHairStyle }}"></div>
+    <div style="{{ discStyle }}"></div>
+    <sc-if value="{{ showShimmer }}" hint-placeholder-val="{{ false }}"><div style="{{ shimmerStyle }}"></div></sc-if>
+    <sc-if value="{{ isLocked }}" hint-placeholder-val="{{ false }}"><div style="{{ progStyle }}"></div></sc-if>
+    <sc-if value="{{ showGlyph }}" hint-placeholder-val="{{ true }}"><div style="{{ glyphWrapStyle }}">{{ glyph }}</div></sc-if>
+    <sc-if value="{{ isSecret }}" hint-placeholder-val="{{ false }}"><div style="{{ secretStyle }}">{{ secretChar }}</div></sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:200,&quot;height&quot;:200},&quot;tier&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;bronze&quot;,&quot;silver&quot;,&quot;gold&quot;,&quot;diamond&quot;,&quot;secret&quot;],&quot;default&quot;:&quot;gold&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;unlocked&quot;,&quot;locked&quot;,&quot;secret&quot;],&quot;default&quot;:&quot;unlocked&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;glyph&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;play&quot;,&quot;check&quot;,&quot;trio&quot;,&quot;bolt&quot;,&quot;refresh&quot;,&quot;week&quot;,&quot;flame&quot;,&quot;sparkle&quot;,&quot;table&quot;,&quot;sunrise&quot;,&quot;pulse&quot;,&quot;flame2&quot;,&quot;bullseye&quot;,&quot;metronome&quot;,&quot;month&quot;,&quot;trophy&quot;,&quot;clock&quot;,&quot;shield&quot;,&quot;gem&quot;,&quot;star&quot;,&quot;burst&quot;,&quot;moon&quot;,&quot;hourglass&quot;],&quot;default&quot;:&quot;trophy&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;size&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:150,&quot;min&quot;:48,&quot;max&quot;:320,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;progress&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.6,&quot;min&quot;:0,&quot;max&quot;:1,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;},&quot;halo&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;shimmer&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  glyph(name, hi, lo, mid, carve){
+    const R = React.createElement;
+    const fill = (d)=>({background:`linear-gradient(${d}deg, ${hi}, ${lo})`});
+    let parts = [];
+    switch(name){
+      case 'play': parts=[{left:31,top:14,width:42,height:56,clipPath:'polygon(0 0,100% 50%,0 100%)',...fill(120)}]; break;
+      case 'check': parts=[{left:12,top:16,width:62,height:54,clipPath:'polygon(40% 86%,3% 49%,16% 35%,40% 60%,84% 10%,97% 24%)',...fill(135)}]; break;
+      case 'trio': parts=[{left:32,top:6,width:20,height:20,borderRadius:'50%',...fill(150)},{left:12,top:42,width:20,height:20,borderRadius:'50%',...fill(150)},{left:52,top:42,width:20,height:20,borderRadius:'50%',...fill(150)}]; break;
+      case 'bolt': parts=[{left:22,top:8,width:40,height:68,clipPath:'polygon(58% 0,14% 56%,42% 56%,30% 100%,84% 38%,52% 38%)',...fill(135)}]; break;
+      case 'refresh': parts=[{left:13,top:13,width:58,height:58,borderRadius:'50%',border:`9px solid ${mid}`,borderRightColor:'transparent',transform:'rotate(36deg)'},{left:50,top:4,width:0,height:0,borderStyle:'solid',borderWidth:'11px 10px 11px 10px',borderColor:`transparent transparent ${mid} transparent`,transform:'rotate(52deg)'}]; break;
+      case 'week': parts=[{left:11,top:20,width:62,height:50,borderRadius:'12px',border:`7px solid ${mid}`},{left:24,top:11,width:7,height:15,borderRadius:'3px',background:mid},{left:53,top:11,width:7,height:15,borderRadius:'3px',background:mid},{left:26,top:38,width:8,height:8,borderRadius:'2px',background:mid},{left:38,top:38,width:8,height:8,borderRadius:'2px',background:mid},{left:50,top:38,width:8,height:8,borderRadius:'2px',background:mid},{left:26,top:50,width:8,height:8,borderRadius:'2px',background:mid},{left:38,top:50,width:8,height:8,borderRadius:'2px',background:mid}]; break;
+      case 'flame': parts=[{left:23,top:14,width:38,height:54,clipPath:'polygon(50% 0,70% 32%,78% 60%,64% 86%,50% 96%,36% 86%,22% 60%,30% 32%)',...fill(160)}]; break;
+      case 'flame2': parts=[{left:27,top:16,width:34,height:50,clipPath:'polygon(50% 0,70% 32%,78% 60%,64% 86%,50% 96%,36% 86%,22% 60%,30% 32%)',...fill(160)},{left:13,top:34,width:24,height:32,clipPath:'polygon(50% 0,70% 32%,78% 60%,64% 86%,50% 96%,36% 86%,22% 60%,30% 32%)',...fill(160)}]; break;
+      case 'sparkle': parts=[{left:10,top:10,width:64,height:64,clipPath:'polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%)',...fill(160)}]; break;
+      case 'table': { const c=42,r=27; for(let i=0;i<6;i++){const a=(i*60-90)*Math.PI/180; parts.push({left:(c+r*Math.cos(a)-7),top:(c+r*Math.sin(a)-7),width:14,height:14,borderRadius:'50%',background:mid});} parts.unshift({left:33,top:33,width:18,height:18,borderRadius:'50%',...fill(150)}); break; }
+      case 'sunrise': parts=[{left:16,top:32,width:52,height:26,borderRadius:'52px 52px 0 0',...fill(180)},{left:6,top:62,width:72,height:6,borderRadius:'3px',background:mid},{left:40,top:14,width:4,height:12,borderRadius:'2px',background:mid},{left:18,top:22,width:4,height:12,borderRadius:'2px',background:mid,transform:'rotate(-38deg)'},{left:62,top:22,width:4,height:12,borderRadius:'2px',background:mid,transform:'rotate(38deg)'}]; break;
+      case 'pulse': parts=[{left:6,top:22,width:72,height:40,clipPath:'polygon(0 52%,24% 52%,34% 16%,48% 88%,58% 44%,68% 52%,100% 52%,100% 66%,64% 66%,55% 58%,47% 100%,34% 30%,28% 66%,0 66%)',...fill(90)}]; break;
+      case 'bullseye': parts=[{left:9,top:9,width:66,height:66,borderRadius:'50%',border:`7px solid ${mid}`},{left:25,top:25,width:34,height:34,borderRadius:'50%',border:`6px solid ${mid}`},{left:36,top:36,width:12,height:12,borderRadius:'50%',...fill(150)}]; break;
+      case 'metronome': parts=[{left:16,top:12,width:52,height:60,clipPath:'polygon(30% 0,70% 0,100% 100%,0 100%)',...fill(160)},{left:23,top:22,width:38,height:46,clipPath:'polygon(30% 0,70% 0,100% 100%,0 100%)',background:carve},{left:40,top:20,width:4,height:44,background:mid,transformOrigin:'50% 100%',transform:'rotate(18deg)'},{left:51,top:17,width:10,height:10,borderRadius:'50%',background:mid},{left:18,top:66,width:48,height:8,borderRadius:'2px',background:mid}]; break;
+      case 'month': { parts=[{left:12,top:18,width:60,height:54,borderRadius:'11px',border:`7px solid ${mid}`},{left:24,top:10,width:7,height:14,borderRadius:'3px',background:mid},{left:53,top:10,width:7,height:14,borderRadius:'3px',background:mid}]; const xs=[28,40,52],ys=[37,48,59]; for(const y of ys) for(const x of xs) parts.push({left:x,top:y,width:6,height:6,borderRadius:'1.5px',background:mid}); break; }
+      case 'trophy': parts=[{left:22,top:14,width:40,height:30,borderRadius:'5px 5px 22px 22px',...fill(170)},{left:8,top:16,width:18,height:24,borderRadius:'50%',border:`5px solid ${mid}`,borderRight:'none',borderTop:'none',transform:'rotate(-8deg)'},{left:58,top:16,width:18,height:24,borderRadius:'50%',border:`5px solid ${mid}`,borderLeft:'none',borderTop:'none',transform:'rotate(8deg)'},{left:38,top:44,width:8,height:14,background:mid},{left:28,top:60,width:28,height:8,borderRadius:'3px',...fill(170)},{left:33,top:56,width:18,height:5,background:mid}]; break;
+      case 'clock': parts=[{left:11,top:11,width:62,height:62,borderRadius:'50%',border:`6px solid ${mid}`},{left:40,top:24,width:4,height:20,borderRadius:'2px',background:mid,transformOrigin:'50% 90%',transform:'rotate(42deg)'},{left:40.5,top:18,width:3,height:26,borderRadius:'2px',transformOrigin:'50% 92%',transform:'rotate(-20deg)',...fill(180)},{left:38,top:38,width:8,height:8,borderRadius:'50%',background:mid}]; break;
+      case 'shield': parts=[{left:16,top:10,width:52,height:64,clipPath:'polygon(50% 0,100% 16%,100% 52%,50% 100%,0 52%,0 16%)',...fill(160)},{left:24,top:18,width:36,height:48,clipPath:'polygon(50% 0,100% 16%,100% 52%,50% 100%,0 52%,0 16%)',background:carve},{left:30,top:25,width:24,height:33,clipPath:'polygon(50% 0,100% 16%,100% 52%,50% 100%,0 52%,0 16%)',...fill(160)}]; break;
+      case 'gem': parts=[{left:12,top:16,width:60,height:54,clipPath:'polygon(22% 0,78% 0,100% 34%,50% 100%,0 34%)',...fill(160)},{left:12,top:33,width:60,height:2.5,background:carve,opacity:.5},{left:41,top:33,width:2.5,height:37,background:carve,opacity:.4},{left:30,top:16,width:2.5,height:17,background:carve,opacity:.35},{left:52,top:16,width:2.5,height:17,background:carve,opacity:.35}]; break;
+      case 'star': parts=[{left:10,top:12,width:64,height:62,clipPath:'polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)',...fill(160)}]; break;
+      case 'burst': { for(let i=0;i<8;i++){parts.push({left:40,top:6,width:4,height:18,borderRadius:'2px',background:mid,transformOrigin:'50% 36px',transform:`rotate(${i*45}deg)`});} parts.push({left:34,top:34,width:16,height:16,borderRadius:'50%',...fill(150)}); break; }
+      case 'moon': parts=[{left:14,top:14,width:56,height:56,borderRadius:'50%',...fill(180)},{left:30,top:8,width:50,height:50,borderRadius:'50%',background:carve}]; break;
+      case 'hourglass': parts=[{left:20,top:14,width:44,height:26,clipPath:'polygon(0 0,100% 0,50% 100%)',...fill(180)},{left:20,top:44,width:44,height:26,clipPath:'polygon(50% 0,0 100%,100% 100%)',...fill(0)},{left:14,top:9,width:56,height:6,borderRadius:'3px',background:mid},{left:14,top:69,width:56,height:6,borderRadius:'3px',background:mid}]; break;
+      default: parts=[{left:31,top:14,width:42,height:56,clipPath:'polygon(0 0,100% 50%,0 100%)',...fill(120)}];
+    }
+    return R('div',{style:{position:'relative',width:84,height:84}}, parts.map((s,i)=>R('div',{key:i,style:Object.assign({position:'absolute'},s)})));
+  }
+
+  renderVals(){
+    const size = +(this.props.size ?? 150);
+    const k = size/200;
+    const tier = this.props.tier || 'gold';
+    const state = this.props.state || 'unlocked';
+    const progress = Math.max(0, Math.min(1, +(this.props.progress ?? 0)));
+    const halo = !!this.props.halo;
+    const shimmer = !!this.props.shimmer;
+    const glyphName = this.props.glyph || 'trophy';
+
+    const T = {
+      bronze:{ring:'conic-gradient(from 218deg,#f7d3a9,#dd9d63 38deg,#7c4621 92deg,#f1bd8d 150deg,#b06c30 205deg,#f7d3a9 250deg,#86501f 305deg,#e3a877 345deg,#f7d3a9 360deg)', hi:'#f3c79b', lo:'#b9763c', mid:'#eab488', halo:'#e0904c'},
+      silver:{ring:'conic-gradient(from 218deg,#ffffff,#c6d0d8 38deg,#6f7a83 95deg,#eef3f6 150deg,#98a4ad 205deg,#ffffff 250deg,#7b8690 305deg,#dde5eb 345deg,#ffffff 360deg)', hi:'#f6fafc', lo:'#aab6bf', mid:'#e2e9ee', halo:'#cdd6dd'},
+      gold:{ring:'conic-gradient(from 218deg,#fff4cf,#e9c168 38deg,#9a6f1c 95deg,#ffe7a0 150deg,#c8922c 205deg,#fff4cf 250deg,#a87a20 305deg,#f3cd5e 345deg,#fff4cf 360deg)', hi:'#ffe9a8', lo:'#caa033', mid:'#f7d774', halo:'#f0c24b'},
+      diamond:{ring:'conic-gradient(from 218deg,#f4e9ff,#cba6ff 38deg,#6a3fb0 95deg,#e7d6ff 150deg,#9a6ae0 205deg,#f4e9ff 250deg,#7d4fd4 305deg,#d9bfff 345deg,#f4e9ff 360deg)', hi:'#eddfff', lo:'#a273ec', mid:'#dcc6ff', halo:'#b07cff'},
+      secret:{ring:'conic-gradient(from 0deg,#00e08a,#36c2ff 72deg,#b07cff 144deg,#ff5b8a 216deg,#ffc53d 288deg,#00e08a 360deg)', hi:'#ffffff', lo:'#c8d0d6', mid:'#eef2f4', halo:'#b07cff'},
+    };
+    const carve = '#101319';
+    const isLocked = state==='locked';
+    const isSecret = state==='secret';
+
+    let ringBg, rimMid, gHi, gLo, gMid, haloC;
+    if (isSecret){
+      ringBg='conic-gradient(from 0deg,#123a2e,#143a52 72deg,#2a2148 144deg,#3a1e2e 216deg,#3a3020 288deg,#123a2e 360deg)';
+      rimMid='#39414b'; haloC='#2a3550'; gHi='#525a63'; gLo='#2d333a'; gMid='#444b54';
+    } else if (isLocked){
+      ringBg='conic-gradient(from 218deg,#3a3f46,#23262b 60deg,#15181c 120deg,#33383f 185deg,#1c2024 250deg,#2e333a 312deg,#3a3f46 360deg)';
+      rimMid='#3c424a'; haloC='#000'; gHi='#555d66'; gLo='#2d333a'; gMid='#474e57';
+    } else {
+      const p = T[tier] || T.gold; ringBg=p.ring; rimMid=p.mid; gHi=p.hi; gLo=p.lo; gMid=p.mid; haloC=p.halo;
+    }
+
+    const progDeg = Math.round(progress*360);
+
+    return {
+      wrapStyle:{position:'relative',width:size+'px',height:size+'px'},
+      stageStyle:{position:'absolute',top:0,left:0,width:'200px',height:'200px',transform:`scale(${k})`,transformOrigin:'top left'},
+      ringStyle:{position:'absolute',inset:0,borderRadius:'50%',background:ringBg,boxShadow:'0 14px 30px -10px rgba(0,0,0,.7), inset 0 2px 2px rgba(255,255,255,.55), inset 0 -9px 18px rgba(0,0,0,.55), inset 0 0 0 1px rgba(0,0,0,.22)'},
+      rimStyle:{position:'absolute',inset:0,borderRadius:'50%',pointerEvents:'none',background:'linear-gradient(145deg, rgba(255,255,255,.5), rgba(255,255,255,0) 34%, rgba(255,255,255,0) 64%, rgba(0,0,0,.3))'},
+      innerHairStyle:{position:'absolute',inset:'27px',borderRadius:'50%',pointerEvents:'none',boxShadow:`inset 0 0 0 2px ${rimMid}55, 0 0 10px ${haloC}22`},
+      discStyle:{position:'absolute',inset:'30px',borderRadius:'50%',background:'radial-gradient(120% 120% at 50% 30%, #15181d, #0a0b0d 78%)',boxShadow:'inset 0 7px 16px rgba(0,0,0,.85), inset 0 -2px 6px rgba(255,255,255,.05), 0 0 0 2px rgba(0,0,0,.5)'},
+      haloStyle:{position:'absolute',inset:'-22px',borderRadius:'50%',pointerEvents:'none',background:`radial-gradient(closest-side, ${haloC}66, ${haloC}00 72%)`,filter:'blur(5px)',animation:'pmGlow 2.6s ease-in-out infinite'},
+      glyphWrapStyle:{position:'absolute',left:'52px',top:'52px',width:'96px',height:'96px',display:'grid',placeItems:'center',filter:'drop-shadow(0 2px 2px rgba(0,0,0,.55))'},
+      progStyle:{position:'absolute',inset:0,borderRadius:'50%',pointerEvents:'none',background:`conic-gradient(from -90deg, #00e08a ${progDeg}deg, rgba(255,255,255,0) 0)`,WebkitMask:'radial-gradient(closest-side, transparent 0 90%, #000 91%)',mask:'radial-gradient(closest-side, transparent 0 90%, #000 91%)',filter:'drop-shadow(0 0 5px rgba(0,224,138,.6))'},
+      shimmerStyle:{position:'absolute',inset:0,borderRadius:'50%',pointerEvents:'none',transformOrigin:'50% 50%',background:'conic-gradient(from 0deg, rgba(255,255,255,0) 0deg, rgba(255,255,255,0) 66deg, rgba(255,255,255,.9) 90deg, rgba(255,255,255,0) 116deg, rgba(255,255,255,0) 360deg)',WebkitMask:'radial-gradient(closest-side, transparent 0 70%, #000 72%)',mask:'radial-gradient(closest-side, transparent 0 70%, #000 72%)',animation:'pmSweep 2.8s linear infinite'},
+      secretStyle:{position:'absolute',inset:'30px',borderRadius:'50%',display:'grid',placeItems:'center',fontFamily:"'JetBrains Mono',monospace",fontWeight:800,fontSize:'58px',color:'#5f6b78',textShadow:'0 2px 3px rgba(0,0,0,.6)'},
+      showHalo: halo && !isSecret,
+      showShimmer: shimmer && !isSecret,
+      isLocked, isSecret, showGlyph: !isSecret,
+      secretChar:'?',
+      glyph: this.glyph(glyphName, gHi, gLo, gMid, carve),
+    };
+  }
+}
+</script>
+</body>
+</html>

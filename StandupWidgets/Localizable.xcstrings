@@ -1,0 +1,36 @@
+{
+  "sourceLanguage": "fr",
+  "strings": {
+    "%lld/%lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld/%lld"
+          }
+        }
+      }
+    },
+    "SUIVANT · %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "NEXT · %@"
+          }
+        }
+      }
+    },
+    "DERNIER · %lld/%lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LAST · %lld/%lld"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

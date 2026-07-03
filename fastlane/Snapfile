@@ -1,0 +1,15 @@
+# Captures d'écran iOS automatiques (fastlane snapshot).
+# Nécessite un UI Test target qui appelle setupSnapshot() + snapshot("nom").
+
+devices([
+  "iPhone 16 Pro Max",   # 6.9"
+  "iPhone 16 Pro",       # 6.3"
+  "iPad Pro 13-inch (M4)"
+])
+
+languages(["fr-FR", "en-US"])
+
+scheme("StandupTimer-iOS")
+output_directory("./build/screenshots")
+clear_previous_screenshots(true)
+override_status_bar(true)   # heure/batterie propres
