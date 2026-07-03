@@ -1,6 +1,16 @@
 {
   "sourceLanguage" : "fr",
   "strings" : {
+    "Les achats ne sont pas disponibles sur cet appareil." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In-app purchases are not available on this device."
+          }
+        }
+      }
+    },
     "2 jours d'affilée" : {
       "localizations" : {
         "en" : {

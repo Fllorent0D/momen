@@ -4,8 +4,9 @@ import SwiftUI
 
 /// iOS Pro paywall (Pulse redesign).
 ///
-/// The same offer as the macOS `PaywallView` — 7-day trial, single lifetime
-/// purchase, three Pro benefits — but rendered with the Pulse design system on
+/// The same offer as the macOS `PaywallView` — a single lifetime purchase (no
+/// trial; the free tier up to 4 participants is the trial), three Pro benefits
+/// — but rendered with the Pulse design system on
 /// the canvas (cards on `surface`, mono prices, `.pulse` buttons) instead of
 /// native chrome, matching the store mockups. Binds to the shared
 /// ``ProAccessManager``; the presenting sheet's binding clears
@@ -39,8 +40,8 @@ struct PaywallView_iOS: View {
         VStack(alignment: .leading, spacing: PulseSpacing.md) {
             HStack(alignment: .top) {
                 HStack(spacing: PulseSpacing.xs) {
-                    PulseStatusPill("7 JOURS D'ESSAI", systemImage: "sparkles", tone: .warn)
-                    PulseStatusPill("ACHAT UNIQUE", tone: .signal)
+                    PulseStatusPill("ACHAT UNIQUE", systemImage: "lock.open", tone: .signal)
+                    PulseStatusPill("ACCÈS À VIE", systemImage: "infinity", tone: .warn)
                 }
                 Spacer()
                 Button { proAccess.dismissPaywall() } label: {
@@ -121,7 +122,7 @@ struct PaywallView_iOS: View {
             benefitRow(icon: "person.3.fill", title: "Participants illimités",
                        detail: "Passez de 4 à toute l'équipe.")
             benefitRow(icon: "paintpalette.fill", title: "Personnalisation complète",
-                       detail: "Position du bandeau et effets visuels.")
+                       detail: "Accents par personne et effets visuels.")
             benefitRow(icon: "chart.bar.xaxis", title: "Statistiques avancées",
                        detail: "Historique, tendances et export CSV.")
         }

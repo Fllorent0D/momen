@@ -4,6 +4,106 @@
     "" : {
 
     },
+    "Accès à vie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lifetime access"
+          }
+        }
+      }
+    },
+    "Achat unique" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One-time purchase"
+          }
+        }
+      }
+    },
+    "Historique, tendances et export CSV." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History, trends, and CSV export."
+          }
+        }
+      }
+    },
+    "Les raccourcis fonctionnent quand la fenêtre Momen est au premier plan." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shortcuts work when the Momen window is in the foreground."
+          }
+        }
+      }
+    },
+    "Momen est gratuit jusqu'a 4 participants." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Momen is free for up to 4 participants."
+          }
+        }
+      }
+    },
+    "Participants illimites" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited participants"
+          }
+        }
+      }
+    },
+    "Passez de 4 a toute l'equipe." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go from 4 to your whole team."
+          }
+        }
+      }
+    },
+    "Personnalisation complete" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full customization"
+          }
+        }
+      }
+    },
+    "Statistiques avancees" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Advanced statistics"
+          }
+        }
+      }
+    },
+    "Themes, position de l'overlay et effets visuels." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Themes, overlay position, and visual effects."
+          }
+        }
+      }
+    },
     "???" : {
       "localizations" : {
         "en" : {
@@ -236,16 +336,6 @@
         }
       }
     },
-    "Continuer avec l'essai" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Continue with the trial"
-          }
-        }
-      }
-    },
     "Copier le résumé" : {
       "localizations" : {
         "en" : {
@@ -432,16 +522,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "At least 2 meetings are needed to see trends."
-          }
-        }
-      }
-    },
-    "Il vous reste %lld jour%@ avant le retour au mode Free." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You have %lld day%@ left before returning to Free mode."
           }
         }
       }
@@ -946,26 +1026,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your one-time in-app purchase is restored automatically via the App Store."
-          }
-        }
-      }
-    },
-    "Votre essai Pro de 7 jours est termine." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your 7-day Pro trial has ended."
-          }
-        }
-      }
-    },
-    "Votre essai Pro est actif." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your Pro trial is active."
           }
         }
       }

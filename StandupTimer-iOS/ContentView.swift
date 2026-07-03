@@ -369,6 +369,11 @@ private struct HomeParticipantCard: View {
     /// delete button is held open after a partial swipe.
     @State private var offset: CGFloat = 0
 
+    /// Axis lock for the active drag: `nil` until the first movement decides,
+    /// then `true` for a horizontal swipe (we own it) or `false` for a vertical
+    /// pan (we ignore it so the enclosing ScrollView scrolls unhijacked).
+    @State private var isHorizontalDrag: Bool?
+
     /// Width of the revealed trailing delete button.
     private let revealWidth: CGFloat = 88
     /// Swipe far enough past the button and we delete outright (iOS full-swipe).
@@ -438,16 +443,26 @@ private struct HomeParticipantCard: View {
     private var swipe: some Gesture {
         DragGesture(minimumDistance: 16)
             .onChanged { value in
+                // Decide the axis on the first meaningful movement. A vertical
+                // pan is left to the ScrollView; only a horizontal swipe drives
+                // the card, so scrolling never fights the delete gesture.
+                if isHorizontalDrag == nil {
+                    isHorizontalDrag = abs(value.translation.width) > abs(value.translation.height)
+                }
+                guard isHorizontalDrag == true else { return }
                 // Track leftward drag, anchored to the resting offset.
                 let base = offset == 0 ? 0 : -revealWidth
                 offset = min(0, base + value.translation.width)
             }
             .onEnded { value in
-                let total = (offset == -revealWidth ? -revealWidth : 0) + value.translation.width
+                let wasHorizontal = isHorizontalDrag == true
+                isHorizontalDrag = nil
+                guard wasHorizontal else { return }
+                // Snap from the live position so a held-open row resolves correctly.
                 if value.translation.width < -commitThreshold {
                     withAnimation(.easeOut(duration: 0.2)) { offset = 0 }
                     onDelete()
-                } else if total < -revealWidth / 2 {
+                } else if offset < -revealWidth / 2 {
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) { offset = -revealWidth }
                 } else {
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) { offset = 0 }

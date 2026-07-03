@@ -4,6 +4,126 @@
     "" : {
 
     },
+    "Accents par personne et effets visuels." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per-person accents and visual effects."
+          }
+        }
+      }
+    },
+    "ACCÈS À VIE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LIFETIME ACCESS"
+          }
+        }
+      }
+    },
+    "ACHAT UNIQUE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ONE-TIME PURCHASE"
+          }
+        }
+      }
+    },
+    "Débloquez Pro une fois pour toutes et gardez l'accès à vie." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock Pro once and keep access for life."
+          }
+        }
+      }
+    },
+    "Historique, tendances et export CSV." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History, trends, and CSV export."
+          }
+        }
+      }
+    },
+    "Momen est gratuit jusqu'à 4 participants." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Momen is free for up to 4 participants."
+          }
+        }
+      }
+    },
+    "Participants illimités" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited participants"
+          }
+        }
+      }
+    },
+    "Passez de 4 à toute l'équipe." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go from 4 to your whole team."
+          }
+        }
+      }
+    },
+    "Personnalisation complète" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full customization"
+          }
+        }
+      }
+    },
+    "Pro est déjà actif." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pro is already active."
+          }
+        }
+      }
+    },
+    "Statistiques avancées" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Advanced statistics"
+          }
+        }
+      }
+    },
+    "Votre achat intégré unique est restauré automatiquement via l'App Store." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your one-time in-app purchase is restored automatically via the App Store."
+          }
+        }
+      }
+    },
     "???" : {
       "localizations" : {
         "en" : {
@@ -241,16 +361,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Continue with Free"
-          }
-        }
-      }
-    },
-    "Continuer avec l'essai" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Continue with the trial"
           }
         }
       }
