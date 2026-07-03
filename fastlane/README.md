@@ -39,6 +39,14 @@ Build + upload TestFlight iOS
 
 Captures d'écran iOS (iPhone + iPad)
 
+### ios meta
+
+```sh
+[bundle exec] fastlane ios meta
+```
+
+Upload métadonnées + captures seules (sans build/binaire) — itération rapide
+
 ### ios release
 
 ```sh
