@@ -141,7 +141,9 @@ platform :tv do
       destination: "generic/platform=tvOS",
       output_directory: "build/tvos",
       output_name: "Momen-tvOS",
-      xcargs: "CURRENT_PROJECT_VERSION=#{next_build_number(key)} -allowProvisioningUpdates",
+      # -allowProvisioningDeviceRegistration : laisse Xcode enregistrer l'Apple TV
+      # appairé (tvOS exige un device pour le profil de dev de l'archivage).
+      xcargs: "CURRENT_PROJECT_VERSION=#{next_build_number(key)} -allowProvisioningUpdates -allowProvisioningDeviceRegistration",
     )
   end
 

@@ -90,6 +90,12 @@ struct ContentView: View {
             manager.enforceFreePlanIfNeeded(isProUnlocked: proAccess.isProUnlocked)
             // Synchro iCloud = feature Pro (D9).
             CloudSyncStore.shared.setEnabled(proAccess.isPurchased)
+            #if DEBUG
+            // fastlane snapshot : ouvre l'écran voulu pour la capture.
+            let launchArgs = ProcessInfo.processInfo.arguments
+            if launchArgs.contains("UITEST_START") { manager.startMeeting() }
+            if launchArgs.contains("UITEST_STATS") { showStats = true }
+            #endif
         }
         .onChange(of: proAccess.isProUnlocked) { _, isUnlocked in
             manager.enforceFreePlanIfNeeded(isProUnlocked: isUnlocked)

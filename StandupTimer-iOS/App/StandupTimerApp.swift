@@ -21,12 +21,16 @@ struct StandupTimerApp: App {
         ProAccessManager.configureRevenueCat()
         let overlay = iOSOverlayPresenting()
         self.overlay = overlay
-        _manager = State(initialValue: MeetingManager(
+        let manager = MeetingManager(
             sound: iOSSoundPlayer(),
             export: iOSExportService(),
             overlay: overlay,
             launchAtLogin: iOSLaunchAtLogin()
-        ))
+        )
+        #if DEBUG
+        manager.seedForSnapshotIfNeeded()
+        #endif
+        _manager = State(initialValue: manager)
     }
 
     var body: some Scene {

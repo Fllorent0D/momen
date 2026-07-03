@@ -234,6 +234,25 @@ targets:
         DEVELOPMENT_TEAM: SGT72A7T6A
         SWIFT_STRICT_CONCURRENCY: complete
 
+  # UI-test bundle qui pilote l'app iOS pour `fastlane snapshot` (captures App
+  # Store). Ne fait pas partie des builds de release.
+  StandupTimer-iOSUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - StandupTimer-iOSUITests
+    dependencies:
+      - target: StandupTimer-iOS
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: be.floca.standup-timer.uitests
+        GENERATE_INFOPLIST_FILE: true
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: SGT72A7T6A
+        TEST_TARGET_NAME: StandupTimer-iOS
+        SWIFT_STRICT_CONCURRENCY: minimal
+
 # Explicit schemes so each app is buildable by scheme name (the build/CI workflow
 # uses `-scheme StandupTimer` / `-scheme StandupTimer-iOS`). Defining this block
 # disables XcodeGen's autogeneration, so every wanted scheme is listed here. The
@@ -256,6 +275,11 @@ schemes:
     build:
       targets:
         StandupTimer-iOS: all
+        StandupTimer-iOSUITests: [test]
+    test:
+      config: Debug
+      targets:
+        - StandupTimer-iOSUITests
     run:
       config: Debug
     archive:

@@ -78,6 +78,27 @@ Build + envoi App Store Mac (sans soumission auto)
 
 ----
 
+
+## tv
+
+### tv build
+
+```sh
+[bundle exec] fastlane tv build
+```
+
+Build tvOS App Store (.ipa)
+
+### tv beta
+
+```sh
+[bundle exec] fastlane tv beta
+```
+
+Build + upload TestFlight tvOS
+
+----
+
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
 
 More information about _fastlane_ can be found on [fastlane.tools](https://fastlane.tools).
