@@ -24,12 +24,28 @@
       the developer), so it is not "data collection" in the manifest sense.
       Revisit this file when either feature is wired into a shipping build.
     -->
+    <!-- Analytics produit via PostHog (host EU) : interactions produit, sans
+         tracking cross-app (NSPrivacyTracking = false, pas d'ATT). Le SDK PostHog
+         embarque son propre manifeste pour ses required-reason APIs. -->
     <key>NSPrivacyTracking</key>
     <false/>
     <key>NSPrivacyTrackingDomains</key>
     <array/>
     <key>NSPrivacyCollectedDataTypes</key>
-    <array/>
+    <array>
+        <dict>
+            <key>NSPrivacyCollectedDataType</key>
+            <string>NSPrivacyCollectedDataTypeProductInteraction</string>
+            <key>NSPrivacyCollectedDataTypeLinked</key>
+            <false/>
+            <key>NSPrivacyCollectedDataTypeTracking</key>
+            <false/>
+            <key>NSPrivacyCollectedDataTypePurposes</key>
+            <array>
+                <string>NSPrivacyCollectedDataTypePurposeAnalytics</string>
+            </array>
+        </dict>
+    </array>
     <key>NSPrivacyAccessedAPITypes</key>
     <array>
         <dict>

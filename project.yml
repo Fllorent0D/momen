@@ -28,6 +28,11 @@ packages:
   RevenueCat:
     url: https://github.com/RevenueCat/purchases-ios
     from: "5.14.0"
+  # Analytics produit (host EU). SDK multiplateforme Apple ; on ne configure que
+  # iOS/macOS (cf. Analytics.configure()).
+  PostHog:
+    url: https://github.com/PostHog/posthog-ios
+    from: "3.15.0"
 
 targets:
   # Shared core (issue #5). Multi-platform (#11): xcodegen generates a per-platform
@@ -44,6 +49,7 @@ targets:
       tvOS: "17.0"
     dependencies:
       - package: RevenueCat
+      - package: PostHog
     sources:
       - StandupKit
     settings:
@@ -66,6 +72,7 @@ targets:
     dependencies:
       - target: StandupKit
       - package: RevenueCat
+      - package: PostHog
     sources:
       # Recursive pickup of the app sources, minus the font bundle: the fonts are
       # added below as a *folder reference* so the `Fonts/` directory is preserved
@@ -109,6 +116,7 @@ targets:
     dependencies:
       - target: StandupKit
       - package: RevenueCat
+      - package: PostHog
       # Live Activity (#52): embed the widget extension so its Live Activity is
       # registered with the system when the app installs.
       - target: StandupWidgets

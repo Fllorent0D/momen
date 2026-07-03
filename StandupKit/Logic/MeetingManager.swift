@@ -168,6 +168,12 @@ public final class MeetingManager {
 
         if meeting.randomizeOrder { activeParticipants.shuffle() }
 
+        Analytics.capture("standup_started", [
+            "participants": activeParticipants.count,
+            "duration_mode": meeting.durationMode.rawValue,
+            "total_duration_min": Int(meeting.totalDuration / 60),
+        ])
+
         speakerTimes = []
         meetingStartDate = nil
         totalElapsed = 0
@@ -301,6 +307,12 @@ public final class MeetingManager {
         let record = MeetingRecord(presetName: presetStore.selectedPreset?.name, speakers: speakers, totalDuration: totalElapsed)
         statsStore.addRecord(record)
         lastMeetingRecord = record
+
+        Analytics.capture("standup_finished", [
+            "speakers": speakers.count,
+            "overtime_speakers": speakers.filter(\.wasOvertime).count,
+            "total_duration_sec": Int(totalElapsed),
+        ])
 
         // Unlock any newly-earned badges; expose them for a future reveal (#42).
         newlyUnlockedBadges = badgeStore.evaluate(records: statsStore.records)

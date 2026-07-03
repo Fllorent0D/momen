@@ -156,6 +156,7 @@ public final class ProAccessManager {
 
             applyEntitlement(from: result.customerInfo)
             if isPurchased {
+                Analytics.capture("pro_purchased", ["price": displayPrice ?? ""])
                 paywallReason = nil
             }
         } catch {

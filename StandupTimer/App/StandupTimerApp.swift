@@ -10,6 +10,7 @@ struct StandupTimerApp: App {
 
     init() {
         ProAccessManager.configureRevenueCat()
+        Analytics.configure()
         let overlay = OverlayPanel()
         self.overlay = overlay
         _manager = State(initialValue: MeetingManager(
