@@ -219,7 +219,9 @@ targets:
       - path: StandupTimer-tvOS
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: be.floca.standup-timer.tvos
+        # Achat universel (D3) : même bundle id que iOS/Mac → le tvOS rejoint le
+        # record App Store Connect « Momen », Pro partagé, pas d'IAP séparé.
+        PRODUCT_BUNDLE_IDENTIFIER: be.floca.standup-timer
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: 1
         INFOPLIST_FILE: StandupTimer-tvOS/Info.plist

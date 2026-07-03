@@ -35,8 +35,6 @@ def next_build_number(api_key, app_id = APP_ID)
   last.to_i + 1
 end
 
-TVOS_APP_ID = "be.floca.standup-timer.tvos"
-
 # --- iOS ---------------------------------------------------------------------
 
 platform :ios do
@@ -128,7 +126,8 @@ platform :mac do
 end
 
 # --- tvOS ---------------------------------------------------------------------
-# Record App Store Connect distinct (bundle id `.tvos`, pas d'achat universel).
+# Achat universel : même bundle id (APP_ID) → le build tvOS rejoint le record
+# « Momen ». La plateforme tvOS doit être ajoutée à l'app dans App Store Connect.
 
 platform :tv do
   desc "Build tvOS App Store (.ipa)"
@@ -142,7 +141,7 @@ platform :tv do
       destination: "generic/platform=tvOS",
       output_directory: "build/tvos",
       output_name: "Momen-tvOS",
-      xcargs: "CURRENT_PROJECT_VERSION=#{next_build_number(key, TVOS_APP_ID)} -allowProvisioningUpdates",
+      xcargs: "CURRENT_PROJECT_VERSION=#{next_build_number(key)} -allowProvisioningUpdates",
     )
   end
 
@@ -151,7 +150,7 @@ platform :tv do
     build
     upload_to_testflight(
       api_key: asc_api_key,
-      app_identifier: TVOS_APP_ID,
+      app_identifier: APP_ID,
       ipa: "build/tvos/Momen-tvOS.ipa",
       skip_waiting_for_build_processing: true,
     )
