@@ -78,11 +78,14 @@ public struct MeetingPreset: Identifiable, Codable, Hashable {
 }
 
 @Observable
+@MainActor
 public final class PresetStore {
     public var presets: [MeetingPreset] = []
     public var selectedPresetId: UUID?
 
     private static let selectedKey = "meeting.selectedPresetId"
+    /// Clé de synchro iCloud Pro (cf. `CloudSyncStore`).
+    private static let cloudKey = "sync.presets"
 
     private static var fileURL: URL {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
@@ -91,7 +94,24 @@ public final class PresetStore {
         return dir.appendingPathComponent("presets.json")
     }
 
-    public init() { load() }
+    public init() {
+        load()
+        CloudSyncStore.shared.register(key: Self.cloudKey) { [weak self] data in
+            self?.merge(data)
+        }
+    }
+
+    /// Fusionne un blob distant : union par id (les presets de chaque appareil sont
+    /// conservés ; à id égal, la version locale prime). Re-persiste seulement si
+    /// l'ensemble change → convergence.
+    private func merge(_ data: Data) {
+        guard let remote = try? JSONDecoder().decode([MeetingPreset].self, from: data) else { return }
+        let localIds = Set(presets.map(\.id))
+        let additions = remote.filter { !localIds.contains($0.id) }
+        guard !additions.isEmpty else { return }
+        presets.append(contentsOf: additions)
+        save()
+    }
 
     public var selectedPreset: MeetingPreset? {
         guard let id = selectedPresetId else { return presets.first }
@@ -147,6 +167,7 @@ public final class PresetStore {
     private func save() {
         if let data = try? JSONEncoder().encode(presets) {
             try? data.write(to: Self.fileURL, options: .atomic)
+            CloudSyncStore.shared.push(key: Self.cloudKey, data: data)
         }
         UserDefaults.standard.set(selectedPresetId?.uuidString, forKey: Self.selectedKey)
     }

@@ -135,6 +135,8 @@ targets:
         PRODUCT_NAME: Momen
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        # Synchro iCloud Pro (D9) via NSUbiquitousKeyValueStore.
+        CODE_SIGN_ENTITLEMENTS: StandupTimer-iOS/StandupTimer-iOS.entitlements
         TARGETED_DEVICE_FAMILY: "1,2"
         CODE_SIGN_STYLE: Automatic
         DEVELOPMENT_TEAM: SGT72A7T6A

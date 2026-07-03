@@ -248,9 +248,13 @@ public enum BadgeCatalog {
 /// mirroring `StatsStore`/`PresetStore`. `evaluate` unlocks any newly-satisfied badges
 /// and returns ONLY the new ones, so the caller can trigger a reveal (#42).
 @Observable
+@MainActor
 public final class BadgeStore {
     /// badgeId → date first unlocked.
     public private(set) var unlocked: [String: Date] = [:]
+
+    /// Clé de synchro iCloud Pro (cf. `CloudSyncStore`).
+    private static let cloudKey = "sync.badges"
 
     private static var fileURL: URL {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
@@ -259,7 +263,28 @@ public final class BadgeStore {
         return dir.appendingPathComponent("badges.json")
     }
 
-    public init() { load() }
+    public init() {
+        load()
+        CloudSyncStore.shared.register(key: Self.cloudKey) { [weak self] data in
+            self?.merge(data)
+        }
+    }
+
+    /// Fusionne un blob distant : union des badges débloqués, en gardant la date
+    /// de déblocage la plus ancienne. Re-persiste seulement si ça change.
+    private func merge(_ data: Data) {
+        guard let remote = try? JSONDecoder().decode([String: Date].self, from: data) else { return }
+        var changed = false
+        for (id, date) in remote {
+            if let existing = unlocked[id] {
+                if date < existing { unlocked[id] = date; changed = true }
+            } else {
+                unlocked[id] = date
+                changed = true
+            }
+        }
+        if changed { save() }
+    }
 
     public var unlockedCount: Int { unlocked.count }
     public var totalCount: Int { BadgeCatalog.all.count }
@@ -304,6 +329,7 @@ public final class BadgeStore {
     private func save() {
         if let data = try? JSONEncoder().encode(unlocked) {
             try? data.write(to: Self.fileURL, options: .atomic)
+            CloudSyncStore.shared.push(key: Self.cloudKey, data: data)
         }
     }
 }

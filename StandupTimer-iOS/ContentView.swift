@@ -88,9 +88,14 @@ struct ContentView: View {
             manager.openPaywall = { reason in proAccess.presentPaywall(reason) }
             manager.isProUnlocked = { proAccess.isProUnlocked }
             manager.enforceFreePlanIfNeeded(isProUnlocked: proAccess.isProUnlocked)
+            // Synchro iCloud = feature Pro (D9).
+            CloudSyncStore.shared.setEnabled(proAccess.isPurchased)
         }
         .onChange(of: proAccess.isProUnlocked) { _, isUnlocked in
             manager.enforceFreePlanIfNeeded(isProUnlocked: isUnlocked)
+        }
+        .onChange(of: proAccess.isPurchased) { _, isPurchased in
+            CloudSyncStore.shared.setEnabled(isPurchased)
         }
         // Live Activity (#52): mirror the running standup into the Lock Screen /
         // Dynamic Island. We only OBSERVE `MeetingManager` here — start/update/end

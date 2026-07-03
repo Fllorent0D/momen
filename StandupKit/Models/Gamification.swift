@@ -7,6 +7,7 @@ import Foundation
 /// `BadgeStore`). Day-streak figures live here because the banner surfaces them directly;
 /// the badge rules compute their own streaks via `BadgeStats`.
 @Observable
+@MainActor
 public final class GamificationStore {
     private var store: StatsStore
 

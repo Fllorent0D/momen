@@ -7,5 +7,9 @@
     <!-- RevenueCat effectue des appels réseau sortants (validation entitlement). -->
     <key>com.apple.security.network.client</key>
     <true/>
+    <!-- Synchro iCloud Pro (D9) via NSUbiquitousKeyValueStore. Bundle id partagé
+         Mac/iOS → même conteneur KVS → sync entre appareils du même Apple ID. -->
+    <key>com.apple.developer.ubiquity-kvstore-identifier</key>
+    <string>$(TeamIdentifierPrefix)$(CFBundleIdentifier)</string>
 </dict>
 </plist>

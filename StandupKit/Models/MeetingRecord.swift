@@ -39,8 +39,13 @@ public struct MeetingRecord: Codable, Identifiable {
 }
 
 @Observable
+@MainActor
 public final class StatsStore {
     public var records: [MeetingRecord] = []
+
+    /// Clé de synchro iCloud Pro (cf. `CloudSyncStore`).
+    private static let cloudKey = "sync.stats"
+    private static let maxRecords = 500
 
     private static var fileURL: URL {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
@@ -51,6 +56,22 @@ public final class StatsStore {
 
     public init() {
         load()
+        CloudSyncStore.shared.register(key: Self.cloudKey) { [weak self] data in
+            self?.merge(data)
+        }
+    }
+
+    /// Fusionne un blob distant : union par id (l'historique n'est jamais perdu),
+    /// tri par date, cap à `maxRecords`. Re-persiste (donc re-pousse) uniquement
+    /// si l'ensemble change, ce qui fait converger les appareils.
+    private func merge(_ data: Data) {
+        guard let remote = try? JSONDecoder().decode([MeetingRecord].self, from: data) else { return }
+        var byId = Dictionary(records.map { ($0.id, $0) }, uniquingKeysWith: { current, _ in current })
+        for record in remote where byId[record.id] == nil { byId[record.id] = record }
+        let merged = Array(byId.values.sorted { $0.date < $1.date }.suffix(Self.maxRecords))
+        guard Set(merged.map(\.id)) != Set(records.map(\.id)) else { return }
+        records = merged
+        save()
     }
 
     public func clearAll() {
@@ -101,8 +122,8 @@ public final class StatsStore {
     }
 
     private func save() {
-        if let data = try? JSONEncoder().encode(records) {
-            try? data.write(to: Self.fileURL, options: .atomic)
-        }
+        guard let data = try? JSONEncoder().encode(records) else { return }
+        try? data.write(to: Self.fileURL, options: .atomic)
+        CloudSyncStore.shared.push(key: Self.cloudKey, data: data)
     }
 }

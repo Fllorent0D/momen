@@ -1,0 +1,27 @@
+Momen garde vos réunions debout courtes, équitables et vivantes.
+
+Fixez une durée globale : l'app répartit automatiquement le temps entre les participants. Un anneau passe du vert au rouge — toute l'équipe voit le signal, personne ne monopolise la parole.
+
+CŒUR
+• Répartition automatique du temps par personne
+• Déroulé mains libres : compte à rebours 3-2-1, suivant/précédent, pause
+• Gestion du dépassement (optionnel / toujours / jamais)
+• Sons de transition discrets
+• Participants : présence, avatars, ordre aléatoire
+• Presets : enregistrez vos configurations d'équipe
+• Rappel quotidien
+
+MAC
+• Vit dans la barre des menus
+• Overlay flottant au-dessus de toutes vos fenêtres et écrans
+• Lancement au démarrage
+
+STATS & RITUEL
+• Historique des réunions, détail par intervenant, taux de dépassement
+• Badges d'équipe positifs pour ancrer le rituel
+• Citations de productivité
+
+GRATUIT / PRO
+Gratuit jusqu'à 4 participants, en local. Passez en Pro (achat unique, pas d'abonnement) pour : participants illimités, synchro iCloud entre Mac et iPhone, stats & export, et personnalisation. Un seul achat débloque Mac et iPhone.
+
+Fait en Belgique. Pas de compte, pas de pub, pas de pistage.

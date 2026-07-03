@@ -1,0 +1,27 @@
+Momen keeps your stand-up meetings short, fair, and alive.
+
+Set one total duration and the app splits the time automatically between participants. A ring shifts from green to red — the whole team sees the signal, nobody runs long.
+
+CORE
+• Automatic per-person time allocation
+• Hands-free flow: 3-2-1 countdown, next/previous, pause
+• Overtime handling (optional / always / never)
+• Subtle transition sounds
+• Participants: presence, avatars, shuffle order
+• Presets: save your team setups
+• Daily reminder
+
+MAC
+• Lives in the menu bar
+• Floating overlay above every window and screen
+• Launch at login
+
+STATS & RITUAL
+• Meeting history, per-speaker detail, overtime rate
+• Positive team badges to anchor the ritual
+• Productivity quotes
+
+FREE / PRO
+Free for up to 4 participants, stored locally. Go Pro (one-time purchase, no subscription) for: unlimited participants, iCloud sync between Mac and iPhone, stats & export, and personalization. One purchase unlocks Mac and iPhone.
+
+Made in Belgium. No account, no ads, no tracking.

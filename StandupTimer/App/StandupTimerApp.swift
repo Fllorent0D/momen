@@ -41,9 +41,14 @@ struct StandupTimerApp: App {
                         proAccess.isProUnlocked
                     }
                     manager.enforceFreePlanIfNeeded(isProUnlocked: proAccess.isProUnlocked)
+                    // Synchro iCloud = feature Pro (D9).
+                    CloudSyncStore.shared.setEnabled(proAccess.isPurchased)
                 }
                 .onChange(of: proAccess.isProUnlocked) { _, isUnlocked in
                     manager.enforceFreePlanIfNeeded(isProUnlocked: isUnlocked)
+                }
+                .onChange(of: proAccess.isPurchased) { _, isPurchased in
+                    CloudSyncStore.shared.setEnabled(isPurchased)
                 }
         } label: {
             if manager.isActive {
