@@ -374,35 +374,43 @@ public final class MeetingManager {
 
     public func setupReminder() {
         // tvOS n'a pas de notifications utilisateur programmables (title/body/sound
-        // indisponibles) → le rappel quotidien n'existe pas sur l'écran salle.
+        // indisponibles) → le rappel n'existe pas sur l'écran salle.
         #if os(tvOS)
         return
         #else
         let center = UNUserNotificationCenter.current()
-        let reminderHour = meeting.reminderHour
-        let reminderMinute = meeting.reminderMinute
+        let hour = meeting.reminderHour
+        let minute = meeting.reminderMinute
+        let weekdays = meeting.reminderWeekdays
 
-        // Remove old
-        center.removePendingNotificationRequests(withIdentifiers: ["standup-reminder"])
+        // Retire l'ancien rappel unique + toutes les variantes par jour.
+        let ids = ["standup-reminder"] + (1...7).map { "standup-reminder-\($0)" }
+        center.removePendingNotificationRequests(withIdentifiers: ids)
 
-        guard meeting.reminderEnabled else { return }
+        // Rappel actif seulement s'il est activé ET au moins un jour est coché.
+        guard meeting.reminderEnabled, !weekdays.isEmpty else { return }
 
         Task {
             let granted = (try? await center.requestAuthorization(options: [.alert, .sound])) ?? false
             guard granted else { return }
 
-            let content = UNMutableNotificationContent()
-            content.title = "Momen"
-            content.body = String(localized: "C'est l'heure du standup !", bundle: .standupKit)
-            content.sound = .default
+            // Une notification récurrente par jour sélectionné (weekday Apple 1–7).
+            for weekday in weekdays.sorted() {
+                let content = UNMutableNotificationContent()
+                content.title = "Momen"
+                content.body = String(localized: "C'est l'heure du standup !", bundle: .standupKit)
+                content.sound = .default
 
-            var dateComponents = DateComponents()
-            dateComponents.hour = reminderHour
-            dateComponents.minute = reminderMinute
-            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+                var comps = DateComponents()
+                comps.weekday = weekday
+                comps.hour = hour
+                comps.minute = minute
+                let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
 
-            let request = UNNotificationRequest(identifier: "standup-reminder", content: content, trigger: trigger)
-            try? await center.add(request)
+                let request = UNNotificationRequest(
+                    identifier: "standup-reminder-\(weekday)", content: content, trigger: trigger)
+                try? await center.add(request)
+            }
         }
         #endif
     }

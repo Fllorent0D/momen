@@ -72,7 +72,8 @@ struct ContentView: View {
                 meeting: manager.meeting,
                 presetStore: manager.presetStore,
                 proAccess: proAccess,
-                onPaywall: { reason in proAccess.presentPaywall(reason) }
+                onPaywall: { reason in proAccess.presentPaywall(reason) },
+                onReminderChange: { manager.setupReminder() }
             )
         }
         .sheet(isPresented: $showStats) {

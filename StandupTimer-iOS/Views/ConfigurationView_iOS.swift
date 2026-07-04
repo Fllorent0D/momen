@@ -26,6 +26,10 @@ public struct IOSConfigurationView: View {
     /// compiles and previews in isolation.
     private let onPaywall: (PaywallReason) -> Void
 
+    /// Called whenever a reminder setting changes so the shell can re-schedule the
+    /// notifications (`MeetingManager.setupReminder`). Defaults to no-op.
+    private let onReminderChange: () -> Void
+
     @State private var newPresetName = ""
     @State private var showNewPresetAlert = false
     @Environment(\.dismiss) private var dismiss
@@ -34,12 +38,14 @@ public struct IOSConfigurationView: View {
         meeting: Meeting,
         presetStore: PresetStore,
         proAccess: ProAccessManager,
-        onPaywall: @escaping (PaywallReason) -> Void = { _ in }
+        onPaywall: @escaping (PaywallReason) -> Void = { _ in },
+        onReminderChange: @escaping () -> Void = {}
     ) {
         self.meeting = meeting
         self.presetStore = presetStore
         self.proAccess = proAccess
         self.onPaywall = onPaywall
+        self.onReminderChange = onReminderChange
     }
 
     public var body: some View {
@@ -250,7 +256,8 @@ public struct IOSConfigurationView: View {
 
     private var systemSection: some View {
         Section {
-            Toggle("Rappel quotidien", isOn: $meeting.reminderEnabled)
+            Toggle("Rappel", isOn: $meeting.reminderEnabled)
+                .onChange(of: meeting.reminderEnabled) { _, _ in onReminderChange() }
 
             if meeting.reminderEnabled {
                 DatePicker(
@@ -258,11 +265,18 @@ public struct IOSConfigurationView: View {
                     selection: reminderTime,
                     displayedComponents: .hourAndMinute
                 )
+
+                VStack(alignment: .leading, spacing: PulseSpacing.xs) {
+                    Text("Jours")
+                    WeekdayPicker(selection: $meeting.reminderWeekdays) {
+                        onReminderChange()
+                    }
+                }
             }
         } header: {
             Text("Système")
         } footer: {
-            Text("Recevez un rappel pour lancer le standup chaque jour.")
+            Text("Recevez un rappel pour lancer le standup les jours choisis.")
         }
     }
 
@@ -314,6 +328,7 @@ public struct IOSConfigurationView: View {
                 let comps = Calendar.current.dateComponents([.hour, .minute], from: date)
                 meeting.reminderHour = comps.hour ?? meeting.reminderHour
                 meeting.reminderMinute = comps.minute ?? meeting.reminderMinute
+                onReminderChange()
             }
         )
     }

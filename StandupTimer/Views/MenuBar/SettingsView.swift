@@ -241,7 +241,7 @@ private struct SystemSettingsTab: View {
                 Text("Comportement de l’app et rappels.")
             }
 
-            Section("Rappel quotidien") {
+            Section("Rappel") {
                 Toggle("Activer le rappel", isOn: $manager.meeting.reminderEnabled)
                     .onChange(of: manager.meeting.reminderEnabled) { _, _ in
                         manager.setupReminder()
@@ -268,6 +268,13 @@ private struct SystemSettingsTab: View {
                         .labelsHidden()
                         .frame(width: 70)
                         .onChange(of: manager.meeting.reminderMinute) { _, _ in manager.setupReminder() }
+                    }
+
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("Jours")
+                        WeekdayPicker(selection: $manager.meeting.reminderWeekdays) {
+                            manager.setupReminder()
+                        }
                     }
                 }
             }

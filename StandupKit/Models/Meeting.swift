@@ -94,6 +94,9 @@ public final class Meeting {
     public var reminderEnabled: Bool = false { didSet { saveIfNeeded() } }
     public var reminderHour: Int = 9 { didSet { saveIfNeeded() } }
     public var reminderMinute: Int = 30 { didSet { saveIfNeeded() } }
+    /// Jours où le rappel se déclenche (weekday Apple : 1 = dimanche … 7 = samedi).
+    /// Défaut : la semaine de travail (lun–ven). Vide = aucun jour.
+    public var reminderWeekdays: Set<Int> = [2, 3, 4, 5, 6] { didSet { saveIfNeeded() } }
 
     private func saveIfNeeded() { if !isBatching { save() } }
 
@@ -176,6 +179,9 @@ public final class Meeting {
             reminderHour = d.integer(forKey: "meeting.reminderHour")
             reminderMinute = d.integer(forKey: "meeting.reminderMinute")
         }
+        if let days = d.array(forKey: "meeting.reminderWeekdays") as? [Int] {
+            reminderWeekdays = Set(days)
+        }
     }
 
     private func loadBool(_ d: UserDefaults, _ key: String, _ prop: inout Bool) {
@@ -203,6 +209,7 @@ public final class Meeting {
         d.set(reminderEnabled, forKey: "meeting.reminderEnabled")
         d.set(reminderHour, forKey: "meeting.reminderHour")
         d.set(reminderMinute, forKey: "meeting.reminderMinute")
+        d.set(Array(reminderWeekdays).sorted(), forKey: "meeting.reminderWeekdays")
     }
 
     public func rotateParticipants() {
