@@ -1,0 +1,27 @@
+Momen mantiene i tuoi standup brevi, giusti e vivi.
+
+Imposta una durata totale e l'app divide il tempo automaticamente tra i partecipanti. Un anello passa dal verde al rosso: tutto il team vede il segnale e nessuno sfora.
+
+BASE
+• Assegnazione automatica del tempo per persona
+• Flusso a mani libere: conto alla rovescia 3-2-1, avanti/indietro, pausa
+• Gestione degli straordinari (opzionale / sempre / mai)
+• Suoni di transizione discreti
+• Partecipanti: presenza, avatar, ordine casuale
+• Preset: salva le configurazioni del tuo team
+• Promemoria giornaliero
+
+MAC
+• Vive nella barra dei menu
+• Overlay fluttuante sopra ogni finestra e schermo
+• Avvio all'accesso
+
+STATISTICHE E RITUALE
+• Cronologia delle riunioni, dettaglio per relatore, tasso di sforamento
+• Badge di squadra positivi per consolidare il rituale
+• Citazioni sulla produttività
+
+GRATIS / PRO
+Gratis fino a 4 partecipanti, salvati in locale. Passa a Pro (acquisto una tantum, senza abbonamento) per: partecipanti illimitati, sincronizzazione iCloud tra Mac e iPhone, statistiche ed esportazione e personalizzazione. Un solo acquisto sblocca Mac e iPhone.
+
+Fatto in Belgio. Nessun account, nessuna pubblicità, nessun tracciamento.

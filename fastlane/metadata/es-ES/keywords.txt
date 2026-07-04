@@ -1,0 +1,1 @@
+daily,standup,scrum,temporizador,reunión,agile,sprint,equipo,cronómetro,retro,scrum master

@@ -371,37 +371,19 @@ private struct HomeParticipantCard: View {
     var onDelete: () -> Void
     @Environment(\.colorScheme) private var colorScheme
 
-    /// Resting horizontal offset of the card: 0 = closed, `-revealWidth` = the
-    /// delete button is held open after a partial swipe.
-    @State private var offset: CGFloat = 0
-
-    /// Axis lock for the active drag: `nil` until the first movement decides,
-    /// then `true` for a horizontal swipe (we own it) or `false` for a vertical
-    /// pan (we ignore it so the enclosing ScrollView scrolls unhijacked).
-    @State private var isHorizontalDrag: Bool?
-
-    /// Width of the revealed trailing delete button.
-    private let revealWidth: CGFloat = 88
-    /// Swipe far enough past the button and we delete outright (iOS full-swipe).
-    private var commitThreshold: CGFloat { revealWidth + 60 }
-
     var body: some View {
-        ZStack(alignment: .trailing) {
-            deleteAction
-            card
-                .background(
-                    RoundedRectangle(cornerRadius: PulseRadius.card, style: .continuous)
-                        .fill(PulseColor.surface.color(for: colorScheme))
-                )
-                .offset(x: offset)
-                .gesture(swipe)
-        }
-        .clipShape(RoundedRectangle(cornerRadius: PulseRadius.card, style: .continuous))
-        .contextMenu {
-            Button(role: .destructive, action: onDelete) {
-                Label("Supprimer", systemImage: "trash")
+        card
+            .background(
+                RoundedRectangle(cornerRadius: PulseRadius.card, style: .continuous)
+                    .fill(PulseColor.surface.color(for: colorScheme))
+            )
+            .clipShape(RoundedRectangle(cornerRadius: PulseRadius.card, style: .continuous))
+            // Suppression par appui long (le swipe-to-delete a été retiré).
+            .contextMenu {
+                Button(role: .destructive, action: onDelete) {
+                    Label("Supprimer", systemImage: "trash")
+                }
             }
-        }
     }
 
     private var card: some View {
@@ -426,54 +408,6 @@ private struct HomeParticipantCard: View {
                 .onChange(of: participant.isPresent) { _, _ in Haptics.selection() }
         }
         .padding(PulseSpacing.md)
-    }
-
-    /// Red delete button revealed behind the card as it slides left.
-    private var deleteAction: some View {
-        Button(role: .destructive) {
-            withAnimation(.easeOut(duration: 0.2)) { offset = 0 }
-            onDelete()
-        } label: {
-            Image(systemName: "trash.fill")
-                .font(.system(size: 17, weight: .semibold))
-                .foregroundStyle(.white)
-                .frame(width: revealWidth)
-                .frame(maxHeight: .infinity)
-                .background(Color.red)
-                .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel("Supprimer \(participant.name.isEmpty ? "ce participant" : participant.name)")
-    }
-
-    private var swipe: some Gesture {
-        DragGesture(minimumDistance: 16)
-            .onChanged { value in
-                // Decide the axis on the first meaningful movement. A vertical
-                // pan is left to the ScrollView; only a horizontal swipe drives
-                // the card, so scrolling never fights the delete gesture.
-                if isHorizontalDrag == nil {
-                    isHorizontalDrag = abs(value.translation.width) > abs(value.translation.height)
-                }
-                guard isHorizontalDrag == true else { return }
-                // Track leftward drag, anchored to the resting offset.
-                let base = offset == 0 ? 0 : -revealWidth
-                offset = min(0, base + value.translation.width)
-            }
-            .onEnded { value in
-                let wasHorizontal = isHorizontalDrag == true
-                isHorizontalDrag = nil
-                guard wasHorizontal else { return }
-                // Snap from the live position so a held-open row resolves correctly.
-                if value.translation.width < -commitThreshold {
-                    withAnimation(.easeOut(duration: 0.2)) { offset = 0 }
-                    onDelete()
-                } else if offset < -revealWidth / 2 {
-                    withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) { offset = -revealWidth }
-                } else {
-                    withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) { offset = 0 }
-                }
-            }
     }
 }
 

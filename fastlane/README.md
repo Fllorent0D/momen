@@ -39,6 +39,22 @@ Build + upload TestFlight iOS
 
 Captures d'écran iOS (iPhone + iPad)
 
+### ios inspect
+
+```sh
+[bundle exec] fastlane ios inspect
+```
+
+Inspecte l'état App Store Connect du record (locales, noms, primary)
+
+### ios rename_and_release
+
+```sh
+[bundle exec] fastlane ios rename_and_release
+```
+
+Renomme le record via l'API (contourne le blocage deliver) puis upload + submit
+
 ### ios meta
 
 ```sh

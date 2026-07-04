@@ -12,7 +12,7 @@ options:
   # SwiftUI string literals in the sources are French, so `fr` is the source
   # language of every String Catalog. `en` is the second, translated language.
   developmentLanguage: fr
-  knownRegions: [Base, fr, en]
+  knownRegions: [Base, fr, en, de, es, it, ja, ko, nl, pl, pt-BR, ru, sv, tr, zh-Hans]
 
 settings:
   base:

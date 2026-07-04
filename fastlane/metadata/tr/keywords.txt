@@ -1,0 +1,1 @@
+standup,daily,scrum,zamanlayici,kronometre,toplanti,agile,sprint,ekip,retrospektif,scrummaster

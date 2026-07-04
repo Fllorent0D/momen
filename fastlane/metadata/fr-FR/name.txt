@@ -1,1 +1,1 @@
-Momen: Standup Timer
+Momen: Minuteur de standup
