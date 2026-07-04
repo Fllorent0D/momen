@@ -224,12 +224,12 @@ struct ContentView: View {
         let present = presentCount
         switch manager.meeting.durationMode {
         case .total:
-            guard present > 0 else { return "Aucun présent" }
+            guard present > 0 else { return String(localized: "Aucun présent") }
             let per = TimeFormatter.format(manager.meeting.totalDuration / Double(present))
-            return "\(per) / personne · \(present) présent\(present > 1 ? "s" : "")"
+            return String(localized: "\(per) / personne · \(present) présents")
         case .perSpeaker:
             let total = manager.meeting.perSpeakerDuration * Double(max(1, present))
-            return "Total ≈ \(TimeFormatter.format(total)) · \(present) présent\(present > 1 ? "s" : "")"
+            return String(localized: "Total ≈ \(TimeFormatter.format(total)) · \(present) présents")
         }
     }
 

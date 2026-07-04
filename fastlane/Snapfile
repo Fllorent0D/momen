@@ -6,7 +6,10 @@ devices([
   "iPad Pro 13-inch (M4)"  # iPad 13"
 ])
 
-languages(["fr-FR", "en-US"])
+languages([
+  "fr-FR", "en-US", "de-DE", "es-ES", "it", "ja", "ko",
+  "nl-NL", "pl", "pt-BR", "ru", "sv", "tr", "zh-Hans"
+])
 
 scheme("StandupTimer-iOS")
 # deliver/upload_to_app_store lit les captures ici par défaut.
