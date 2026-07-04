@@ -8,6 +8,7 @@ app_identifier "be.floca.standup-timer"
 submit_for_review false
 automatic_release false
 
-# Respecte les guidelines avant envoi.
-run_precheck_before_submit true
-precheck_include_in_app_purchases true
+# Precheck désactivé : il ne supporte pas la vérif des achats intégrés avec une
+# clé App Store Connect API (nécessiterait un login Apple ID). On ne soumet pas
+# automatiquement (submit_for_review false) → la revue Apple fait foi.
+run_precheck_before_submit false

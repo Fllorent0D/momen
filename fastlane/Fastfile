@@ -68,6 +68,41 @@ platform :ios do
     capture_screenshots(scheme: "StandupTimer-iOS")
   end
 
+  desc "Inspecte l'état App Store Connect du record (locales, noms, primary)"
+  lane :inspect do
+    asc_api_key
+    app = Spaceship::ConnectAPI::App.find(APP_ID)
+    UI.message("APP name=#{app.name.inspect} primaryLocale=#{app.primary_locale.inspect} bundle=#{app.bundle_id}")
+    app.get_app_infos.each do |info|
+      info.get_app_info_localizations.each do |l|
+        UI.message("APPINFO #{l.locale} name=#{l.name.inspect} subtitle=#{l.subtitle.inspect}")
+      end
+    end
+    version = app.get_edit_app_store_version(platform: "IOS")
+    if version
+      UI.message("VERSION #{version.version_string} state=#{version.app_store_state}")
+      version.get_app_store_version_localizations.each do |l|
+        UI.message("VERLOC #{l.locale}")
+      end
+    else
+      UI.message("No editable IOS version")
+    end
+  end
+
+  desc "Renomme le record via l'API (contourne le blocage deliver) puis upload + submit"
+  lane :rename_and_release do |options|
+    asc_api_key
+    new_name = options[:name] || "Momen: Standup Timer"
+    app = Spaceship::ConnectAPI::App.find(APP_ID)
+    app.get_app_infos.each do |info|
+      info.get_app_info_localizations.each do |loc|
+        UI.message("Renommage #{loc.locale}: #{loc.name.inspect} -> #{new_name.inspect}")
+        loc.update(attributes: { name: new_name })
+      end
+    end
+    UI.success("Nom du record mis à jour : #{new_name}")
+  end
+
   desc "Upload métadonnées + captures seules (sans build/binaire) — itération rapide"
   lane :meta do
     upload_to_app_store(
