@@ -1,0 +1,9 @@
+Momen — Informativa sulla privacy
+
+Momen non richiede alcun account e non ti traccia. Le tue riunioni, i partecipanti, le preimpostazioni e le statistiche sono archiviate sul tuo dispositivo e nel tuo iCloud privato; non ci vengono mai inviate.
+
+Per migliorare l'app raccogliamo dati di utilizzo anonimi tramite PostHog (con hosting nell'UE). Gli acquisti sono gestiti da RevenueCat. Non mostriamo pubblicità e non utilizziamo alcun tracciamento di terze parti (nessun ATT).
+
+Dati raccolti: interazione con il prodotto (anonima) e cronologia degli acquisti — mai collegati alla tua identità e mai utilizzati per il tracciamento.
+
+Domande: florent@floca.be

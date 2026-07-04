@@ -1,0 +1,9 @@
+Momen — Politique de confidentialité
+
+Momen ne nécessite aucun compte et ne vous suit pas. Vos réunions, participants, préréglages et statistiques sont stockés sur votre appareil et dans votre propre iCloud privé ; ils ne nous sont jamais envoyés.
+
+Pour améliorer l'application, nous recueillons des statistiques d'utilisation anonymes via PostHog (hébergé dans l'UE). Les achats sont traités par RevenueCat. Nous n'affichons aucune publicité et n'utilisons aucun suivi tiers (pas d'ATT).
+
+Données collectées : interaction avec le produit (anonyme) et historique des achats — jamais liées à votre identité et jamais utilisées à des fins de suivi.
+
+Questions : florent@floca.be

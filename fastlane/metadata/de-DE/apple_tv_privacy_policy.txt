@@ -1,0 +1,9 @@
+Momen – Datenschutzrichtlinie
+
+Momen erfordert kein Konto und verfolgt Sie nicht. Ihre Meetings, Teilnehmer, Voreinstellungen und Statistiken werden auf Ihrem Gerät und in Ihrer eigenen privaten iCloud gespeichert; sie werden niemals an uns gesendet.
+
+Um die App zu verbessern, erfassen wir anonyme Nutzungsstatistiken über PostHog (in der EU gehostet). Käufe werden von RevenueCat abgewickelt. Wir zeigen keine Werbung an und verwenden kein Tracking durch Dritte (kein ATT).
+
+Erfasste Daten: Produktinteraktion (anonym) und Kaufverlauf – niemals mit Ihrer Identität verknüpft und niemals zum Tracking verwendet.
+
+Fragen: florent@floca.be

@@ -1,0 +1,9 @@
+Momen — Gizlilik Politikası
+
+Momen hesap gerektirmez ve sizi takip etmez. Toplantılarınız, katılımcılarınız, hazır ayarlarınız ve istatistikleriniz cihazınızda ve kendi özel iCloud'unuzda saklanır; bunlar bize asla gönderilmez.
+
+Uygulamayı geliştirmek için PostHog (AB'de barındırılır) aracılığıyla anonim ürün kullanım analizleri topluyoruz. Satın alma işlemleri RevenueCat tarafından yürütülür. Reklam göstermiyoruz ve herhangi bir üçüncü taraf takibi kullanmıyoruz (ATT yok).
+
+Toplanan veriler: ürün etkileşimi (anonim) ve satın alma geçmişi — kimliğinizle asla ilişkilendirilmez ve takip için asla kullanılmaz.
+
+Sorular: florent@floca.be

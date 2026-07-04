@@ -1,0 +1,9 @@
+Momen — Privacybeleid
+
+Momen vereist geen account en volgt je niet. Je vergaderingen, deelnemers, presets en statistieken worden opgeslagen op je apparaat en in je eigen privé-iCloud; ze worden nooit naar ons verzonden.
+
+Om de app te verbeteren verzamelen we anonieme gebruiksstatistieken via PostHog (gehost in de EU). Aankopen worden verwerkt door RevenueCat. We tonen geen advertenties en gebruiken geen tracking door derden (geen ATT).
+
+Verzamelde gegevens: productinteractie (anoniem) en aankoopgeschiedenis — nooit gekoppeld aan je identiteit en nooit gebruikt voor tracking.
+
+Vragen: florent@floca.be

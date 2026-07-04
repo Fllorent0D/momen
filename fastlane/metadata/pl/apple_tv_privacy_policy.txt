@@ -1,0 +1,9 @@
+Momen — Polityka prywatności
+
+Momen nie wymaga konta i nie śledzi Cię. Twoje spotkania, uczestnicy, ustawienia wstępne i statystyki są przechowywane na Twoim urządzeniu oraz w Twoim prywatnym iCloud; nigdy nie są przesyłane do nas.
+
+Aby ulepszać aplikację, zbieramy anonimowe dane o korzystaniu z produktu za pośrednictwem PostHog (hostowanego w UE). Zakupy są obsługiwane przez RevenueCat. Nie wyświetlamy reklam i nie stosujemy żadnego śledzenia przez podmioty trzecie (brak ATT).
+
+Zbierane dane: interakcja z produktem (anonimowa) oraz historia zakupów — nigdy nie powiązane z Twoją tożsamością i nigdy nie wykorzystywane do śledzenia.
+
+Pytania: florent@floca.be

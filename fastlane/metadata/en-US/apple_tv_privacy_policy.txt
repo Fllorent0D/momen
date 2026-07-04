@@ -1,0 +1,9 @@
+Momen — Privacy Policy
+
+Momen requires no account and does not track you. Your meetings, participants, presets and statistics are stored on your device and in your own private iCloud; they are never sent to us.
+
+To improve the app we collect anonymous product-usage analytics through PostHog (hosted in the EU). Purchases are processed by RevenueCat. We do not show ads and do not use any third-party tracking (no ATT).
+
+Data collected: product interaction (anonymous) and purchase history — never linked to your identity and never used for tracking.
+
+Questions: florent@floca.be

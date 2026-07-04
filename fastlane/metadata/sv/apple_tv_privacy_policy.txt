@@ -1,0 +1,9 @@
+Momen — Integritetspolicy
+
+Momen kräver inget konto och spårar dig inte. Dina möten, deltagare, förinställningar och statistik lagras på din enhet och i ditt eget privata iCloud; de skickas aldrig till oss.
+
+För att förbättra appen samlar vi in anonym användningsstatistik via PostHog (med hosting inom EU). Köp hanteras av RevenueCat. Vi visar inga annonser och använder ingen spårning från tredje part (ingen ATT).
+
+Insamlade data: produktinteraktion (anonym) och köphistorik — kopplas aldrig till din identitet och används aldrig för spårning.
+
+Frågor: florent@floca.be
